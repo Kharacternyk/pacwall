@@ -25,12 +25,13 @@ do
     # Extract the list of edges from the output of pactree.
     pactree -g "$package" > "raw/$package"
     sed -E \
-        -e 's/\[.*\]//' \
-        -e 's/>?=.*" ->/"->/' \
-        -e 's/>?=.*"/"/' \
         -e '/START/d' \
         -e '/^node/d' \
         -e '/\}/d' \
+        -e '/arrowhead=none/d' \
+        -e 's/\[.*\]//' \
+        -e 's/>?=.*" ->/"->/' \
+        -e 's/>?=.*"/"/' \
         "raw/$package" > "stripped/$package"
 
 done
