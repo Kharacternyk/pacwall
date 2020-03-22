@@ -13,7 +13,7 @@ rm pkgcolors 2> /dev/null
 
 for package in $epkgs
 do
-    echo "\"$package\" [color=green]" >> pkgcolors
+    echo "\"$package\" [color=orangered]" >> pkgcolors
     pactree -g "$package" > "raw/$package"
     sed -E \
         -e 's/\[.*\]//' \
@@ -34,15 +34,15 @@ echo 'Rendering it.'
 cd ..
 twopi \
     -Tpng pacwall.gv \
-    -Gbgcolor=darkred \
-    -Ecolor='#eeeeee99' \
-    -Ncolor='#00ff0099' \
+    -Gbgcolor=darkslategray \
+    -Ecolor='#eeeeee55' \
+    -Ncolor='#b0306099' \
     -Nshape=point \
     -Nheight=0.1 \
     -Nwidth=0.1 \
-    -Earrowhead=none \
+    -Earrowhead=normal \
    > pacwall.png
 
 echo 'Displaying it.'
-feh pacwall.png
-
+convert pacwall.png -gravity center -background darkslategray -extent 1920x1280 pacwall.png
+feh --bg-center --no-fehbg pacwall.png
