@@ -10,7 +10,7 @@ sed -E \
     -e 's/\[color=.*\]//' \
     -e 's/START.*$//' \
     -e 's/^ .*$//' \
-    -e "s/-> \"(${epkgs})\"/-> \"\1\" [color=green]/g" \
+    -e "s/-> \"(${epkgs})\"/-> \"\1\" [arrowhead=odiamond]/g" \
     /tmp/pkgtree-graph > /tmp/pkgtree-graph-stripped
 
 echo 'Rendering it.'
@@ -22,6 +22,7 @@ twopi \
     -Nshape=point \
     -Nheight=0.1 \
     -Nwidth=0.1 \
+    -Earrowhead=none \
    > /tmp/pkgtree-image
 
 echo 'Displaying it.'
