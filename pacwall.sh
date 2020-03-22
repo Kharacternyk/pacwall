@@ -2,7 +2,7 @@
 set -e
 
 # Change this to the right value for your screen.
-SCREEN_SIZE=1920x1280
+SCREEN_SIZE=$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')
 
 # Pick colors.
 BACKGROUND=darkslategray
