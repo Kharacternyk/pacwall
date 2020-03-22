@@ -12,6 +12,7 @@ rm pkgcolors 2> /dev/null
 BACKGROUND=darkslategray
 NODE='#dc143c88'
 ENODE=darkorange
+EDGE='#ffffff44'
 
 # Get a space-separated list of the explicitly installed packages.
 epkgs="$(pacman -Qeq | tr '\n' ' ')"
@@ -47,7 +48,7 @@ cd ..
 twopi \
     -Tpng pacwall.gv \
     -Gbgcolor=$BACKGROUND \
-    -Ecolor='#ffffff44' \
+    -Ecolor=$EDGE\
     -Ncolor=$NODE \
     -Nshape=point \
     -Nheight=0.1 \
