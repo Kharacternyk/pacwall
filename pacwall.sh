@@ -8,10 +8,10 @@ mkdir -p stripped
 mkdir -p raw
 rm pkgcolors 2> /dev/null
 
-# Pick random colors.
-BACKGROUND="$(shuf -n1 -e darkslategray)"
-NODE="$(shuf -n1 -e '#c7158588')"
-ENODE="$(shuf -n1 -e gold orangered)"
+# Pick colors.
+BACKGROUND=darkslategray
+NODE='#dc143c88'
+ENODE=darkorange
 
 # Get a space-separated list of the explicitly installed packages.
 epkgs="$(pacman -Qeq | tr '\n' ' ')"
