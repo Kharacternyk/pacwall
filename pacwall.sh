@@ -1,30 +1,48 @@
 #!/bin/bash
-
 echo 'Generating the graph.'
-pactree -gr glibc > /tmp/pkgtree-graph
 
-epkgs="$(pacman -Qeq | tr '\n' '|')"
-epkgs="${epkgs::-1}"
+mkdir -p /tmp/pacwall
+cd /tmp/pacwall
 
-sed -E \
-    -e 's/\[color=.*\]//' \
-    -e 's/START.*$//' \
-    -e 's/^ .*$//' \
-    -e "s/-> \"(${epkgs})\"/-> \"\1\" [arrowhead=odiamond]/g" \
-    /tmp/pkgtree-graph > /tmp/pkgtree-graph-stripped
+epkgs="$(pacman -Qeq | tr '\n' ' ')"
+
+mkdir -p stripped
+mkdir -p raw
+
+rm pkgcolors 2> /dev/null
+
+for package in $epkgs
+do
+    echo "\"$package\" [color=green]" >> pkgcolors
+    pactree -g "$package" > "raw/$package"
+    sed -E \
+        -e 's/\[.*\]//' \
+        -e 's/>?=.*" ->/"->/' \
+        -e 's/>?=.*"/"/' \
+        -e '/START/d' \
+        -e '/^node/d' \
+        -e '/\}/d' \
+        "raw/$package" > "stripped/$package"
+done
+
+cd stripped
+echo 'strict digraph G {' > ../pacwall.gv
+cat ../pkgcolors $epkgs >> ../pacwall.gv
+echo '}' >> ../pacwall.gv
 
 echo 'Rendering it.'
+cd ..
 twopi \
-    -Tpng /tmp/pkgtree-graph-stripped \
-    -Gbgcolor=darkred:darkblue \
-    -Ecolor='#eeeeeeaa' \
-    -Ncolor='#ffffffaa' \
+    -Tpng pacwall.gv \
+    -Gbgcolor=darkred \
+    -Ecolor='#eeeeee99' \
+    -Ncolor='#00ff0099' \
     -Nshape=point \
     -Nheight=0.1 \
     -Nwidth=0.1 \
     -Earrowhead=none \
-   > /tmp/pkgtree-image
+   > pacwall.png
 
 echo 'Displaying it.'
-feh /tmp/pkgtree-image
+feh pacwall.png
 
