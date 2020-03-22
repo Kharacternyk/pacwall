@@ -1,4 +1,14 @@
 #!/bin/bash
+
+# Change this to the right value for your screen.
+SCREEN_SIZE=1920x1280
+
+# Pick colors.
+BACKGROUND=darkslategray
+NODE='#dc143c88'
+ENODE=darkorange
+EDGE='#ffffff44'
+
 echo 'Generating the graph.'
 
 # Prepare the environment.
@@ -7,12 +17,6 @@ cd /tmp/pacwall
 mkdir -p stripped
 mkdir -p raw
 rm pkgcolors 2> /dev/null
-
-# Pick colors.
-BACKGROUND=darkslategray
-NODE='#dc143c88'
-ENODE=darkorange
-EDGE='#ffffff44'
 
 # Get a space-separated list of the explicitly installed packages.
 epkgs="$(pacman -Qeq | tr '\n' ' ')"
@@ -58,11 +62,13 @@ twopi \
     > pacwall.png
 
 # Use imagemagick to resize the image to the size of the screen.
-echo 'Displaying it.'
+echo 'Changing the wallpaper.'
 convert pacwall.png \
     -gravity center \
     -background $BACKGROUND \
-    -extent 1920x1280 \
+    -extent $SCREEN_SIZE \
     pacwall.png
 
 feh --bg-center --no-fehbg pacwall.png
+
+echo 'Done.'
