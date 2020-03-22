@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Change this to the right value for your screen.
 SCREEN_SIZE=1920x1280
@@ -16,7 +17,7 @@ mkdir -p /tmp/pacwall
 cd /tmp/pacwall
 mkdir -p stripped
 mkdir -p raw
-rm pkgcolors 2> /dev/null
+cat /dev/null > /tmp/pkgcolors
 
 # Get a space-separated list of the explicitly installed packages.
 epkgs="$(pacman -Qeq | tr '\n' ' ')"
