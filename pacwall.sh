@@ -8,7 +8,7 @@ mkdir -p stripped
 mkdir -p raw
 rm pkgcolors 2> /dev/null
 
-# Get a space-separated list of the installed packages.
+# Get a space-separated list of the explicitly installed packages.
 epkgs="$(pacman -Qeq | tr '\n' ' ')"
 for package in $epkgs
 do
