@@ -8,7 +8,7 @@ Requirements
 
 .. code-block:: bash
 
-sudo pacman -Syu --needed imagemagick graphviz pacman-contrib
+    sudo pacman -Syu --needed imagemagick graphviz pacman-contrib
 
 -------------
 Customization
