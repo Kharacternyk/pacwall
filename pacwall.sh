@@ -8,13 +8,18 @@ mkdir -p stripped
 mkdir -p raw
 rm pkgcolors 2> /dev/null
 
+# Pick random colors.
+BACKGROUND="$(shuf -n1 -e darkslategray)"
+NODE="$(shuf -n1 -e '#c7158588')"
+ENODE="$(shuf -n1 -e gold orangered)"
+
 # Get a space-separated list of the explicitly installed packages.
 epkgs="$(pacman -Qeq | tr '\n' ' ')"
 for package in $epkgs
 do
 
     # Mark each explicitly installed package using a distinct solid color.
-    echo "\"$package\" [color=orangered]" >> pkgcolors
+    echo "\"$package\" [color=$ENODE]" >> pkgcolors
 
     # Extract the list of edges from the output of pactree.
     pactree -g "$package" > "raw/$package"
@@ -41,9 +46,9 @@ echo 'Rendering it.'
 cd ..
 twopi \
     -Tpng pacwall.gv \
-    -Gbgcolor=darkslategray \
-    -Ecolor='#eeeeee55' \
-    -Ncolor='#b0306099' \
+    -Gbgcolor=$BACKGROUND \
+    -Ecolor='#ffffff44' \
+    -Ncolor=$NODE \
     -Nshape=point \
     -Nheight=0.1 \
     -Nwidth=0.1 \
@@ -54,7 +59,7 @@ twopi \
 echo 'Displaying it.'
 convert pacwall.png \
     -gravity center \
-    -background darkslategray \
+    -background $BACKGROUND \
     -extent 1920x1280 \
     pacwall.png
 
