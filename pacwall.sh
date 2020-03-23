@@ -26,8 +26,8 @@ cleanup() {
 
 generate_graph() {
     # Get a space-separated list of the explicitly installed packages.
-    epkgs="$(pacman -Qeq | tr '\n' ' ')"
-    for package in ${epkgs}
+    EPKGS="$(pacman -Qeq | tr '\n' ' ')"
+    for package in ${EPKGS}
     do
 
         # Mark each explicitly installed package using a distinct solid color.
@@ -53,7 +53,7 @@ compile_graph() {
     # The graph is directed and strict (doesn't contain any edge duplicates).
     cd stripped
     echo 'strict digraph G {' > ../pacwall.gv
-    cat ../pkgcolors ${epkgs} >> ../pacwall.gv
+    cat ../pkgcolors ${EPKGS} >> ../pacwall.gv
     echo '}' >> ../pacwall.gv
 }
 
