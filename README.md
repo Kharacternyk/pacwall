@@ -6,8 +6,9 @@
 - parse [pywal](https://github.com/dylanaraps/pywal/) for color data
 	- colors for nodes, etc can be exchanged for other colors exported by pywal
 - feh removed, instead using hsetroot
-	- hsetroot is more minimalistic
-	- removes the dependency on imagemagic
+	- hsetroot is more minimalistic (0.04MiB)
+	- removes the dependency on imagemagic (9.72MiB)
+	- removes the dependency on feh (0.17MiB)
 	- removes the need to manually set SCREEN_SIZE
 
 ## Requirements
