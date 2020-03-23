@@ -3,7 +3,7 @@
 `pacwall.sh` is a shell script that changes your wallpaper to the dependency graph of installed by pacman packages. Each package is a node and each edge indicates a dependency between two packages. The explicitly installed packages have a distinct color (orange by default).
 
 ## Changes in this fork
-- parse pywal for color data
+- parse [pywal](https://github.com/dylanaraps/pywal/) for color data
 	- colors for nodes, etc can be exchanged for other colors exported by pywal
 - feh removed, instead using hsetroot
 	- hsetroot is more minimalistic
