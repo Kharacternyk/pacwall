@@ -79,7 +79,7 @@ render_graph() {
     twopi "${twopi_args[@]}" > "${OUTPUT}"
 }
 
-try_set_wallpaper() {
+resize_wallpaper() {
     # Use imagemagick to resize the image to the size of the screen.
     SCREEN_SIZE=$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')
     convert "${OUTPUT}" \
@@ -111,7 +111,7 @@ main() {
     echo 'Rendering it.'
     render_graph
 
-    try_set_wallpaper
+    resize_wallpaper
 
     cp "${WORKDIR}/${OUTPUT}" "${STARTDIR}"
 
@@ -127,9 +127,9 @@ help() {
     printf "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
         "USAGE: $0" \
         "[ -b BACKGROUND ]" \
-        "[ -d NODE_HEX_COLOR ]" \
+        "[ -d NODE_COLOR ]" \
         "[ -e EXPLICIT_NODE_COLOR ]" \
-        "[ -s EDGE_HEX_COLOR ]" \
+        "[ -s EDGE_COLOR ]" \
         "[ -g GSIZE ]" \
         "[ -o OUTPUT ]"
         exit 0
