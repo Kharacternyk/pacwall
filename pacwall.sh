@@ -1,16 +1,16 @@
 #!/bin/bash
 set -e
 
-# Pick colors.
+# Default colors.
 BACKGROUND=darkslategray
 NODE='#dc143c88'
 ENODE=darkorange
 EDGE='#ffffff44'
-
-STARTDIR="${PWD}"
+GSIZE=""
 
 OUTPUT="pacwall.png"
 
+STARTDIR="${PWD}"
 WORKDIR=""
 
 prepare() {
@@ -60,31 +60,40 @@ compile_graph() {
 
 render_graph() {
     # Style the graph according to preferences.
-    twopi \
-        -Tpng pacwall.gv \
-        -Gbgcolor="${BACKGROUND}" \
-        -Ecolor="${EDGE}" \
-        -Ncolor="${NODE}" \
-        -Nshape=point \
-        -Nheight=0.1 \
-        -Nwidth=0.1 \
-        -Earrowhead=normal \
-        > pacwall.png
+    declare -a twopi_args=(
+        '-Tpng' 'pacwall.gv'
+        "-Gbgcolor=${BACKGROUND}"
+        "-Ecolor=${EDGE}"
+        "-Ncolor=${NODE}"
+        '-Nshape=point'
+        '-Nheight=0.1'
+        '-Nwidth=0.1'
+        '-Earrowhead=normal'
+    )
+
+    # Optional arguments
+    if [ -n "${GSIZE}" ]; then
+        twopi_args+=("-Gsize=${GSIZE}")
+    fi
+    
+    twopi "${twopi_args[@]}" > "${OUTPUT}"
 }
 
-try_set_wallpaper() {
+resize_wallpaper() {
     # Use imagemagick to resize the image to the size of the screen.
     SCREEN_SIZE=$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')
-    convert pacwall.png \
+    convert "${OUTPUT}" \
         -gravity center \
         -background "${BACKGROUND}" \
         -extent "${SCREEN_SIZE}" \
-        pacwall.png
+        "${OUTPUT}"    
+}
 
+set_wallpaper() {
     set +e
-    gsettings set org.gnome.desktop.background picture-uri ${WORKDIR}/pacwall.png \
+    gsettings set org.gnome.desktop.background picture-uri "${STARTDIR}/${OUTPUT}" \
         2> /dev/null && echo 'Set the wallpaper using gsettings.'
-    feh --bg-center --no-fehbg pacwall.png \
+    feh --bg-center --no-fehbg "${STARTDIR}/${OUTPUT}" \
         2> /dev/null && echo 'Set the wallpaper using feh.'
     set -e
 }
@@ -102,14 +111,47 @@ main() {
     echo 'Rendering it.'
     render_graph
 
-    try_set_wallpaper
+    resize_wallpaper
 
     cp "${WORKDIR}/${OUTPUT}" "${STARTDIR}"
+
+    set_wallpaper
 
     cleanup
 
     echo 'The image has been put into the current directory.'
     echo 'Done.'
 }
+
+help() {
+    printf "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
+        "USAGE: $0" \
+        "[ -b BACKGROUND ]" \
+        "[ -d NODE_COLOR ]" \
+        "[ -e EXPLICIT_NODE_COLOR ]" \
+        "[ -s EDGE_COLOR ]" \
+        "[ -g GSIZE ]" \
+        "[ -o OUTPUT ]"
+        exit 0
+}
+
+options=':b:d:s:e:g:o:h'
+while getopts $options option
+do
+    case $option in
+        b  ) BACKGROUND=${OPTARG};;
+        d  ) NODE=${OPTARG};;
+        e  ) ENODE=${OPTARG};;
+        s  ) EDGE=${OPTARG};;
+        g  ) GSIZE=${OPTARG};;
+        o  ) OUTPUT=${OPTARG};;
+        h  ) help;;
+        \? ) echo "Unknown option: -${OPTARG}" >&2; exit 1;;
+        :  ) echo "Missing option argument for -${OPTARG}" >&2; exit 1;;
+        *  ) echo "Unimplemented option: -${OPTARG}" >&2; exit 1;;
+    esac
+done
+
+shift $((OPTIND - 1))
 
 main
