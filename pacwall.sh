@@ -72,7 +72,7 @@ render_graph() {
         > pacwall.png
 }
 
-set_wallpaper() {
+try_set_wallpaper() {
     # Use imagemagick to resize the image to the size of the screen.
     SCREEN_SIZE=$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')
     convert pacwall.png \
@@ -81,8 +81,12 @@ set_wallpaper() {
         -extent "${SCREEN_SIZE}" \
         pacwall.png
 
-        gsettings set org.gnome.desktop.background picture-uri ${WORKDIR}/pacwall.png \
-        || feh --bg-center --no-fehbg pacwall.png
+    set +e
+    gsettings set org.gnome.desktop.background picture-uri ${WORKDIR}/pacwall.png \
+        2> /dev/null && echo 'Set the wallpaper using gsettings.'
+    feh --bg-center --no-fehbg pacwall.png \
+        2> /dev/null && echo 'Set the wallpaper using feh.'
+    set -e
 }
 
 main() {
@@ -98,15 +102,14 @@ main() {
     echo 'Rendering it.'
     render_graph
 
-    echo 'Setting the wallpaper.'
-    set_wallpaper
+    try_set_wallpaper
 
     cp "${WORKDIR}/${OUTPUT}" "${STARTDIR}"
 
     cleanup
 
     echo 'The image has been put into the current directory.'
-    echo 'Done'
+    echo 'Done.'
 }
 
 main
