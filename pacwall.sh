@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-# Change this to the right value for your screen.
-SCREEN_SIZE=1920x1280
-
 # Pick colors.
 BACKGROUND=darkslategray
 NODE='#dc143c88'
@@ -63,6 +60,7 @@ twopi \
     > pacwall.png
 
 # Use imagemagick to resize the image to the size of the screen.
+SCREEN_SIZE=$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')
 echo 'Changing the wallpaper.'
 convert pacwall.png \
     -gravity center \
