@@ -8,7 +8,7 @@ Requirements
 
 .. code-block:: bash
 
-    sudo pacman -Syu --needed imagemagick graphviz pacman-contrib feh
+    sudo pacman -Syu --needed imagemagick graphviz pacman-contrib feh xorg-xdpyinfo
 
 -------------
 Customization
