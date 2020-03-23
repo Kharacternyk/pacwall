@@ -13,11 +13,11 @@ OUTPUT="pacwall.png"
 
 WORKDIR=""
 
-# Prepare the environment.
 prepare() {
     WORKDIR="$(mktemp -d)"
     mkdir -p "${WORKDIR}/"{stripped,raw}
     touch "${WORKDIR}/pkgcolors"
+    cd "${WORKDIR}"
 }
 
 cleanup() {
@@ -55,11 +55,11 @@ compile_graph() {
     echo 'strict digraph G {' > ../pacwall.gv
     cat ../pkgcolors ${EPKGS} >> ../pacwall.gv
     echo '}' >> ../pacwall.gv
+    cd ..
 }
 
 render_graph() {
     # Style the graph according to preferences.
-    cd ..
     twopi \
         -Tpng pacwall.gv \
         -Gbgcolor="${BACKGROUND}" \
@@ -72,7 +72,7 @@ render_graph() {
         > pacwall.png
 }
 
-resize_wallpaper() {
+set_wallpaper() {
     # Use imagemagick to resize the image to the size of the screen.
     SCREEN_SIZE=$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')
     convert pacwall.png \
@@ -86,9 +86,8 @@ resize_wallpaper() {
 }
 
 main() {
+    echo 'Preparing the environment'
     prepare
-
-    cd "${WORKDIR}"
 
     echo 'Generating the graph.'
     generate_graph
@@ -99,14 +98,15 @@ main() {
     echo 'Rendering it.'
     render_graph
 
-    echo 'Resizing the wallpaper.'
-    resize_wallpaper
+    echo 'Setting the wallpaper.'
+    set_wallpaper
 
     cp "${WORKDIR}/${OUTPUT}" "${STARTDIR}"
 
     cleanup
 
-    echo 'Done.'
+    echo 'The image has been put into the current directory.'
+    echo 'Done'
 }
 
 main
