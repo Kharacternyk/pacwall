@@ -81,11 +81,8 @@ resize_wallpaper() {
         -extent "${SCREEN_SIZE}" \
         pacwall.png
 
-    feh --bg-center --no-fehbg pacwall.png
-
-    if [[ $DESKTOP_SESSION == *"gnome"* ]]; then
-      gsettings set org.gnome.desktop.background picture-uri ${WORKDIR}/pacwall.png
-    fi
+        gsettings set org.gnome.desktop.background picture-uri ${WORKDIR}/pacwall.png \
+        || feh --bg-center --no-fehbg pacwall.png
 }
 
 main() {
