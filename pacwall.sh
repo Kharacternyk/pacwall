@@ -1,18 +1,23 @@
 #!/bin/bash
 set -e
 
-# Change this to the right value for your screen.
-SCREEN_SIZE=1920x1280
-
 # Pick colors.
-BACKGROUND=darkslategray
-NODE='#dc143c88'
-ENODE=darkorange
-EDGE='#ffffff44'
+# change `n` in `head -n` to use the n-th terminal color set by pywal
+# you can preview these colors in ~/.cache/wal/colors.json
+BACKGROUND=$( echo "$(cat ~/.cache/wal/colors | head -1 | tail -1)" )
+echo $BACKGROUND
+NODE=$( echo "$(cat ~/.cache/wal/colors | head -2 | tail -1)""88" )
+echo $NODE
+ENODE=$( echo \""$(cat ~/.cache/wal/colors | head -3 | tail -1)""ff"\" )
+echo $ENODE
+EDGE=$( echo "$(cat ~/.cache/wal/colors | head -8 | tail -1)""44" )
+echo $EDGE
+
 
 echo 'Generating the graph.'
 
 # Prepare the environment.
+rm -rf /tmp/pacwall
 mkdir -p /tmp/pacwall
 cd /tmp/pacwall
 mkdir -p stripped
@@ -62,14 +67,8 @@ twopi \
     -Earrowhead=normal \
     > pacwall.png
 
-# Use imagemagick to resize the image to the size of the screen.
-echo 'Changing the wallpaper.'
-convert pacwall.png \
-    -gravity center \
-    -background $BACKGROUND \
-    -extent $SCREEN_SIZE \
-    pacwall.png
 
-feh --bg-center --no-fehbg pacwall.png
+#feh --bg-center --no-fehbg pacwall.png
+hsetroot -solid $BACKGROUND -full pacwall.png
 
 echo 'Done.'
