@@ -2,16 +2,27 @@
 set -e
 
 # Pick colors.
-# change `n` in `head -n` to use the n-th terminal color set by pywal
-# you can preview these colors in ~/.cache/wal/colors.json
-BACKGROUND=$( echo "$(cat ~/.cache/wal/colors | head -1 | tail -1)" )
-echo $BACKGROUND
-NODE=$( echo "$(cat ~/.cache/wal/colors | head -2 | tail -1)""88" )
-echo $NODE
-ENODE=$( echo \""$(cat ~/.cache/wal/colors | head -3 | tail -1)""ff"\" )
-echo $ENODE
-EDGE=$( echo "$(cat ~/.cache/wal/colors | head -8 | tail -1)""44" )
-echo $EDGE
+# test if the wal folder (for pywal) exists
+if test -f ~/.cache/wal/colors ; then
+	echo "Pywal installed. Using Pywal settings."
+	# change `n` in `head -n` to use the n-th terminal color set by pywal
+	# you can preview these colors in ~/.cache/wal/colors.json
+	BACKGROUND=$( echo "$(cat ~/.cache/wal/colors | head -1 | tail -1)" )
+	echo "Background: " $BACKGROUND
+	NODE=$( echo "$(cat ~/.cache/wal/colors | head -2 | tail -1)""88" )
+	echo "Node: " $NODE
+	ENODE=$( echo \""$(cat ~/.cache/wal/colors | head -3 | tail -1)""ff"\" )
+	echo "Enode: " $ENODE
+	EDGE=$( echo "$(cat ~/.cache/wal/colors | head -8 | tail -1)""44" )
+	echo "Edge: " $EDGE
+else
+	echo "Using default colors."
+	BACKGROUND=darkslategray
+	NODE='#dc143c88'
+	ENODE=darkorange
+	EDGE='#ffffff44'
+fi
+
 
 
 echo 'Generating the graph.'
