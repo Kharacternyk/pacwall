@@ -1,4 +1,4 @@
-![screenshot](./screenshot)
+![screenshot](./screenshot.png)
 
 `pacwall.sh` is a shell script that changes your wallpaper to the dependency graph of installed by pacman packages. Each package is a node and each edge indicates a dependency between two packages. The explicitly installed packages have a distinct color (orange by default).
 
