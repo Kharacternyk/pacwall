@@ -10,7 +10,6 @@ RANKSEP=1
 GSIZE=""
 
 OUTPUT="pacwall.png"
-
 STARTDIR="${PWD}"
 WORKDIR=""
 
@@ -95,18 +94,42 @@ set_wallpaper() {
             -background "${BACKGROUND}" \
             -extent "${SCREEN_SIZE}" \
             "${STARTDIR}/${OUTPUT}"
-        gsettings set org.gnome.desktop.background picture-uri "${STARTDIR}/${OUTPUT}"
+            
+        #Did this here because I think imagemagick stuff should run first?    
+        copy_to_xdg
+        #Change wallpaper
+        gsettings set org.gnome.desktop.background picture-uri "${XDGOUT}"
+
+        #Write xml so that file is recognised in gnome-control-center
+        echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+        <!DOCTYPE wallpapers SYSTEM \"gnome-wp-list.dtd\">
+        <wallpapers>
+	        <wallpaper deleted=\"false\">
+		           <name>pacwall${BACKGROUND}</name>
+		           <filename>"${XDGOUT}"</filename>
+	        </wallpaper>
+        </wallpapers>" > $HOME/.local/share/gnome-background-properties/pacwall${BACKGROUND}.xml
+
+
     else
-        hsetroot -solid $BACKGROUND -full "${STARTDIR}/${OUTPUT}" \
+    	copy_to_xdg
+        hsetroot -solid $BACKGROUND -full "${XDGOUT}" \
             2> /dev/null && echo 'Set the wallpaper using hsetroot.'
 
-        feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${STARTDIR}/${OUTPUT}" \
+        feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${XDGOUT}" \
             2> /dev/null && echo 'Set the wallpaper using feh.'
     fi
 
     set -e
 }
 
+copy_to_xdg()
+{
+        #Copy the output to $HOME/.local/share/wallpapers as it is a standard XDG Directory
+        #This will make the wallpapers visible in KDE settings (and maybe WMs if they have a setting)
+        mkdir -p ~/.local/share/wallpapers/pacwall
+        cp "${STARTDIR}/${OUTPUT}" "${XDGOUT}"
+}
 main() {
     echo 'Preparing the environment'
     prepare
@@ -172,7 +195,7 @@ do
         *  ) echo "Unimplemented option: -${OPTARG}" >&2; exit 1;;
     esac
 done
-
+XDGOUT="$HOME/.local/share/wallpapers/pacwall/pacwall${BACKGROUND}.png"
 shift $((OPTIND - 1))
 
 main
