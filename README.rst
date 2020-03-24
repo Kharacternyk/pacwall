@@ -27,7 +27,11 @@ Customizations can be made on the commandline, see the options with the ``-h`` f
             [ -g GSIZE ]
             [ -o OUTPUT ]
 
-``-i`` flag means *image only* and suppresses wallpaper setting.
+            Use -i to suppress wallpaper setting.
+            All colors may be specified either as
+            - a color name (black, darkorange, ...)
+            - a value of format #RRGGBB
+            - a value of format #RRGGBBAA
 
 Additional customizations can be performed by modifying the script itself. The code in the script is well-structured (should be). To discover the customization possibilities, read the man page of ``graphviz`` and ``twopi``, particularly the section on *GRAPH, NODE AND EDGE ATTRIBUTES*.
 

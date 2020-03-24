@@ -31,7 +31,7 @@ generate_graph() {
     do
 
         # Mark each explicitly installed package using a distinct solid color.
-        echo "\"$package\" [color=$ENODE]" >> pkgcolors
+        echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
 
         # Extract the list of edges from the output of pactree.
         pactree -g "$package" > "raw/$package"
@@ -128,7 +128,8 @@ main() {
 }
 
 help() {
-    printf "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
+    printf \
+        "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
         "USAGE: $0" \
         "[ -i ]" \
         "[ -b BACKGROUND ]" \
@@ -136,7 +137,12 @@ help() {
         "[ -e EXPLICIT_NODE_COLOR ]" \
         "[ -s EDGE_COLOR ]" \
         "[ -g GSIZE ]" \
-        "[ -o OUTPUT ]"
+        "[ -o OUTPUT ]" \
+        "Use -i to suppress wallpaper setting." \
+        "All colors may be specified either as " \
+        "- a color name (black, darkorange, ...)" \
+        "- a value of format #RRGGBB" \
+        "- a value of format #RRGGBBAA"
         exit 0
 }
 
