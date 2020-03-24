@@ -8,7 +8,13 @@ Requirements
 
 .. code-block:: bash
 
-    sudo pacman -Syu --needed imagemagick graphviz pacman-contrib feh xorg-xdpyinfo
+    sudo pacman -Syu --needed graphviz pacman-contrib
+
+If you are on GNOME (Xorg), you also need ``imagemagick`` and ``xorg-xdpyinfo`` to set the wallpaper.
+
+If you are on GNOME (Wayland), you need ``imagemagick`` and to specify the screen size manually like this: ``./pacwall.sh -S 1920x1200``.
+
+If you aren't on GNOME, ``pacwall`` tries to set the wallpaper using ``feh`` and ``hsetroot``.
 
 -------------
 Customization
@@ -26,6 +32,7 @@ Customizations can be made on the commandline, see the options with the ``-h`` f
             [ -s EDGE_COLOR ]
             [ -g GSIZE ]
             [ -o OUTPUT ]
+            [ -S SCREEN_SIZE ]
 
             Use -i to suppress wallpaper setting.
             All colors may be specified either as
