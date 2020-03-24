@@ -112,7 +112,6 @@ set_wallpaper() {
         </wallpapers>" > $HOME/.local/share/gnome-background-properties/pacwall${BACKGROUND}.xml
 
     else
-        copy_to_xdg
         hsetroot -solid $BACKGROUND -full "${XDGOUT}" \
             2> /dev/null && echo 'Set the wallpaper using hsetroot.'
 
