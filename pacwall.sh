@@ -1,11 +1,12 @@
 #!/bin/bash
 set -e
 
-# Default colors.
+# Default values.
 BACKGROUND=darkslategray
 NODE='#dc143c88'
 ENODE=darkorange
 EDGE='#ffffff44'
+RANKSEP=1
 GSIZE=""
 
 OUTPUT="pacwall.png"
@@ -63,6 +64,7 @@ render_graph() {
     declare -a twopi_args=(
         '-Tpng' 'pacwall.gv'
         "-Gbgcolor=${BACKGROUND}"
+        "-Granksep=${RANKSEP}"
         "-Ecolor=${EDGE}"
         "-Ncolor=${NODE}"
         '-Nshape=point'
@@ -140,6 +142,7 @@ help() {
         "[ -e EXPLICIT_NODE_COLOR ]" \
         "[ -s EDGE_COLOR ]" \
         "[ -g GSIZE ]" \
+        "[ -r RANKSEP ]" \
         "[ -o OUTPUT ]" \
         "[ -S SCREEN_SIZE ]" \
         "Use -i to suppress wallpaper setting." \
@@ -150,7 +153,7 @@ help() {
         exit 0
 }
 
-options='i:b:d:s:e:g:o:S:h'
+options='i:b:d:s:e:g:r:o:S:h'
 while getopts $options option
 do
     case $option in
@@ -160,6 +163,7 @@ do
         e  ) ENODE=${OPTARG};;
         s  ) EDGE=${OPTARG};;
         g  ) GSIZE=${OPTARG};;
+        r  ) RANKSEP=${OPTARG};;
         o  ) OUTPUT=${OPTARG};;
         S  ) SCREEN_SIZE=${OPTARG};;
         h  ) help;;

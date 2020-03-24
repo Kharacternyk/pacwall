@@ -46,8 +46,7 @@ Additional customizations can be performed by modifying the script itself. The c
 Troubleshooting
 ---------------
 
-If the graph is too large, use the ``-g`` flag. The format should be the same as the ``twopi`` ``-Gsize`` option.
+If the graph is too large, use ``-r`` flag. For example, ``-r 0.3`` means that the distance between the concentric circles of the graph will be 0.3 **inch**.
 
-``7.5,7.5`` for example forces the graph to be not wider nor higher than 7.5 **inches**.
+An alternative method is to use ``-g`` flag. The format should be the same as the ``twopi`` ``-Gsize`` option. ``7.5,7.5`` for example forces the graph to be not wider nor higher than 7.5 **inches**.
 
-An alternative method is to add a ``-Granksep`` flag. For example, ``-Granksep=0.3`` means that the distance between the concentric circles of the graph will be 0.3 inch.
