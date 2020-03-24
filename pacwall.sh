@@ -10,7 +10,6 @@ RANKSEP=1
 GSIZE=""
 
 OUTPUT="pacwall.png"
-XDGOUT="$HOME/.local/share/wallpapers/pacwall/pacwall${BACKGROUND}.png"
 STARTDIR="${PWD}"
 WORKDIR=""
 
@@ -194,7 +193,7 @@ do
         *  ) echo "Unimplemented option: -${OPTARG}" >&2; exit 1;;
     esac
 done
-
+XDGOUT="$HOME/.local/share/wallpapers/pacwall/pacwall${BACKGROUND}.png"
 shift $((OPTIND - 1))
 
 main
