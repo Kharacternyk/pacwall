@@ -126,6 +126,7 @@ copy_to_xdg()
 {
         #Copy the output to $HOME/.local/share/wallpapers as it is a standard XDG Directory
         #This will make the wallpapers visible in KDE settings (and maybe WMs if they have a setting)
+        mkdir -p ~/.local/share/wallpapers/pacwall
         cp "${STARTDIR}/${OUTPUT}" "${XDGOUT}"
 }
 main() {
