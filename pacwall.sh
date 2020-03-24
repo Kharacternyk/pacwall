@@ -25,7 +25,7 @@ cleanup() {
     cd "${STARTDIR}" && rm -rf "${WORKDIR}"
 }
 
-generate_graph() {
+generate_graph_pactree() {
     # Get a space-separated list of the explicitly installed packages.
     EPKGS="$(pacman -Qeq | tr '\n' ' ')"
     for package in ${EPKGS}
@@ -47,6 +47,10 @@ generate_graph() {
             "raw/$package" > "stripped/$package"
 
     done
+}
+
+generate_graph_debtree() {
+    # ...
 }
 
 compile_graph() {
@@ -112,7 +116,7 @@ main() {
     prepare
 
     echo 'Generating the graph.'
-    generate_graph
+    generate_graph_pactree
 
     echo 'Compiling the graph.'
     compile_graph
