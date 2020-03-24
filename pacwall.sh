@@ -79,22 +79,29 @@ render_graph() {
     twopi "${twopi_args[@]}" > "${OUTPUT}"
 }
 
-resize_wallpaper() {
-    # Use imagemagick to resize the image to the size of the screen.
-    SCREEN_SIZE=$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')
-    convert "${OUTPUT}" \
-        -gravity center \
-        -background "${BACKGROUND}" \
-        -extent "${SCREEN_SIZE}" \
-        "${OUTPUT}"    
-}
-
 set_wallpaper() {
     set +e
-    gsettings set org.gnome.desktop.background picture-uri "${STARTDIR}/${OUTPUT}" \
-        2> /dev/null && echo 'Set the wallpaper using gsettings.'
-    feh --bg-center --no-fehbg "${STARTDIR}/${OUTPUT}" \
-        2> /dev/null && echo 'Set the wallpaper using feh.'
+
+    if [[ "$DESKTOP_SESSION" == *"gnome"* ]]; then
+        if [[ -z "$SCREEN_SIZE" ]]; then
+            SCREEN_SIZE=$(
+                xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
+            )
+        fi
+        convert "${OUTPUT}" \
+            -gravity center \
+            -background "${BACKGROUND}" \
+            -extent "${SCREEN_SIZE}" \
+            "${OUTPUT}"
+        gsettings set org.gnome.desktop.background picture-uri "${STARTDIR}/${OUTPUT}"
+    else
+        hsetroot -solid $BACKGROUND -full "${STARTDIR}/${OUTPUT}" \
+            2> /dev/null && echo 'Set the wallpaper using hsetroot.'
+
+        feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${STARTDIR}/${OUTPUT}" \
+            2> /dev/null && echo 'Set the wallpaper using feh.'
+    fi
+
     set -e
 }
 
@@ -111,10 +118,6 @@ main() {
     echo 'Rendering it.'
     render_graph
 
-    if [[ -z "$IMAGE_ONLY" ]]; then
-        resize_wallpaper
-    fi
-
     cp "${WORKDIR}/${OUTPUT}" "${STARTDIR}"
 
     if [[ -z "$IMAGE_ONLY" ]]; then
@@ -129,7 +132,7 @@ main() {
 
 help() {
     printf \
-        "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
+        "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
         "USAGE: $0" \
         "[ -i ]" \
         "[ -b BACKGROUND ]" \
@@ -138,6 +141,7 @@ help() {
         "[ -s EDGE_COLOR ]" \
         "[ -g GSIZE ]" \
         "[ -o OUTPUT ]" \
+        "[ -S SCREEN_SIZE ]" \
         "Use -i to suppress wallpaper setting." \
         "All colors may be specified either as " \
         "- a color name (black, darkorange, ...)" \
@@ -146,7 +150,7 @@ help() {
         exit 0
 }
 
-options='i:b:d:s:e:g:o:h'
+options='i:b:d:s:e:g:o:S:h'
 while getopts $options option
 do
     case $option in
@@ -157,6 +161,7 @@ do
         s  ) EDGE=${OPTARG};;
         g  ) GSIZE=${OPTARG};;
         o  ) OUTPUT=${OPTARG};;
+        S  ) SCREEN_SIZE=${OPTARG};;
         h  ) help;;
         \? ) echo "Unknown option: -${OPTARG}" >&2; exit 1;;
         :  ) echo "Missing option argument for -${OPTARG}" >&2; exit 1;;
