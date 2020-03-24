@@ -19,12 +19,15 @@ Customizations can be made on the commandline, see the options with the ``-h`` f
 .. code-block:: bash
 
     USAGE: pacwall.sh
+            [ -i ]
             [ -b BACKGROUND ]
             [ -d NODE_COLOR ]
             [ -e EXPLICIT_NODE_COLOR ]
             [ -s EDGE_COLOR ]
             [ -g GSIZE ]
             [ -o OUTPUT ]
+
+``-i`` flag means *image only* and suppresses wallpaper setting.
 
 Additional customizations can be performed by modifying the script itself. The code in the script is well-structured (should be). To discover the customization possibilities, read the man page of ``graphviz`` and ``twopi``, particularly the section on *GRAPH, NODE AND EDGE ATTRIBUTES*.
 

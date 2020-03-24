@@ -111,11 +111,15 @@ main() {
     echo 'Rendering it.'
     render_graph
 
-    resize_wallpaper
+    if [[ -z "$IMAGE_ONLY" ]]; then
+        resize_wallpaper
+    fi
 
     cp "${WORKDIR}/${OUTPUT}" "${STARTDIR}"
 
-    set_wallpaper
+    if [[ -z "$IMAGE_ONLY" ]]; then
+        set_wallpaper
+    fi
 
     cleanup
 
@@ -124,8 +128,9 @@ main() {
 }
 
 help() {
-    printf "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
+    printf "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
         "USAGE: $0" \
+        "[ -i ]" \
         "[ -b BACKGROUND ]" \
         "[ -d NODE_COLOR ]" \
         "[ -e EXPLICIT_NODE_COLOR ]" \
@@ -135,10 +140,11 @@ help() {
         exit 0
 }
 
-options=':b:d:s:e:g:o:h'
+options='i:b:d:s:e:g:o:h'
 while getopts $options option
 do
     case $option in
+        i  ) IMAGE_ONLY=TRUE;;
         b  ) BACKGROUND=${OPTARG};;
         d  ) NODE=${OPTARG};;
         e  ) ENODE=${OPTARG};;
