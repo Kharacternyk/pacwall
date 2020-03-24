@@ -93,7 +93,7 @@ set_wallpaper() {
             -gravity center \
             -background "${BACKGROUND}" \
             -extent "${SCREEN_SIZE}" \
-            "${OUTPUT}"
+            "${STARTDIR}/${OUTPUT}"
             
         #Did this here because I think imagemagick stuff should run first?    
         copy_to_xdg
@@ -109,6 +109,7 @@ set_wallpaper() {
 		           <filename>"${XDGOUT}"</filename>
 	        </wallpaper>
         </wallpapers>" > $HOME/.local/share/gnome-background-properties/pacwall${BACKGROUND}.xml
+
 
     else
         hsetroot -solid $BACKGROUND -full "${XDGOUT}" \
