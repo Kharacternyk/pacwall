@@ -82,7 +82,7 @@ render_graph() {
 }
 
 set_wallpaper() {
-    set +e    
+    set +e
 
     if [[ "$DESKTOP_SESSION" == *"gnome"* ]]; then
         if [[ -z "$SCREEN_SIZE" ]]; then
