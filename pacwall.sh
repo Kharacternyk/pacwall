@@ -94,7 +94,7 @@ set_wallpaper() {
             -gravity center \
             -background "${BACKGROUND}" \
             -extent "${SCREEN_SIZE}" \
-            "${OUTPUT}"
+            "${STARTDIR}/${OUTPUT}"
         gsettings set org.gnome.desktop.background picture-uri "${STARTDIR}/${OUTPUT}"
     else
         hsetroot -solid $BACKGROUND -full "${STARTDIR}/${OUTPUT}" \
