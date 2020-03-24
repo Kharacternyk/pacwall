@@ -112,6 +112,7 @@ set_wallpaper() {
 
 
     else
+    	copy_to_xdg
         hsetroot -solid $BACKGROUND -full "${XDGOUT}" \
             2> /dev/null && echo 'Set the wallpaper using hsetroot.'
 
