@@ -29,11 +29,11 @@ Debian, Ubuntu, Mint, Pop!_OS, ...
 Wallpaper backends
 ~~~~~~~~~~~~~~~~~~
 
-If you are on GNOME (Xorg), you also need ``imagemagick`` and ``xorg-xdpyinfo`` to set the wallpaper.
+* If you are on GNOME (Xorg), you also need ``imagemagick`` and ``xorg-xdpyinfo`` to set the wallpaper.
 
-If you are on GNOME (Wayland), you need ``imagemagick`` and to specify the screen size manually like this: ``./pacwall.sh -S 1920x1200``.
+* If you are on GNOME (Wayland), you need ``imagemagick`` and to specify the screen size manually like this: ``./pacwall.sh -S 1920x1200``.
 
-If you aren't on GNOME, ``pacwall`` tries to set the wallpaper using ``feh`` and ``hsetroot``.
+* If you aren't on GNOME, ``pacwall`` tries to set the wallpaper using ``feh`` and ``hsetroot``.
 
 -------------
 Customization
