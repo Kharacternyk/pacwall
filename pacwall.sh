@@ -108,7 +108,8 @@ set_wallpaper() {
 		           <name>pacwall${BACKGROUND}</name>
 		           <filename>"${XDGOUT}"</filename>
 	        </wallpaper>
-        </wallpapers>" > $HOME/.local/share/gnome-background-properties/pacwall${BACKGROUND}.xml
+        </wallpapers>" \
+            > "${XDG_DATA_HOME}/gnome-background-properties/pacwall${BACKGROUND}.xml"
 
 
     else
@@ -127,9 +128,10 @@ copy_to_xdg()
 {
         #Copy the output to $HOME/.local/share/wallpapers as it is a standard XDG Directory
         #This will make the wallpapers visible in KDE settings (and maybe WMs if they have a setting)
-        mkdir -p ~/.local/share/wallpapers/pacwall
+        mkdir -p "${XDG_DATA_HOME}/wallpapers/pacwall"
         cp "${STARTDIR}/${OUTPUT}" "${XDGOUT}"
 }
+
 main() {
     echo 'Preparing the environment'
     prepare
@@ -195,7 +197,11 @@ do
         *  ) echo "Unimplemented option: -${OPTARG}" >&2; exit 1;;
     esac
 done
-XDGOUT="$HOME/.local/share/wallpapers/pacwall/pacwall${BACKGROUND}.png"
 shift $((OPTIND - 1))
+
+if [[ -z "$XDG_DATA_HOME" ]]; then
+    XDG_DATA_HOME=~/.local/share
+fi
+XDGOUT="${XDG_DATA_HOME}/wallpapers/pacwall/pacwall${BACKGROUND}.png"
 
 main
