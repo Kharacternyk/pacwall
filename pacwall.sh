@@ -6,7 +6,7 @@ BACKGROUND=darkslategray
 NODE='#dc143c88'
 ENODE=darkorange
 EDGE='#ffffff44'
-RANKSEP=1
+RANKSEP=0.7
 GSIZE=""
 
 OUTPUT="pacwall.png"
