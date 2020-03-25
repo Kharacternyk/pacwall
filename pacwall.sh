@@ -39,10 +39,10 @@ generate_graph() {
             -e '/START/d' \
             -e '/^node/d' \
             -e '/\}/d' \
-            -e '/arrowhead=none/d' \
-            -e 's/\[.*\]//' \
-            -e 's/>?=.*" ->/"->/' \
-            -e 's/>?=.*"/"/' \
+            -e 's/\[arrowhead=none,.*\]/\[arrowhead=crow\]/' \
+            -e 's/\[color=.*\]//' \
+            -e 's/>?=.*" ->/!" ->/' \
+            -e 's/>?=.*"/!"/' \
             "raw/$package" > "stripped/$package"
 
     done
