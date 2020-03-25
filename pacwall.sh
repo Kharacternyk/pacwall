@@ -57,7 +57,7 @@ generate_graph_debtree() {
         # Mark each explicitly installed package using a distinct solid color.
         echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
 
-        # Extract the list of edges from the output of pactree.
+        # Extract the list of edges from the output of debtree.
         debtree -I -q \
             --no-recommends \
             --no-alternatives \
