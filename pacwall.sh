@@ -50,7 +50,29 @@ generate_graph_pactree() {
 }
 
 generate_graph_debtree() {
-    # ...
+    # Get a space-separated list of the explicitly installed packages.
+    EPKGS="$(apt-mark showmanual | tr '\n' ' ')"
+    for package in ${EPKGS}
+    do
+
+        # Mark each explicitly installed package using a distinct solid color.
+        echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
+
+        # Extract the list of edges from the output of pactree.
+        debtree -I -q \
+            --no-recommends \
+            --no-alternatives \
+            --no-versions \
+            --no-conflicts \
+            "$package" > "raw/$package"
+        sed -E \
+            -e '/[^;]$/d' \
+            -e '/node \[/d' \
+            -e '/rankdir=/d' \
+            -e 's/\[.*\]//' \
+            "raw/$package" > "stripped/$package"
+
+    done
 }
 
 compile_graph() {
@@ -116,7 +138,14 @@ main() {
     prepare
 
     echo 'Generating the graph.'
-    generate_graph_pactree
+    if command -v debtree 2&> /dev/null; then
+        generate_graph_debtree
+    else if command -v pactree 2&> /dev/null; then
+        generate_graph_pactree
+    else
+        echo "Can't found pactree nor debtree." >2
+        exit 1
+    fi; fi
 
     echo 'Compiling the graph.'
     compile_graph
