@@ -176,7 +176,7 @@ help() {
         exit 0
 }
 
-options='i:b:d:s:e:g:r:o:S:h'
+options='ib:d:s:e:g:r:o:S:h'
 while getopts $options option
 do
     case $option in
