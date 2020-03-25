@@ -127,6 +127,7 @@ set_wallpaper() {
         gsettings set org.gnome.desktop.background picture-uri "${XDGOUT}"
 
         #Write xml so that file is recognised in gnome-control-center
+        mkdir -p "${XDG_DATA_HOME}/gnome-background-properties"
         echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
         <!DOCTYPE wallpapers SYSTEM \"gnome-wp-list.dtd\">
         <wallpapers>
