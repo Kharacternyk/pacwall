@@ -11,8 +11,9 @@ optdepends=('feh: wallpaper setting using feh'
             'hsetroot: wallpaper setting using hsetroot'
             'imagemagick: wallpaper setting on GNOME'
             'xorg-xdpyinfo: auto-detection of screen size on GNOME (Xorg)')
+makedepends=('git')
 conflicts=("${_pkgname}")
-source=("${_pkgname}::git+https://github.com/Kharacternyk/${_pkgname}#branch=master")
+source=("${_pkgname}::git+https://github.com/Kharacternyk/${_pkgname}.git#branch=master")
 sha256sums=(SKIP)
 
 pkgver() {
