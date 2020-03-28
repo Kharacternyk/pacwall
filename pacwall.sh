@@ -236,6 +236,11 @@ shift $((OPTIND - 1))
 if [[ -z "$XDG_DATA_HOME" ]]; then
     XDG_DATA_HOME=~/.local/share
 fi
+
+if [[ -n  "$SCREEN_SIZE"]]; then
+	IMAGE_ONLY=TRUE
+fi
+
 XDGOUT="${XDG_DATA_HOME}/wallpapers/pacwall/pacwall${BACKGROUND}.png"
 
 main
