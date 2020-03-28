@@ -106,20 +106,22 @@ render_graph() {
     twopi "${twopi_args[@]}" > "${OUTPUT}"
 }
 
-set_wallpaper() {
-    set +e
-
-    if [[ "$DESKTOP_SESSION" == *"gnome"* || "$DESKTOP_SESSION" == "pop" ]]; then
-        if [[ -z "$SCREEN_SIZE" ]]; then
-            SCREEN_SIZE=$(
-                xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
-            )
-        fi
+imagemagick_resize(){
         convert "${OUTPUT}" \
             -gravity center \
             -background "${BACKGROUND}" \
             -extent "${SCREEN_SIZE}" \
             "${STARTDIR}/${OUTPUT}"
+}	
+
+set_wallpaper() {
+    set +e
+
+    if [[ "$DESKTOP_SESSION" == *"gnome"* || "$DESKTOP_SESSION" == "pop" ]]; then
+            SCREEN_SIZE=$(
+                xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
+            )
+	imagemagick_resize()
             
         #Did this here because I think imagemagick stuff should run first?    
         copy_to_xdg
@@ -180,6 +182,11 @@ main() {
     render_graph
 
     cp "${WORKDIR}/${OUTPUT}" "${STARTDIR}"
+    
+    if [[ -n  "$SCREEN_SIZE"]]; then
+	IMAGE_ONLY=TRUE
+	imagemagick_resize
+    fi
 
     if [[ -z "$IMAGE_ONLY" ]]; then
         set_wallpaper
