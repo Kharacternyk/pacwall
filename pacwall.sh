@@ -121,7 +121,8 @@ set_wallpaper() {
             SCREEN_SIZE=$(
                 xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
             )
-	imagemagick_resize()
+            
+	    imagemagick_resize
             
         #Did this here because I think imagemagick stuff should run first?    
         copy_to_xdg
@@ -183,7 +184,7 @@ main() {
 
     cp "${WORKDIR}/${OUTPUT}" "${STARTDIR}"
     
-    if [[ -n  "$SCREEN_SIZE"]]; then
+    if [[ -n  "$SCREEN_SIZE" ]]; then
 	IMAGE_ONLY=TRUE
 	imagemagick_resize
     fi
