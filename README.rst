@@ -1,20 +1,39 @@
 .. image:: screenshot.png
 
-``pacwall.sh`` is a shell script that changes your wallpaper to the dependency graph of installed by ``pacman`` packages. Each package is a node and each edge indicates a dependency between two packages. The explicitly installed packages have a distinct color (orange by default).
+``pacwall.sh`` is a shell script that changes your wallpaper to the dependency graph of installed packages. Each package is a node and each edge indicates a dependency between two packages. The explicitly installed packages have a distinct color (orange by default). The dependencies of type *X provides Y* are represented as an edge with an inverted arrow that points towards *Y* (applies only to Arch).
+
+.. contents:: Navigation:
+   :backlinks: none
 
 ------------
 Requirements
 ------------
 
+~~~~~~~~~~
+Arch Linux
+~~~~~~~~~~
+
 .. code-block:: bash
 
     sudo pacman -Syu --needed graphviz pacman-contrib
 
-If you are on GNOME (Xorg), you also need ``imagemagick`` and ``xorg-xdpyinfo`` to set the wallpaper.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Debian, Ubuntu, Mint, Pop!_OS, ...
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you are on GNOME (Wayland), you need ``imagemagick`` and to specify the screen size manually like this: ``./pacwall.sh -S 1920x1200``.
+.. code-block:: bash
 
-If you aren't on GNOME, ``pacwall`` tries to set the wallpaper using ``feh`` and ``hsetroot``.
+    sudo apt install graphviz debtree
+
+~~~~~~~~~~~~~~~~~~
+Wallpaper backends
+~~~~~~~~~~~~~~~~~~
+
+* If you are on GNOME (Xorg), you also need ``imagemagick`` and ``xorg-xdpyinfo`` to set the wallpaper.
+
+* If you are on GNOME (Wayland), you need ``imagemagick`` and to specify the screen size manually like this: ``./pacwall.sh -S 1920x1200``.
+
+* If you aren't on GNOME, ``pacwall`` tries to set the wallpaper using ``feh`` and ``hsetroot``.
 
 -------------
 Customization

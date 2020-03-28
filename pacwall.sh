@@ -6,7 +6,7 @@ BACKGROUND=darkslategray
 NODE='#dc143c88'
 ENODE=darkorange
 EDGE='#ffffff44'
-RANKSEP=1
+RANKSEP=0.7
 GSIZE=""
 
 OUTPUT="pacwall.png"
@@ -24,7 +24,7 @@ cleanup() {
     cd "${STARTDIR}" && rm -rf "${WORKDIR}"
 }
 
-generate_graph() {
+generate_graph_pactree() {
     # Get a space-separated list of the explicitly installed packages.
     EPKGS="$(pacman -Qeq | tr '\n' ' ')"
     for package in ${EPKGS}
@@ -39,10 +39,36 @@ generate_graph() {
             -e '/START/d' \
             -e '/^node/d' \
             -e '/\}/d' \
-            -e '/arrowhead=none/d' \
+            -e 's/\[arrowhead=none,.*\]/\[arrowhead=crow\]/' \
+            -e 's/\[color=.*\]//' \
+            -e 's/>?=.*" ->/!" ->/' \
+            -e 's/>?=.*"/!"/' \
+            "raw/$package" > "stripped/$package"
+
+    done
+}
+
+generate_graph_debtree() {
+    # Get a space-separated list of the explicitly installed packages.
+    EPKGS="$(apt-mark showmanual | tr '\n' ' ')"
+    for package in ${EPKGS}
+    do
+
+        # Mark each explicitly installed package using a distinct solid color.
+        echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
+
+        # Extract the list of edges from the output of debtree.
+        debtree -I -q \
+            --no-recommends \
+            --no-alternatives \
+            --no-versions \
+            --no-conflicts \
+            "$package" > "raw/$package"
+        sed -E \
+            -e '/[^;]$/d' \
+            -e '/node \[/d' \
+            -e '/rankdir=/d' \
             -e 's/\[.*\]//' \
-            -e 's/>?=.*" ->/"->/' \
-            -e 's/>?=.*"/"/' \
             "raw/$package" > "stripped/$package"
 
     done
@@ -83,7 +109,7 @@ render_graph() {
 set_wallpaper() {
     set +e
 
-    if [[ "$DESKTOP_SESSION" == *"gnome"* ]]; then
+    if [[ "$DESKTOP_SESSION" == *"gnome"* || "$DESKTOP_SESSION" == "pop" ]]; then
         if [[ -z "$SCREEN_SIZE" ]]; then
             SCREEN_SIZE=$(
                 xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
@@ -101,6 +127,7 @@ set_wallpaper() {
         gsettings set org.gnome.desktop.background picture-uri "${XDGOUT}"
 
         #Write xml so that file is recognised in gnome-control-center
+        mkdir -p "${XDG_DATA_HOME}/gnome-background-properties"
         echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
         <!DOCTYPE wallpapers SYSTEM \"gnome-wp-list.dtd\">
         <wallpapers>
@@ -108,7 +135,8 @@ set_wallpaper() {
 		           <name>pacwall${BACKGROUND}</name>
 		           <filename>"${XDGOUT}"</filename>
 	        </wallpaper>
-        </wallpapers>" > $HOME/.local/share/gnome-background-properties/pacwall${BACKGROUND}.xml
+        </wallpapers>" \
+            > "${XDG_DATA_HOME}/gnome-background-properties/pacwall${BACKGROUND}.xml"
 
 
     else
@@ -127,15 +155,23 @@ copy_to_xdg()
 {
         #Copy the output to $HOME/.local/share/wallpapers as it is a standard XDG Directory
         #This will make the wallpapers visible in KDE settings (and maybe WMs if they have a setting)
-        mkdir -p ~/.local/share/wallpapers/pacwall
+        mkdir -p "${XDG_DATA_HOME}/wallpapers/pacwall"
         cp "${STARTDIR}/${OUTPUT}" "${XDGOUT}"
 }
+
 main() {
     echo 'Preparing the environment'
     prepare
 
     echo 'Generating the graph.'
-    generate_graph
+    if command -v debtree 2&> /dev/null; then
+        generate_graph_debtree
+    else if command -v pactree 2&> /dev/null; then
+        generate_graph_pactree
+    else
+        echo "Can't found pactree nor debtree." >2
+        exit 1
+    fi; fi
 
     echo 'Compiling the graph.'
     compile_graph
@@ -176,7 +212,7 @@ help() {
         exit 0
 }
 
-options='i:b:d:s:e:g:r:o:S:h'
+options='ib:d:s:e:g:r:o:S:h'
 while getopts $options option
 do
     case $option in
@@ -195,7 +231,11 @@ do
         *  ) echo "Unimplemented option: -${OPTARG}" >&2; exit 1;;
     esac
 done
-XDGOUT="$HOME/.local/share/wallpapers/pacwall/pacwall${BACKGROUND}.png"
 shift $((OPTIND - 1))
+
+if [[ -z "$XDG_DATA_HOME" ]]; then
+    XDG_DATA_HOME=~/.local/share
+fi
+XDGOUT="${XDG_DATA_HOME}/wallpapers/pacwall/pacwall${BACKGROUND}.png"
 
 main
