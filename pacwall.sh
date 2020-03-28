@@ -237,7 +237,7 @@ if [[ -z "$XDG_DATA_HOME" ]]; then
     XDG_DATA_HOME=~/.local/share
 fi
 
-if [[ -n  "$SCREEN_SIZE"]]; then
+if [[ -n  "$SCREEN_SIZE" ]]; then
 	IMAGE_ONLY=TRUE
 fi
 
