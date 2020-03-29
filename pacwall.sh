@@ -49,7 +49,7 @@ generate_graph_pactree() {
 }
 
 generate_graph_apt() {
-    EPKGS="$(apt list --installed | sed -e 's/\/.*$//' | tr '\n' ' ')"
+    EPKGS="$(apt list --installed 2> /dev/null | sed -e 's/\/.*$//' | tr '\n' ' ')"
     apt-cache dotty $EPKGS > raw/packages
     sed -E \
         -e '/^[^"]/d' \
