@@ -50,6 +50,7 @@ Customizations can be made on the commandline, see the options with the ``-h`` f
             [ -e EXPLICIT_NODE_COLOR ]
             [ -s EDGE_COLOR ]
             [ -g GSIZE ]
+            [ -r RANKSEP ]
             [ -o OUTPUT ]
             [ -S SCREEN_SIZE ]
 
