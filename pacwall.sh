@@ -164,7 +164,7 @@ main() {
     if command -v apt 2&> /dev/null; then
         generate_graph_apt
     else if command -v pactree 2&> /dev/null; then
-        generate_graph_apt
+        generate_graph_pactree
     else
         echo "Can't found pactree nor debtree." >2
         exit 1
