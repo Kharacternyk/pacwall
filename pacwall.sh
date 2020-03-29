@@ -57,6 +57,14 @@ generate_graph_debtree() {
         -e '/\[color=/d' \
         -e 's/\[.*\]//' \
         "raw/packages" > "stripped/packages"
+
+    EPKGS="$(apt-mark showmanual | tr '\n' ' ')"
+    for package in $EPKGS
+    do
+        # Mark each explicitly installed package using a distinct solid color.
+        echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
+    done
+
     EPKGS=packages
 }
 
