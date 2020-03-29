@@ -49,29 +49,15 @@ generate_graph_pactree() {
 }
 
 generate_graph_debtree() {
-    # Get a space-separated list of the explicitly installed packages.
-    EPKGS="$(apt-mark showmanual | tr '\n' ' ')"
-    for package in ${EPKGS}
-    do
-
-        # Mark each explicitly installed package using a distinct solid color.
-        echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
-
-        # Extract the list of edges from the output of debtree.
-        debtree -I -q \
-            --no-recommends \
-            --no-alternatives \
-            --no-versions \
-            --no-conflicts \
-            "$package" > "raw/$package"
-        sed -E \
-            -e '/[^;]$/d' \
-            -e '/node \[/d' \
-            -e '/rankdir=/d' \
-            -e 's/\[.*\]//' \
-            "raw/$package" > "stripped/$package"
-
-    done
+    EPKGS="$(apt list --installed | sed -e 's/\/.*$//' | tr '\n' ' ')"
+    apt-cache dotty $EPKGS > raw/packages
+    sed -E \
+        -e '/^[^"]/d' \
+        -e '/\[shape/d' \
+        -e '/\[color=/d' \
+        -e 's/\[.*\]//' \
+        "raw/packages" > "stripped/packages"
+    EPKGS=packages
 }
 
 compile_graph() {
