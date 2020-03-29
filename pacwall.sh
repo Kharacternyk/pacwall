@@ -157,7 +157,7 @@ copy_to_xdg()
 }
 
 main() {
-    echo 'Preparing the environment'
+    echo 'Preparing the environment.'
     prepare
 
     echo 'Generating the graph.'
