@@ -95,7 +95,10 @@ render_graph() {
 set_wallpaper() {
     set +e
 
-    if [[ "$DESKTOP_SESSION" == *"gnome"* || "$DESKTOP_SESSION" == "pop" ]]; then
+    if [[ \
+        "$DESKTOP_SESSION" == *"gnome"* || \
+        "$DESKTOP_SESSION" == "pop" || \
+        "$DESKTOP_SESSION" == "ubuntu" ]]; then
         if [[ -z "$SCREEN_SIZE" ]]; then
             SCREEN_SIZE=$(
                 xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
