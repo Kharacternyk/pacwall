@@ -48,7 +48,7 @@ generate_graph_pactree() {
     done
 }
 
-generate_graph_debtree() {
+generate_graph_apt() {
     EPKGS="$(apt list --installed | sed -e 's/\/.*$//' | tr '\n' ' ')"
     apt-cache dotty $EPKGS > raw/packages
     sed -E \
@@ -161,10 +161,10 @@ main() {
     prepare
 
     echo 'Generating the graph.'
-    if command -v debtree 2&> /dev/null; then
-        generate_graph_debtree
+    if command -v apt 2&> /dev/null; then
+        generate_graph_apt
     else if command -v pactree 2&> /dev/null; then
-        generate_graph_pactree
+        generate_graph_apt
     else
         echo "Can't found pactree nor debtree." >2
         exit 1
