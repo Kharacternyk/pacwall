@@ -79,5 +79,14 @@ If the graph is too large, use ``-r`` flag. For example, ``-r 0.3`` means that t
 
 An alternative method is to use ``-g`` flag. The format should be the same as the ``twopi`` ``-Gsize`` option. ``7.5,7.5`` for example forces the graph to be not wider nor higher than 7.5 **inches**.
 
+----------------
+Similar software
+----------------
+
+* pacgraph_
+* pacvis_
+
 .. LINKS:
 .. _AUR package: https://aur.archlinux.org/packages/pacwall-git/
+.. _pacgraph: http://kmkeen.com/pacgraph/
+.. _pacvis: https://github.com/farseerfc/pacvis
