@@ -131,7 +131,7 @@ set_wallpaper() {
         feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${XDGOUT}" \
             2> /dev/null && echo 'Using feh to set the wallpaper'
 
-        gsettings set org.gnome.desktop.background picture-uri "${XDGOUT}" && echo'Using gsettings to set the wallpaper'|| true
+        gsettings set org.gnome.desktop.background picture-uri "${XDGOUT}" && echo 'Using gsettings to set the wallpaper'|| true
     else
         hsetroot -solid $BACKGROUND -full "${STARTDIR}/${OUTPUT}" \
             2> /dev/null && echo 'Using hsetroot to set the wallpaper'
