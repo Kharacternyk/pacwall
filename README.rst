@@ -29,11 +29,18 @@ Debian, Ubuntu, Mint, Pop!_OS, ...
 Wallpaper backends
 ~~~~~~~~~~~~~~~~~~
 
-* If you are on GNOME (Xorg), you also need ``imagemagick`` and ``xorg-xdpyinfo`` to set the wallpaper.
+``pacwall`` tries to set the wallpaper using ``feh`` and ``hsetroot``.
 
-* If you are on GNOME (Wayland), you need ``imagemagick`` and to specify the screen size manually like this: ``./pacwall.sh -S 1920x1200``.
+-------------------------------
+Desktop environment integration
+-------------------------------
 
-* If you aren't on GNOME, ``pacwall`` tries to set the wallpaper using ``feh`` and ``hsetroot``.
+Use `-D` to enable desktop environment integration (KDE Plasma, GNOME, ...). You will be able to see the generated wallpapers in the graphical wallpaper picker.
+
+DE integration requires ``imagemagick`` and ``xorg-xdpyinfo`` (If you are on Wayland you need to specify the screen size manually like this: ``./pacwall.sh -S 1920x1200``).
+
+.. WARNING::
+    Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and ``hsetroot``. `-D` is required.
 
 -------------
 Customization
@@ -44,7 +51,7 @@ Customizations can be made on the commandline, see the options with the ``-h`` f
 .. code-block:: bash
 
     USAGE: pacwall.sh
-            [ -i ]
+            [ -iD ]
             [ -b BACKGROUND ]
             [ -d NODE_COLOR ]
             [ -e EXPLICIT_NODE_COLOR ]
@@ -54,6 +61,7 @@ Customizations can be made on the commandline, see the options with the ``-h`` f
             [ -o OUTPUT ]
             [ -S SCREEN_SIZE ]
 
+            Use -D to enable integration with desktop environments.
             Use -i to suppress wallpaper setting.
             All colors may be specified either as
             - a color name (black, darkorange, ...)

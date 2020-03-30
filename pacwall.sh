@@ -103,10 +103,7 @@ render_graph() {
 set_wallpaper() {
     set +e
 
-    if [[ \
-        "$DESKTOP_SESSION" == *"gnome"* || \
-        "$DESKTOP_SESSION" == "pop" || \
-        "$DESKTOP_SESSION" == "ubuntu" ]]; then
+    if [[ -n "$DE_INTEGRATION" ]]; then
         if [[ -z "$SCREEN_SIZE" ]]; then
             SCREEN_SIZE=$(
                 xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
@@ -117,11 +114,7 @@ set_wallpaper() {
             -background "${BACKGROUND}" \
             -extent "${SCREEN_SIZE}" \
             "${STARTDIR}/${OUTPUT}"
-            
-        #Did this here because I think imagemagick stuff should run first?    
         copy_to_xdg
-        #Change wallpaper
-        gsettings set org.gnome.desktop.background picture-uri "${XDGOUT}"
 
         #Write xml so that file is recognised in gnome-control-center
         mkdir -p "${XDG_DATA_HOME}/gnome-background-properties"
@@ -135,13 +128,12 @@ set_wallpaper() {
         </wallpapers>" \
             > "${XDG_DATA_HOME}/gnome-background-properties/pacwall${BACKGROUND}.xml"
 
-
+        gsettings set org.gnome.desktop.background picture-uri "${XDGOUT}" || true
     else
-    	copy_to_xdg
-        hsetroot -solid $BACKGROUND -full "${XDGOUT}" \
+        hsetroot -solid $BACKGROUND -full "${STARTDIR}/${OUTPUT}" \
             2> /dev/null && echo 'Set the wallpaper using hsetroot.'
 
-        feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${XDGOUT}" \
+        feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${STARTDIR}/${OUTPUT}" \
             2> /dev/null && echo 'Set the wallpaper using feh.'
     fi
 
@@ -190,9 +182,9 @@ main() {
 
 help() {
     printf \
-        "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
+        "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
         "USAGE: $0" \
-        "[ -i ]" \
+        "[ -iD ]" \
         "[ -b BACKGROUND ]" \
         "[ -d NODE_COLOR ]" \
         "[ -e EXPLICIT_NODE_COLOR ]" \
@@ -201,6 +193,7 @@ help() {
         "[ -r RANKSEP ]" \
         "[ -o OUTPUT ]" \
         "[ -S SCREEN_SIZE ]" \
+        "Use -D to enable integration with desktop environments." \
         "Use -i to suppress wallpaper setting." \
         "All colors may be specified either as " \
         "- a color name (black, darkorange, ...)" \
@@ -209,10 +202,11 @@ help() {
         exit 0
 }
 
-options='ib:d:s:e:g:r:o:S:h'
+options='Dib:d:s:e:g:r:o:S:h'
 while getopts $options option
 do
     case $option in
+        D  ) DE_INTEGRATION=TRUE;;
         i  ) IMAGE_ONLY=TRUE;;
         b  ) BACKGROUND=${OPTARG};;
         d  ) NODE=${OPTARG};;
