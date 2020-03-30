@@ -57,6 +57,7 @@ Customization
 Customizations can be made on the commandline, see the options with the ``-h`` flag.
 
 .. code-block:: bash
+
     USAGE: pacwall.sh
             [ -iDW ]
             [ -b BACKGROUND ]
