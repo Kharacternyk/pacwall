@@ -69,7 +69,7 @@ Customizations can be made on the commandline, see the options with the ``-h`` f
             [ -o OUTPUT ]
             [ -S SCREEN_SIZE ]
 
-            Use -W to enable pywal integration
+            Use -W to enable pywal integration.
             Use -D to enable integration with desktop environments.
             Use -i to suppress wallpaper setting.
             All colors may be specified either as
