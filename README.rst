@@ -42,7 +42,7 @@ Use `-D` to enable desktop environment integration (KDE Plasma, GNOME, ...). You
 DE integration requires ``imagemagick`` and ``xorg-xdpyinfo`` (If you are on Wayland you need to specify the screen size manually like this: ``./pacwall.sh -S 1920x1200``).
 
 **WARNING**: Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and ``hsetroot``. ``-D`` is required.
-             (If you don't know your DE, it is probably GNOME)
+(If you don't know your DE, it is probably GNOME)
 
 -------------
 Customization
