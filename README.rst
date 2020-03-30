@@ -96,7 +96,7 @@ Contributors
 * `John Ramsden`_: PKGBUILD, cmdopts parsing, general code quality;
 * `Luca Leon Happel`_: pywal integration, ``hsetroot`` backend;
 * `Ruijie Yu`_: PKGBUILD;
-* `QWxleA`_: screen size autodetection via `xdpyinfo`;
+* `QWxleA`_: screen size autodetection via ``xdpyinfo``;
 
 ----------------
 Similar software
