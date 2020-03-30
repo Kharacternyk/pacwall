@@ -160,13 +160,13 @@ main() {
     if command -v apt 2&> /dev/null; then
         echo 'Using apt to generate the graph'
         generate_graph_apt
-    else if command -v pactree 2&> /dev/null; then
+    elif command -v pactree 2&> /dev/null; then
         echo 'Using pactree to generate the graph'
         generate_graph_pactree
     else
         echo "Can't find pactree or debtree." >2
         exit 1
-    fi; fi
+    fi
 
     compile_graph
 
