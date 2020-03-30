@@ -87,6 +87,17 @@ If the graph is too large, use ``-r`` flag. For example, ``-r 0.3`` means that t
 
 An alternative method is to use ``-g`` flag. The format should be the same as the ``twopi`` ``-Gsize`` option. ``7.5,7.5`` for example forces the graph to be not wider nor higher than 7.5 **inches**.
 
+------------
+Contributors
+------------
+
+* `Nazar Vinnichuk`_: the original author and maintainer;
+* `ChiDal`_: integration with GNOME and other DEs, first ever rice_ with pacwall;
+* `John Ramsden`_: PKGBUILD, cmdopts parsing, general code quality;
+* `Luca Leon Happel`_: pywall integration, ``hsetroot`` backend;
+* `Ruijie Yu`_: PKGBUILD;
+* `QWxleA`_: screen size autodetection via `xdpyinfo`;
+
 ----------------
 Similar software
 ----------------
@@ -96,5 +107,12 @@ Similar software
 
 .. LINKS:
 .. _AUR package: https://aur.archlinux.org/packages/pacwall-git/
+.. _Nazar Vinnichuk: https://github.com/Kharacternyk
+.. _ChiDal: https://github.com/ChiDal
+.. _John Ramsden: https://github.com/johnramsden
+.. _Luca Leon Happel: https://github.com/Quoteme
+.. _Ruijie Yu: https://github.com/RuijieYu
+.. _QwxleA: https://github.com/QWxleA
+.. _rice: https://www.reddit.com/r/unixporn/comments/fnfujo/gnome_first_rice_pacwall/ 
 .. _pacgraph: http://kmkeen.com/pacgraph/
 .. _pacvis: https://github.com/farseerfc/pacvis
