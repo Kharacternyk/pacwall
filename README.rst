@@ -2,6 +2,8 @@
 
 ``pacwall.sh`` is a shell script that changes your wallpaper to the dependency graph of installed packages. Each package is a node and each edge indicates a dependency between two packages. The explicitly installed packages have a distinct color (orange by default). The dependencies of type *X provides Y* are represented as an edge with an inverted arrow that points towards *Y* (applies only to Arch).
 
+An `AUR package`_ is available.
+
 .. contents:: Navigation:
    :backlinks: none
 
@@ -77,3 +79,5 @@ If the graph is too large, use ``-r`` flag. For example, ``-r 0.3`` means that t
 
 An alternative method is to use ``-g`` flag. The format should be the same as the ``twopi`` ``-Gsize`` option. ``7.5,7.5`` for example forces the graph to be not wider nor higher than 7.5 **inches**.
 
+.. LINKS:
+.. _AUR package: https://aur.archlinux.org/packages/pacwall-git/
