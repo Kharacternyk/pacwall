@@ -1,3 +1,4 @@
+# Maintainer: Nazar Vinnichuk <nazar.vinnichuk at tutanota dot com>
 pkgname=pacwall-git
 _pkgname=${pkgname%-git}
 pkgver=r79.6c0be4d
