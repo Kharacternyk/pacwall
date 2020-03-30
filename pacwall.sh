@@ -131,10 +131,10 @@ set_wallpaper() {
         gsettings set org.gnome.desktop.background picture-uri "${XDGOUT}" || true
     else
         hsetroot -solid $BACKGROUND -full "${STARTDIR}/${OUTPUT}" \
-            2> /dev/null && echo 'Set the wallpaper using hsetroot.'
+            2> /dev/null && echo 'Using hsetroot to set the wallpaper'
 
         feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${STARTDIR}/${OUTPUT}" \
-            2> /dev/null && echo 'Set the wallpaper using feh.'
+            2> /dev/null && echo 'Using feh to set the wallpaper'
     fi
 
     set -e
@@ -149,23 +149,21 @@ copy_to_xdg()
 }
 
 main() {
-    echo 'Preparing the environment.'
     prepare
 
-    echo 'Generating the graph.'
     if command -v apt 2&> /dev/null; then
+        echo 'Generating the graph using apt...'
         generate_graph_apt
     else if command -v pactree 2&> /dev/null; then
+        echo 'Generating the graph using pactree...'
         generate_graph_pactree
     else
         echo "Can't found pactree nor debtree." >2
         exit 1
     fi; fi
 
-    echo 'Compiling the graph.'
     compile_graph
 
-    echo 'Rendering it.'
     render_graph
 
     cp "${WORKDIR}/${OUTPUT}" "${STARTDIR}"
@@ -176,8 +174,7 @@ main() {
 
     cleanup
 
-    echo 'The image has been put into the current directory.'
-    echo 'Done.'
+    echo "The image has been put to ${STARTDIR}/${OUTPUT}"
 }
 
 help() {
