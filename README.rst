@@ -94,7 +94,7 @@ Contributors
 * `Nazar Vinnichuk`_: the original author and maintainer;
 * `ChiDal`_: integration with GNOME and other DEs, first ever rice_ with pacwall;
 * `John Ramsden`_: PKGBUILD, cmdopts parsing, general code quality;
-* `Luca Leon Happel`_: pywall integration, ``hsetroot`` backend;
+* `Luca Leon Happel`_: pywal integration, ``hsetroot`` backend;
 * `Ruijie Yu`_: PKGBUILD;
 * `QWxleA`_: screen size autodetection via `xdpyinfo`;
 
