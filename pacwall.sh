@@ -152,10 +152,10 @@ main() {
     prepare
 
     if command -v apt 2&> /dev/null; then
-        echo 'Generating the graph using apt...'
+        echo 'Using apt to generate the graph'
         generate_graph_apt
     else if command -v pactree 2&> /dev/null; then
-        echo 'Generating the graph using pactree...'
+        echo 'Using pactree to generate the graph'
         generate_graph_pactree
     else
         echo "Can't found pactree nor debtree." >2
