@@ -44,6 +44,12 @@ DE integration requires ``imagemagick`` and ``xorg-xdpyinfo`` (If you are on Way
 **WARNING**: Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and ``hsetroot``. ``-D`` is required.
 (If you don't know your DE, it is probably GNOME)
 
+-----------------
+Pywal integration
+-----------------
+
+Run ``./pacwall.sh -W`` to use colors set by pywal (1st, 2nd, 3rd and 8th color to be exact).
+
 -------------
 Customization
 -------------
@@ -51,9 +57,8 @@ Customization
 Customizations can be made on the commandline, see the options with the ``-h`` flag.
 
 .. code-block:: bash
-
     USAGE: pacwall.sh
-            [ -iD ]
+            [ -iDW ]
             [ -b BACKGROUND ]
             [ -d NODE_COLOR ]
             [ -e EXPLICIT_NODE_COLOR ]
@@ -63,6 +68,7 @@ Customizations can be made on the commandline, see the options with the ``-h`` f
             [ -o OUTPUT ]
             [ -S SCREEN_SIZE ]
 
+            Use -W to enable pywal integration
             Use -D to enable integration with desktop environments.
             Use -i to suppress wallpaper setting.
             All colors may be specified either as

@@ -78,6 +78,25 @@ compile_graph() {
     cd ..
 }
 
+use_wal_colors() {
+    if [[ ! -f ~/.cache/wal/colors ]]; then
+        echo 'Run pywal first'
+        exit 1
+    fi
+
+    echo 'Using pywal colors:'
+	# change `n` in `head -n` to use the n-th terminal color set by pywal
+	# you can preview these colors in ~/.cache/wal/colors.json
+	BACKGROUND=$( echo "$(cat ~/.cache/wal/colors | head -1 | tail -1)" )
+	echo "    Background:    " $BACKGROUND
+	NODE=$( echo "$(cat ~/.cache/wal/colors | head -2 | tail -1)""88" )
+	echo "    Node:          " $NODE
+	ENODE=$( echo "$(cat ~/.cache/wal/colors | head -3 | tail -1)" )
+	echo "    Explicit node: " $ENODE
+	EDGE=$( echo "$(cat ~/.cache/wal/colors | head -8 | tail -1)""44" )
+	echo "    Edge:          " $EDGE
+}
+
 render_graph() {
     # Style the graph according to preferences.
     declare -a twopi_args=(
@@ -157,6 +176,10 @@ copy_to_xdg()
 main() {
     prepare
 
+    if [[ -n "$PYWAL_INTEGRATION" ]]; then
+        use_wal_colors
+    fi
+
     if command -v apt 2&> /dev/null; then
         echo 'Using apt to generate the graph'
         generate_graph_apt
@@ -185,9 +208,9 @@ main() {
 
 help() {
     printf \
-        "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
+        "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
         "USAGE: $0" \
-        "[ -iD ]" \
+        "[ -iDW ]" \
         "[ -b BACKGROUND ]" \
         "[ -d NODE_COLOR ]" \
         "[ -e EXPLICIT_NODE_COLOR ]" \
@@ -196,6 +219,7 @@ help() {
         "[ -r RANKSEP ]" \
         "[ -o OUTPUT ]" \
         "[ -S SCREEN_SIZE ]" \
+        "Use -W to enable pywal integration" \
         "Use -D to enable integration with desktop environments." \
         "Use -i to suppress wallpaper setting." \
         "All colors may be specified either as " \
@@ -205,10 +229,11 @@ help() {
         exit 0
 }
 
-options='Dib:d:s:e:g:r:o:S:h'
+options='WDib:d:s:e:g:r:o:S:h'
 while getopts $options option
 do
     case $option in
+        W  ) PYWAL_INTEGRATION=TRUE;;
         D  ) DE_INTEGRATION=TRUE;;
         i  ) IMAGE_ONLY=TRUE;;
         b  ) BACKGROUND=${OPTARG};;
