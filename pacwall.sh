@@ -128,7 +128,10 @@ set_wallpaper() {
         </wallpapers>" \
             > "${XDG_DATA_HOME}/gnome-background-properties/pacwall${BACKGROUND}.xml"
 
-        gsettings set org.gnome.desktop.background picture-uri "${XDGOUT}" || true
+        feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${XDGOUT}" \
+            2> /dev/null && echo 'Using feh to set the wallpaper'
+
+        gsettings set org.gnome.desktop.background picture-uri "${XDGOUT}" && echo'Using gsettings to set the wallpaper'|| true
     else
         hsetroot -solid $BACKGROUND -full "${STARTDIR}/${OUTPUT}" \
             2> /dev/null && echo 'Using hsetroot to set the wallpaper'
@@ -158,7 +161,7 @@ main() {
         echo 'Using pactree to generate the graph'
         generate_graph_pactree
     else
-        echo "Can't found pactree nor debtree." >2
+        echo "Can't find pactree or debtree." >2
         exit 1
     fi; fi
 
