@@ -1,6 +1,13 @@
 .. image:: screenshot.png
 
-``pacwall.sh`` is a shell script that changes your wallpaper to the dependency graph of installed packages. Each package is a node and each edge indicates a dependency between two packages. The explicitly installed packages have a distinct color (orange by default). The packages that are not explicitly installed and not directly required by any other package ("orphans") have a distinct color, too (blue by default, *applies only to Arch*). The dependencies of type *X provides Y* are represented as an edge with an inverted arrow that points towards *Y* (*applies only to Arch*).
+``pacwall.sh`` is a shell script that changes your wallpaper to the dependency
+graph of installed packages. Each package is a node and each edge indicates a
+dependency between two packages. The explicitly installed packages have a
+distinct color (orange by default). The packages that are not explicitly
+installed and not directly required by any other package ("orphans") have a
+distinct color, too (blue by default, *applies only to Arch*). The dependencies
+of type *X provides Y* are represented as an edge with an inverted arrow that
+points towards *Y* (*applies only to Arch*).
 
 An `AUR package`_ is available.
 
@@ -37,24 +44,31 @@ Wallpaper backends
 Desktop environment integration
 -------------------------------
 
-Use ``-D`` to enable desktop environment integration (KDE Plasma, GNOME, ...). You will be able to see the generated wallpapers in the graphical wallpaper picker.
+Use ``-D`` to enable desktop environment integration (KDE Plasma, GNOME, ...).
+You will be able to see the generated wallpapers in the graphical wallpaper picker.
 
-DE integration requires ``imagemagick`` and ``xorg-xdpyinfo`` (If you are on Wayland you need to specify the screen size manually like this: ``./pacwall.sh -DS 1920x1200``).
+DE integration requires ``imagemagick`` and ``xorg-xdpyinfo``
+(If you are on Wayland you need to specify the screen size manually like this:
+``./pacwall.sh -DS 1920x1200``).
 
-**WARNING**: Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and ``hsetroot``. ``-D`` is required.
+**WARNING**:
+Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and ``hsetroot``.
+``-D`` is *required*.
 (If you don't know your DE, it is probably GNOME)
 
 -----------------
 Pywal integration
 -----------------
 
-Run ``./pacwall.sh -W`` to use colors set by pywal (1st, 2nd, 3rd, 5th and 8th color to be exact).
+Run ``./pacwall.sh -W`` to use colors set by pywal
+(1st, 2nd, 3rd, 5th and 8th color to be exact).
 
 -------------
 Customization
 -------------
 
-Customizations can be made on the commandline, see the options with ``./pacwall.sh -h``.
+Customizations can be made on the commandline, see the options with
+``./pacwall.sh -h``.
 
 .. code-block:: bash
 
@@ -78,15 +92,22 @@ Customizations can be made on the commandline, see the options with ``./pacwall.
             - a value of format #RRGGBB
             - a value of format #RRGGBBAA
 
-Additional customizations can be performed by modifying the script itself. The code in the script is well-structured (should be). To discover the customization possibilities, read the man page of ``graphviz`` and ``twopi``, particularly the section on *GRAPH, NODE AND EDGE ATTRIBUTES*.
+Additional customizations can be performed by modifying the script itself.
+The code in the script is well-structured (should be).
+To discover the customization possibilities, read the man page of ``graphviz``
+and ``twopi``, particularly the section on *GRAPH, NODE AND EDGE ATTRIBUTES*.
 
 ---------------
 Troubleshooting
 ---------------
 
-If the graph is too large, use ``-r``. For example, ``-r 0.3`` means that the distance between the concentric circles of the graph will be 0.3 **inch**.
+If the graph is too large, use ``-r``.
+For example, ``-r 0.3`` means that the distance between the concentric circles
+of the graph will be 0.3 **inch**.
 
-An alternative method is to use ``-g``. The format should be the same as the ``twopi`` ``-Gsize`` option. ``7.5,7.5`` for example forces the graph to be not wider nor higher than 7.5 **inches**.
+An alternative method is to use ``-g``.
+The format should be the same as the ``twopi`` ``-Gsize`` option. ``7.5,7.5``
+for example forces the graph to be not wider nor higher than 7.5 **inches**.
 
 ------------
 Contributors
