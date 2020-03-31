@@ -1,6 +1,6 @@
 .. image:: screenshot.png
 
-``pacwall.sh`` is a shell script that changes your wallpaper to the dependency graph of installed packages. Each package is a node and each edge indicates a dependency between two packages. The explicitly installed packages have a distinct color (orange by default). The dependencies of type *X provides Y* are represented as an edge with an inverted arrow that points towards *Y* (applies only to Arch).
+``pacwall.sh`` is a shell script that changes your wallpaper to the dependency graph of installed packages. Each package is a node and each edge indicates a dependency between two packages. The explicitly installed packages have a distinct color (orange by default). The packages that are not explicitly installed and not directly required by any other package ("orphans") have a distinct color, too (blue by default, *applies only to Arch*). The dependencies of type *X provides Y* are represented as an edge with an inverted arrow that points towards *Y* (*applies only to Arch*).
 
 An `AUR package`_ is available.
 
@@ -48,7 +48,7 @@ DE integration requires ``imagemagick`` and ``xorg-xdpyinfo`` (If you are on Way
 Pywal integration
 -----------------
 
-Run ``./pacwall.sh -W`` to use colors set by pywal (1st, 2nd, 3rd and 8th color to be exact).
+Run ``./pacwall.sh -W`` to use colors set by pywal (1st, 2nd, 3rd, 5th and 8th color to be exact).
 
 -------------
 Customization
@@ -63,6 +63,7 @@ Customizations can be made on the commandline, see the options with ``./pacwall.
             [ -b BACKGROUND ]
             [ -d NODE_COLOR ]
             [ -e EXPLICIT_NODE_COLOR ]
+            [ -p ORPHAN_NODE_COLOR ]
             [ -s EDGE_COLOR ]
             [ -g GSIZE ]
             [ -r RANKSEP ]

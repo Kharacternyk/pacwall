@@ -96,6 +96,8 @@ use_wal_colors() {
 	echo "    Node:          " $NODE
 	ENODE=$( echo "$(cat ~/.cache/wal/colors | head -3 | tail -1)" )
 	echo "    Explicit node: " $ENODE
+	ONODE=$( echo "$(cat ~/.cache/wal/colors | head -5 | tail -1)" )
+	echo "    Orphan node:   " $ENODE
 	EDGE=$( echo "$(cat ~/.cache/wal/colors | head -8 | tail -1)""44" )
 	echo "    Edge:          " $EDGE
 }
@@ -213,12 +215,13 @@ main() {
 
 help() {
     printf \
-        "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
+        "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
         "USAGE: $0" \
         "[ -iDW ]" \
         "[ -b BACKGROUND ]" \
         "[ -d NODE_COLOR ]" \
         "[ -e EXPLICIT_NODE_COLOR ]" \
+        "[ -p ORPHAN_NODE_COLOR ]" \
         "[ -s EDGE_COLOR ]" \
         "[ -g GSIZE ]" \
         "[ -r RANKSEP ]" \
@@ -234,7 +237,7 @@ help() {
         exit 0
 }
 
-options='WDib:d:s:e:g:r:o:S:h'
+options='WDib:d:s:e:p:g:r:o:S:h'
 while getopts $options option
 do
     case $option in
@@ -244,6 +247,7 @@ do
         b  ) BACKGROUND=${OPTARG};;
         d  ) NODE=${OPTARG};;
         e  ) ENODE=${OPTARG};;
+        p  ) ONODE=${OPTARG};;
         s  ) EDGE=${OPTARG};;
         g  ) GSIZE=${OPTARG};;
         r  ) RANKSEP=${OPTARG};;
