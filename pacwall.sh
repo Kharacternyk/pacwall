@@ -90,16 +90,16 @@ use_wal_colors() {
     echo 'Using pywal colors:'
     # change `n` in `head -n` to use the n-th terminal color set by pywal
     # you can preview these colors in ~/.cache/wal/colors.json
-    BACKGROUND=$(echo "$(cat ~/.cache/wal/colors | head -1 | tail -1)")
-    echo "    Background:    " $BACKGROUND
-    NODE=$(echo "$(cat ~/.cache/wal/colors | head -2 | tail -1)""88")
-    echo "    Node:          " $NODE
-    ENODE=$(echo "$(cat ~/.cache/wal/colors | head -3 | tail -1)")
-    echo "    Explicit node: " $ENODE
-    ONODE=$(echo "$(cat ~/.cache/wal/colors | head -5 | tail -1)")
-    echo "    Orphan node:   " $ENODE
-    EDGE=$(echo "$(cat ~/.cache/wal/colors | head -8 | tail -1)""44")
-    echo "    Edge:          " $EDGE
+    BACKGROUND="$(head < ~/.cache/wal/colors -1 | tail -1)"
+    echo "    Background:    $BACKGROUND"
+    NODE="$(head < ~/.cache/wal/colors -2 | tail -1)88"
+    echo "    Node:          $NODE"
+    ENODE="$(head < ~/.cache/wal/colors -3 | tail -1)"
+    echo "    Explicit node: $ENODE"
+    ONODE="$(head < ~/.cache/wal/colors -5 | tail -1)"
+    echo "    Orphan node:   $ONODE"
+    EDGE="$(head < ~/.cache/wal/colors -8 | tail -1)44"
+    echo "    Edge:          $EDGE"
 }
 
 render_graph() {
@@ -147,12 +147,12 @@ set_wallpaper() {
         <wallpapers>
 	        <wallpaper deleted=\"false\">
 		           <name>pacwall${BACKGROUND}</name>
-		           <filename>"${XDGOUT}"</filename>
+		           <filename>${XDGOUT}</filename>
 	        </wallpaper>
         </wallpapers>" \
             > "${XDG_DATA_HOME}/gnome-background-properties/pacwall${BACKGROUND}.xml"
 
-        hsetroot -solid $BACKGROUND -full "${XDGOUT}" \
+        hsetroot -solid "$BACKGROUND"-full "${XDGOUT}" \
             2> /dev/null && echo 'Using hsetroot to set the wallpaper'
 
         feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${XDGOUT}" \
@@ -162,7 +162,7 @@ set_wallpaper() {
             2> /dev/null && echo 'Using gsettings to set the wallpaper'
 
     else
-        hsetroot -solid $BACKGROUND -full "${STARTDIR}/${OUTPUT}" \
+        hsetroot -solid "$BACKGROUND" -full "${STARTDIR}/${OUTPUT}" \
             2> /dev/null && echo 'Using hsetroot to set the wallpaper'
 
         feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${STARTDIR}/${OUTPUT}" \
