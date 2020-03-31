@@ -88,18 +88,18 @@ use_wal_colors() {
     fi
 
     echo 'Using pywal colors:'
-	# change `n` in `head -n` to use the n-th terminal color set by pywal
-	# you can preview these colors in ~/.cache/wal/colors.json
-	BACKGROUND=$( echo "$(cat ~/.cache/wal/colors | head -1 | tail -1)" )
-	echo "    Background:    " $BACKGROUND
-	NODE=$( echo "$(cat ~/.cache/wal/colors | head -2 | tail -1)""88" )
-	echo "    Node:          " $NODE
-	ENODE=$( echo "$(cat ~/.cache/wal/colors | head -3 | tail -1)" )
-	echo "    Explicit node: " $ENODE
-	ONODE=$( echo "$(cat ~/.cache/wal/colors | head -5 | tail -1)" )
-	echo "    Orphan node:   " $ENODE
-	EDGE=$( echo "$(cat ~/.cache/wal/colors | head -8 | tail -1)""44" )
-	echo "    Edge:          " $EDGE
+    # change `n` in `head -n` to use the n-th terminal color set by pywal
+    # you can preview these colors in ~/.cache/wal/colors.json
+    BACKGROUND=$(echo "$(cat ~/.cache/wal/colors | head -1 | tail -1)")
+    echo "    Background:    " $BACKGROUND
+    NODE=$(echo "$(cat ~/.cache/wal/colors | head -2 | tail -1)""88")
+    echo "    Node:          " $NODE
+    ENODE=$(echo "$(cat ~/.cache/wal/colors | head -3 | tail -1)")
+    echo "    Explicit node: " $ENODE
+    ONODE=$(echo "$(cat ~/.cache/wal/colors | head -5 | tail -1)")
+    echo "    Orphan node:   " $ENODE
+    EDGE=$(echo "$(cat ~/.cache/wal/colors | head -8 | tail -1)""44")
+    echo "    Edge:          " $EDGE
 }
 
 render_graph() {
@@ -120,15 +120,15 @@ render_graph() {
     if [ -n "${GSIZE}" ]; then
         twopi_args+=("-Gsize=${GSIZE}")
     fi
-    
+
     twopi "${twopi_args[@]}" > "${OUTPUT}"
 }
 
 set_wallpaper() {
     set +e
 
-    if [[ -n "$DE_INTEGRATION" ]]; then
-        if [[ -z "$SCREEN_SIZE" ]]; then
+    if [[ -n $DE_INTEGRATION ]]; then
+        if [[ -z $SCREEN_SIZE ]]; then
             SCREEN_SIZE=$(
                 xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
             )
@@ -172,29 +172,28 @@ set_wallpaper() {
     set -e
 }
 
-copy_to_xdg()
-{
-        #Copy the output to $HOME/.local/share/wallpapers as it is a standard XDG Directory
-        #This will make the wallpapers visible in KDE settings (and maybe WMs if they have a setting)
-        mkdir -p "${XDG_DATA_HOME}/wallpapers/pacwall"
-        cp "${STARTDIR}/${OUTPUT}" "${XDGOUT}"
+copy_to_xdg() {
+    #Copy the output to $HOME/.local/share/wallpapers as it is a standard XDG Directory
+    #This will make the wallpapers visible in KDE settings (and maybe WMs if they have a setting)
+    mkdir -p "${XDG_DATA_HOME}/wallpapers/pacwall"
+    cp "${STARTDIR}/${OUTPUT}" "${XDGOUT}"
 }
 
 main() {
     prepare
 
-    if [[ -n "$PYWAL_INTEGRATION" ]]; then
+    if [[ -n $PYWAL_INTEGRATION ]]; then
         use_wal_colors
     fi
 
-    if command -v apt 2&> /dev/null; then
+    if command -v apt > /dev/null; then
         echo 'Using apt to generate the graph'
         generate_graph_apt
-    elif command -v pactree 2&> /dev/null; then
+    elif command -v pactree > /dev/null; then
         echo 'Using pactree to generate the graph'
         generate_graph_pactree
     else
-        echo "Can't find pactree or debtree." >2
+        echo "Can't find pactree or debtree." > 2
         exit 1
     fi
 
@@ -204,7 +203,7 @@ main() {
 
     cp "${WORKDIR}/${OUTPUT}" "${STARTDIR}"
 
-    if [[ -z "$IMAGE_ONLY" ]]; then
+    if [[ -z $IMAGE_ONLY ]]; then
         set_wallpaper
     fi
 
@@ -234,34 +233,42 @@ help() {
         "- a color name (black, darkorange, ...)" \
         "- a value of format #RRGGBB" \
         "- a value of format #RRGGBBAA"
-        exit 0
+    exit 0
 }
 
 options='WDib:d:s:e:p:g:r:o:S:h'
-while getopts $options option
-do
+while getopts $options option; do
     case $option in
-        W  ) PYWAL_INTEGRATION=TRUE;;
-        D  ) DE_INTEGRATION=TRUE;;
-        i  ) IMAGE_ONLY=TRUE;;
-        b  ) BACKGROUND=${OPTARG};;
-        d  ) NODE=${OPTARG};;
-        e  ) ENODE=${OPTARG};;
-        p  ) ONODE=${OPTARG};;
-        s  ) EDGE=${OPTARG};;
-        g  ) GSIZE=${OPTARG};;
-        r  ) RANKSEP=${OPTARG};;
-        o  ) OUTPUT=${OPTARG};;
-        S  ) SCREEN_SIZE=${OPTARG};;
-        h  ) help;;
-        \? ) echo "Unknown option: -${OPTARG}" >&2; exit 1;;
-        :  ) echo "Missing option argument for -${OPTARG}" >&2; exit 1;;
-        *  ) echo "Unimplemented option: -${OPTARG}" >&2; exit 1;;
+        W) PYWAL_INTEGRATION=TRUE ;;
+        D) DE_INTEGRATION=TRUE ;;
+        i) IMAGE_ONLY=TRUE ;;
+        b) BACKGROUND=${OPTARG} ;;
+        d) NODE=${OPTARG} ;;
+        e) ENODE=${OPTARG} ;;
+        p) ONODE=${OPTARG} ;;
+        s) EDGE=${OPTARG} ;;
+        g) GSIZE=${OPTARG} ;;
+        r) RANKSEP=${OPTARG} ;;
+        o) OUTPUT=${OPTARG} ;;
+        S) SCREEN_SIZE=${OPTARG} ;;
+        h) help ;;
+        \?)
+            echo "Unknown option: -${OPTARG}" >&2
+            exit 1
+            ;;
+        :)
+            echo "Missing option argument for -${OPTARG}" >&2
+            exit 1
+            ;;
+        *)
+            echo "Unimplemented option: -${OPTARG}" >&2
+            exit 1
+            ;;
     esac
 done
 shift $((OPTIND - 1))
 
-if [[ -z "$XDG_DATA_HOME" ]]; then
+if [[ -z $XDG_DATA_HOME ]]; then
     XDG_DATA_HOME=~/.local/share
 fi
 XDGOUT="${XDG_DATA_HOME}/wallpapers/pacwall/pacwall${BACKGROUND}.png"
