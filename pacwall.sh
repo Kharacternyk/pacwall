@@ -88,17 +88,19 @@ use_wal_colors() {
     fi
 
     echo 'Using pywal colors:'
+
     # change `n` in `head -n` to use the n-th terminal color set by pywal
     # you can preview these colors in ~/.cache/wal/colors.json
     BACKGROUND="$(head < ~/.cache/wal/colors -1 | tail -1)"
-    echo "    Background:    $BACKGROUND"
     NODE="$(head < ~/.cache/wal/colors -2 | tail -1)88"
-    echo "    Node:          $NODE"
     ENODE="$(head < ~/.cache/wal/colors -3 | tail -1)"
-    echo "    Explicit node: $ENODE"
     ONODE="$(head < ~/.cache/wal/colors -5 | tail -1)"
-    echo "    Orphan node:   $ONODE"
     EDGE="$(head < ~/.cache/wal/colors -8 | tail -1)44"
+
+    echo "    Background:    $BACKGROUND"
+    echo "    Node:          $NODE"
+    echo "    Explicit node: $ENODE"
+    echo "    Orphan node:   $ONODE"
     echo "    Edge:          $EDGE"
 }
 
