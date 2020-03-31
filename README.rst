@@ -37,9 +37,9 @@ Wallpaper backends
 Desktop environment integration
 -------------------------------
 
-Use `-D` to enable desktop environment integration (KDE Plasma, GNOME, ...). You will be able to see the generated wallpapers in the graphical wallpaper picker.
+Use ``-D`` to enable desktop environment integration (KDE Plasma, GNOME, ...). You will be able to see the generated wallpapers in the graphical wallpaper picker.
 
-DE integration requires ``imagemagick`` and ``xorg-xdpyinfo`` (If you are on Wayland you need to specify the screen size manually like this: ``./pacwall.sh -S 1920x1200``).
+DE integration requires ``imagemagick`` and ``xorg-xdpyinfo`` (If you are on Wayland you need to specify the screen size manually like this: ``./pacwall.sh -DS 1920x1200``).
 
 **WARNING**: Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and ``hsetroot``. ``-D`` is required.
 (If you don't know your DE, it is probably GNOME)
@@ -54,7 +54,7 @@ Run ``./pacwall.sh -W`` to use colors set by pywal (1st, 2nd, 3rd and 8th color 
 Customization
 -------------
 
-Customizations can be made on the commandline, see the options with the ``-h`` flag.
+Customizations can be made on the commandline, see the options with ``./pacwall.sh -h``.
 
 .. code-block:: bash
 
@@ -83,9 +83,9 @@ Additional customizations can be performed by modifying the script itself. The c
 Troubleshooting
 ---------------
 
-If the graph is too large, use ``-r`` flag. For example, ``-r 0.3`` means that the distance between the concentric circles of the graph will be 0.3 **inch**.
+If the graph is too large, use ``-r``. For example, ``-r 0.3`` means that the distance between the concentric circles of the graph will be 0.3 **inch**.
 
-An alternative method is to use ``-g`` flag. The format should be the same as the ``twopi`` ``-Gsize`` option. ``7.5,7.5`` for example forces the graph to be not wider nor higher than 7.5 **inches**.
+An alternative method is to use ``-g``. The format should be the same as the ``twopi`` ``-Gsize`` option. ``7.5,7.5`` for example forces the graph to be not wider nor higher than 7.5 **inches**.
 
 ------------
 Contributors
