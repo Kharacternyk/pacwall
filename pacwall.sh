@@ -5,6 +5,7 @@ set -e
 BACKGROUND=darkslategray
 NODE='#dc143c88'
 ENODE=darkorange
+ONODE=darkblue
 EDGE='#ffffff44'
 RANKSEP=0.7
 GSIZE=""
@@ -25,13 +26,11 @@ cleanup() {
 }
 
 generate_graph_pactree() {
-    # Get a space-separated list of the explicitly installed packages.
-    EPKGS="$(pacman -Qeq | tr '\n' ' ')"
-    for package in ${EPKGS}
-    do
-
-        # Mark each explicitly installed package using a distinct solid color.
-        echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
+    # Get a space-separated list of the "leaves".
+    PKGS="$(pacman -Qttq | tr '\n' ' ')"
+    for package in $PKGS; do
+        # Mark each potential orphan using a distinct color.
+        echo "\"$package\" [color=\"$ONODE\"]" >> pkgcolors
 
         # Extract the list of edges from the output of pactree.
         pactree -g "$package" > "raw/$package"
@@ -44,13 +43,18 @@ generate_graph_pactree() {
             -e 's/>?=.*" ->/!" ->/' \
             -e 's/>?=.*"/!"/' \
             "raw/$package" > "stripped/$package"
+    done
 
+    EPKGS="$(pacman -Qeq | tr '\n' ' ')"
+    for package in $EPKGS; do
+        # Mark each explicitly installed package using a distinct color.
+        echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
     done
 }
 
 generate_graph_apt() {
-    EPKGS="$(apt list --installed 2> /dev/null | sed -e 's/\/.*$//' | tr '\n' ' ')"
-    apt-cache dotty $EPKGS > raw/packages
+    PKGS="$(apt list --installed 2> /dev/null | sed -e 's/\/.*$//' | tr '\n' ' ')"
+    apt-cache dotty $PKGS > raw/packages
     sed -E \
         -e '/^[^"]/d' \
         -e '/\[shape/d' \
@@ -59,13 +63,12 @@ generate_graph_apt() {
         "raw/packages" > "stripped/packages"
 
     EPKGS="$(apt-mark showmanual | tr '\n' ' ')"
-    for package in $EPKGS
-    do
-        # Mark each explicitly installed package using a distinct solid color.
+    for package in $EPKGS; do
+        # Mark each explicitly installed package using a distinct color.
         echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
     done
 
-    EPKGS=packages
+    PKGS=packages
 }
 
 compile_graph() {
@@ -73,7 +76,7 @@ compile_graph() {
     # The graph is directed and strict (doesn't contain any edge duplicates).
     cd stripped
     echo 'strict digraph G {' > ../pacwall.gv
-    cat ../pkgcolors ${EPKGS} >> ../pacwall.gv
+    cat ../pkgcolors ${PKGS} >> ../pacwall.gv
     echo '}' >> ../pacwall.gv
     cd ..
 }
