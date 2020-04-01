@@ -114,7 +114,7 @@ Contributors
 ------------
 
 * `Nazar Vinnichuk`_: the original author and maintainer;
-* `PitcherTear2201`_: integration with GNOME and other DEs, first ever rice_ with pacwall;
+* `PitcherTear`_: integration with GNOME and other DEs, first ever rice_ with pacwall;
 * `John Ramsden`_: PKGBUILD, cmdopts parsing, general code quality;
 * `Luca Leon Happel`_: pywal integration, ``hsetroot`` backend;
 * `Ruijie Yu`_: PKGBUILD;
@@ -130,7 +130,7 @@ Similar software
 .. LINKS:
 .. _AUR package: https://aur.archlinux.org/packages/pacwall-git/
 .. _Nazar Vinnichuk: https://github.com/Kharacternyk
-.. _ChiDal: https://github.com/ChiDal
+.. _PitcherTear22: https://github.com/PitcherTear22
 .. _John Ramsden: https://github.com/johnramsden
 .. _Luca Leon Happel: https://github.com/Quoteme
 .. _Ruijie Yu: https://github.com/RuijieYu
