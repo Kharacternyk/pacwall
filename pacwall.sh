@@ -27,7 +27,7 @@ cleanup() {
 
 generate_graph_pactree() {
     # Get a space-separated list of the "leaves".
-    PKGS="$(pacman -Qttq | tr '\n' ' ')"
+    PKGS="$(pacman -Qttq)"
     for package in $PKGS; do
         # Mark each potential orphan using a distinct color.
         echo "\"$package\" [color=\"$ONODE\"]" >> pkgcolors
@@ -45,7 +45,7 @@ generate_graph_pactree() {
             "raw/$package" > "stripped/$package"
     done
 
-    EPKGS="$(pacman -Qeq | tr '\n' ' ')"
+    EPKGS="$(pacman -Qeq)"
     for package in $EPKGS; do
         # Mark each explicitly installed package using a distinct color.
         echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
@@ -53,7 +53,7 @@ generate_graph_pactree() {
 }
 
 generate_graph_apt() {
-    PKGS="$(apt list --installed 2> /dev/null | sed -e 's/\/.*$//' | tr '\n' ' ')"
+    PKGS="$(apt list --installed 2> /dev/null | sed -e 's/\/.*$//')"
     apt-cache dotty $PKGS > raw/packages
     sed -E \
         -e '/^[^"]/d' \
@@ -62,7 +62,7 @@ generate_graph_apt() {
         -e 's/\[.*\]//' \
         "raw/packages" > "stripped/packages"
 
-    EPKGS="$(apt-mark showmanual | tr '\n' ' ')"
+    EPKGS="$(apt-mark showmanual)"
     for package in $EPKGS; do
         # Mark each explicitly installed package using a distinct color.
         echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
