@@ -6,6 +6,7 @@ BACKGROUND=darkslategray
 NODE='#dc143c88'
 ENODE=darkorange
 ONODE=darkblue
+FNODE='#1793d1'
 EDGE='#ffffff44'
 RANKSEP=0.7
 GSIZE=""
@@ -49,6 +50,12 @@ generate_graph_pactree() {
     for package in $EPKGS; do
         # Mark each explicitly installed package using a distinct color.
         echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
+    done
+
+    FPKGS="$(pacman -Qmq)"
+    for package in $FPKGS; do
+        # Mark each foreign package (AUR, etc) using a distinct color
+        echo "\"$package\" [color=\"$FNODE\"]" >> pkgcolors
     done
 }
 
