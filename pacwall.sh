@@ -5,7 +5,7 @@ set -e
 BACKGROUND=darkslategray
 NODE='#dc143c88'
 ENODE=darkorange
-ONODE=darkblue
+ONODE=magenta
 FNODE='#1793d1'
 EDGE='#ffffff44'
 RANKSEP=0.7
@@ -101,7 +101,7 @@ use_wal_colors() {
     BACKGROUND="$(head < ~/.cache/wal/colors -1 | tail -1)"
     NODE="$(head < ~/.cache/wal/colors -2 | tail -1)88"
     ENODE="$(head < ~/.cache/wal/colors -3 | tail -1)"
-    ONODE="$(head < ~/.cache/wal/colors -5 | tail -1)"
+    ONODE="$(head < ~/.cache/wal/colors -6 | tail -1)"
     FNODE="$(head < ~/.cache/wal/colors -7 | tail -1)"
     EDGE="$(head < ~/.cache/wal/colors -8 | tail -1)44"
 
