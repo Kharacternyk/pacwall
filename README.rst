@@ -13,17 +13,17 @@ An `AUR package`_ is available.
 Highlighting
 ------------
 
-* Packages
+* *Packages*
 
-  * normal: translucent red
-  * explicitly installed: solid orange
-  * orphans: solid blue (*applies only to Arch*)
-  * foreigh (from AUR, etc): solid "Arch" blue (*applies only to Arch*)
+  * *Normal*: translucent red
+  * *Explicitly installed*: solid orange
+  * *Orphans*: solid blue (*applies only to Arch*)
+  * *Foreigh* (from AUR, etc): solid "Arch" blue (*applies only to Arch*)
 
-* Dependencies
+* *Dependencies*
 
-  * **A** depends on **B**: an arrow that points towards **B**
-  * **A** provides **B**: an inverted arrow that points towards **B**
+  * **A** *depends on* **B**: an arrow that points towards **B**
+  * **A** *provides* **B**: an inverted arrow that points towards **B**
     (*applies only to Arch*)
 
 ------------
