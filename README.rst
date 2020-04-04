@@ -2,17 +2,27 @@
 
 ``pacwall.sh`` is a shell script that changes your wallpaper to the dependency
 graph of installed packages. Each package is a node and each edge indicates a
-dependency between two packages. The explicitly installed packages have a
-distinct color (orange by default). The packages that are not explicitly
-installed and not directly required by any other package ("orphans") have a
-distinct color, too (blue by default, *applies only to Arch*). The dependencies
-of type *X provides Y* are represented as an edge with an inverted arrow that
-points towards *Y* (*applies only to Arch*).
+dependency between two packages.
 
 An `AUR package`_ is available.
 
 .. contents:: Navigation:
    :backlinks: none
+
+------------
+Highlighting
+------------
+
+* Packages:
+  * normal: translucent red
+  * explicitly installed: solid orange
+  * orphans: solid blue (*applies only to Arch*)
+  * foreigh (from AUR, etc): solid "Arch" blue (*applies only to Arch*)
+
+* Dependencies:
+  * **A** depends on **B**: an arrow that points towards **B**
+  * **A** provides **B**: an inverted arrow that points towards **B**
+    (*applies only to Arch*)
 
 ------------
 Requirements
