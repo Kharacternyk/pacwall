@@ -102,12 +102,14 @@ use_wal_colors() {
     NODE="$(head < ~/.cache/wal/colors -2 | tail -1)88"
     ENODE="$(head < ~/.cache/wal/colors -3 | tail -1)"
     ONODE="$(head < ~/.cache/wal/colors -5 | tail -1)"
+    FNODE="$(head < ~/.cache/wal/colors -7 | tail -1)"
     EDGE="$(head < ~/.cache/wal/colors -8 | tail -1)44"
 
     echo "    Background:    $BACKGROUND"
     echo "    Node:          $NODE"
     echo "    Explicit node: $ENODE"
     echo "    Orphan node:   $ONODE"
+    echo "    Foreign node:  $FNODE"
     echo "    Edge:          $EDGE"
 }
 
@@ -223,13 +225,14 @@ main() {
 
 help() {
     printf \
-        "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
+        "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
         "USAGE: $0" \
         "[ -iDW ]" \
         "[ -b BACKGROUND ]" \
         "[ -d NODE_COLOR ]" \
         "[ -e EXPLICIT_NODE_COLOR ]" \
         "[ -p ORPHAN_NODE_COLOR ]" \
+        "[ -f FOREIGN_NODE_COLOR ]" \
         "[ -s EDGE_COLOR ]" \
         "[ -g GSIZE ]" \
         "[ -r RANKSEP ]" \
@@ -245,7 +248,7 @@ help() {
     exit 0
 }
 
-options='WDib:d:s:e:p:g:r:o:S:h'
+options='WDib:d:s:e:p:g:r:o:f:S:h'
 while getopts $options option; do
     case $option in
         W) PYWAL_INTEGRATION=TRUE ;;
@@ -255,6 +258,7 @@ while getopts $options option; do
         d) NODE=${OPTARG} ;;
         e) ENODE=${OPTARG} ;;
         p) ONODE=${OPTARG} ;;
+        f) FNODE=${OPTARG} ;;
         s) EDGE=${OPTARG} ;;
         g) GSIZE=${OPTARG} ;;
         r) RANKSEP=${OPTARG} ;;

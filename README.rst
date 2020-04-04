@@ -72,8 +72,7 @@ Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and
 Pywal integration
 -----------------
 
-Run ``./pacwall.sh -W`` to use colors set by pywal
-(1st, 2nd, 3rd, 5th and 8th color to be exact).
+Run ``./pacwall.sh -W`` to use colors set by pywal.
 
 -------------
 Customization
@@ -90,6 +89,7 @@ Customizations can be made on the commandline, see the options with
             [ -d NODE_COLOR ]
             [ -e EXPLICIT_NODE_COLOR ]
             [ -p ORPHAN_NODE_COLOR ]
+            [ -f FOREIGN_NODE_COLOR ]
             [ -s EDGE_COLOR ]
             [ -g GSIZE ]
             [ -r RANKSEP ]
