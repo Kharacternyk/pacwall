@@ -13,14 +13,14 @@ An `AUR package`_ is available.
 Highlighting
 ------------
 
-* *Packages*
+* Packages
 
   * *Normal*: translucent red
   * *Explicitly installed*: solid orange
   * *Orphans*: solid magenta (*applies only to Arch*)
   * *Foreign* (from AUR, etc): solid "Arch" blue (*applies only to Arch*)
 
-* *Dependencies*
+* Dependencies
 
   * **A** *depends on* **B**: an arrow that points towards **B**
   * **A** *provides* **B**: an inverted arrow that points towards **B**
@@ -72,7 +72,10 @@ Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and
 Pywal integration
 -----------------
 
+.. image:: screenshot_monokai.png
+
 Run ``./pacwall.sh -W`` to use colors set by pywal.
+The image above shows monokai pywal theme.
 
 -------------
 Customization
