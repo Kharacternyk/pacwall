@@ -18,7 +18,7 @@ Highlighting
   * *Normal*: translucent red
   * *Explicitly installed*: solid orange
   * *Orphans*: solid blue (*applies only to Arch*)
-  * *Foreigh* (from AUR, etc): solid "Arch" blue (*applies only to Arch*)
+  * *Foreign* (from AUR, etc): solid "Arch" blue (*applies only to Arch*)
 
 * *Dependencies*
 
