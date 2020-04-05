@@ -8,12 +8,11 @@ ENODE=darkorange
 ONODE=magenta
 FNODE='#1793d1'
 EDGE='#ffffff44'
+ROOT=""
 RANKSEP=0.7
 GSIZE=""
-
 OUTPUT="pacwall.png"
 STARTDIR="${PWD}"
-WORKDIR=""
 
 prepare() {
     WORKDIR="$(mktemp -d)"
@@ -128,9 +127,8 @@ render_graph() {
     )
 
     # Optional arguments
-    if [ -n "${GSIZE}" ]; then
-        twopi_args+=("-Gsize=${GSIZE}")
-    fi
+    [[ -n $GSIZE ]] && twopi_args+=("-Gsize=${GSIZE}")
+    [[ -n $ROOT ]] && twopi_args+=("-Groot=${ROOT}")
 
     twopi "${twopi_args[@]}" > "${OUTPUT}"
 }
@@ -232,6 +230,7 @@ help() {
         [ -p ORPHAN_NODE_COLOR ]
         [ -f FOREIGN_NODE_COLOR ]
         [ -s EDGE_COLOR ]
+        [ -c ROOT ]
         [ -r RANKSEP ]
         [ -g GSIZE ]
         [ -o OUTPUT ]
@@ -246,6 +245,7 @@ help() {
         - a value of format #RRGGBB
         - a value of format #RRGGBBAA
 
+        ROOT is the package that will be put in the center of the graph.
         RANKSEP is the distance in **inches** between the concentric circles.
         GSIZE is deprecated, you probably want to set RANKSEP instead.
         OUTPUT is the relative to CWD path of the generated image.
@@ -254,7 +254,7 @@ help() {
     exit 0
 }
 
-options='WDib:d:s:e:p:g:r:o:f:S:h'
+options='WDib:d:s:e:p:g:r:c:o:f:S:h'
 while getopts $options option; do
     case $option in
         W) PYWAL_INTEGRATION=TRUE ;;
@@ -266,8 +266,9 @@ while getopts $options option; do
         p) ONODE=${OPTARG} ;;
         f) FNODE=${OPTARG} ;;
         s) EDGE=${OPTARG} ;;
-        g) GSIZE=${OPTARG} ;;
+        c) ROOT=${OPTARG} ;;
         r) RANKSEP=${OPTARG} ;;
+        g) GSIZE=${OPTARG} ;;
         o) OUTPUT=${OPTARG} ;;
         S) SCREEN_SIZE=${OPTARG} ;;
         h) help ;;

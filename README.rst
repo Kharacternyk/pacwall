@@ -94,6 +94,7 @@ Customizations can be made on the commandline, see the options with
             [ -p ORPHAN_NODE_COLOR ]
             [ -f FOREIGN_NODE_COLOR ]
             [ -s EDGE_COLOR ]
+            [ -c ROOT ]
             [ -r RANKSEP ]
             [ -g GSIZE ]
             [ -o OUTPUT ]
@@ -108,6 +109,7 @@ Customizations can be made on the commandline, see the options with
             - a value of format #RRGGBB
             - a value of format #RRGGBBAA
 
+            ROOT is the package that will be put in the center of the graph.
             RANKSEP is the distance in **inches** between the concentric circles.
             GSIZE is deprecated, you probably want to set RANKSEP instead.
             OUTPUT is the relative to CWD path of the generated image.
