@@ -224,27 +224,33 @@ main() {
 }
 
 help() {
-    printf \
-        "%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s\n" \
-        "USAGE: $0" \
-        "[ -iDW ]" \
-        "[ -b BACKGROUND ]" \
-        "[ -d NODE_COLOR ]" \
-        "[ -e EXPLICIT_NODE_COLOR ]" \
-        "[ -p ORPHAN_NODE_COLOR ]" \
-        "[ -f FOREIGN_NODE_COLOR ]" \
-        "[ -s EDGE_COLOR ]" \
-        "[ -g GSIZE ]" \
-        "[ -r RANKSEP ]" \
-        "[ -o OUTPUT ]" \
-        "[ -S SCREEN_SIZE ]" \
-        "Use -W to enable pywal integration. " \
-        "Use -D to enable integration with desktop environments." \
-        "Use -i to suppress wallpaper setting." \
-        "All colors may be specified either as " \
-        "- a color name (black, darkorange, ...)" \
-        "- a value of format #RRGGBB" \
-        "- a value of format #RRGGBBAA"
+    echo "USAGE: $0
+        [ -iDW ]
+        [ -b BACKGROUND_COLOR ]
+        [ -d NODE_COLOR ]
+        [ -e EXPLICIT_NODE_COLOR ]
+        [ -p ORPHAN_NODE_COLOR ]
+        [ -f FOREIGN_NODE_COLOR ]
+        [ -s EDGE_COLOR ]
+        [ -r RANKSEP ]
+        [ -g GSIZE ]
+        [ -o OUTPUT ]
+        [ -S SCREEN_SIZE ]
+
+        Use -i to suppress wallpaper setting.
+        Use -D to enable integration with desktop environments.
+        Use -W to enable pywal integration.
+
+        All colors may be specified either as
+        - a color name (black, darkorange, ...)
+        - a value of format #RRGGBB
+        - a value of format #RRGGBBAA
+
+        RANKSEP is the distance in **inches** between the concentric circles.
+        GSIZE is deprecated, you probably want to set RANKSEP instead.
+        OUTPUT is the relative to CWD path of the generated image.
+        SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland."
+
     exit 0
 }
 

@@ -84,28 +84,34 @@ Customization
 Customizations can be made on the commandline, see the options with
 ``./pacwall.sh -h``.
 
-.. code-block:: bash
+.. code-block::
 
     USAGE: pacwall.sh
             [ -iDW ]
-            [ -b BACKGROUND ]
+            [ -b BACKGROUND_COLOR ]
             [ -d NODE_COLOR ]
             [ -e EXPLICIT_NODE_COLOR ]
             [ -p ORPHAN_NODE_COLOR ]
             [ -f FOREIGN_NODE_COLOR ]
             [ -s EDGE_COLOR ]
-            [ -g GSIZE ]
             [ -r RANKSEP ]
+            [ -g GSIZE ]
             [ -o OUTPUT ]
             [ -S SCREEN_SIZE ]
 
-            Use -W to enable pywal integration.
-            Use -D to enable integration with desktop environments.
             Use -i to suppress wallpaper setting.
+            Use -D to enable integration with desktop environments.
+            Use -W to enable pywal integration.
+
             All colors may be specified either as
             - a color name (black, darkorange, ...)
             - a value of format #RRGGBB
             - a value of format #RRGGBBAA
+
+            RANKSEP is the distance in **inches** between the concentric circles.
+            GSIZE is deprecated, you probably want to set RANKSEP instead.
+            OUTPUT is the relative to CWD path of the generated image.
+            SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland."
 
 Additional customizations can be performed by modifying the script itself.
 The code in the script is well-structured (should be).
