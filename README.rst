@@ -113,7 +113,7 @@ Customizations can be made on the commandline, see the options with
             RANKSEP is the distance in **inches** between the concentric circles.
             GSIZE is deprecated, you probably want to set RANKSEP instead.
             OUTPUT is the relative to CWD path of the generated image.
-            SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland."
+            SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
 
 Additional customizations can be performed by modifying the script itself.
 The code in the script is well-structured (should be).
