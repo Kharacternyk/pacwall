@@ -25,13 +25,21 @@ cleanup() {
     cd "${STARTDIR}" && rm -rf "${WORKDIR}"
 }
 
+mark_pkgs() {
+    PACMAN_FLAGS=$1
+    COLOR=$2
+    set +e
+    _PKGS="$(pacman -Qq$PACMAN_FLAGS)"
+    set -e
+    for _PKG in $_PKGS; do
+        echo "\"$_PKG\" [color=\"$COLOR\"]" >> pkgcolors
+    done
+}
+
 generate_graph_pactree() {
     # Get a space-separated list of the "leaves".
     PKGS="$(pacman -Qttq)"
     for package in $PKGS; do
-        # Mark each potential orphan using a distinct color.
-        echo "\"$package\" [color=\"$ONODE\"]" >> pkgcolors
-
         # Extract the list of edges from the output of pactree.
         pactree -g "$package" > "raw/$package"
         sed -E \
@@ -45,17 +53,28 @@ generate_graph_pactree() {
             "raw/$package" > "stripped/$package"
     done
 
-    EPKGS="$(pacman -Qeq)"
-    for package in $EPKGS; do
-        # Mark each explicitly installed package using a distinct color.
-        echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
+    mark_pkgs "" $NODE
+
+    for arg in "$@"; do
+        if [[ $arg =~ ^(.+):(.+)$ ]]; then
+            REPOS="${BASH_REMATCH[1]}"
+            COLOR="${BASH_REMATCH[2]}"
+            RPKGS="$(paclist $REPOS | sed -e 's/ .*$//')"
+            for package in $RPKGS; do
+                # Mark each package from REPOS using a distinct color.
+                echo "\"$package\" [color=\"$COLOR\"]" >> pkgcolors
+            done
+        fi
     done
 
-    FPKGS="$(pacman -Qmq)"
-    for package in $FPKGS; do
-        # Mark each foreign package (AUR, etc) using a distinct color
-        echo "\"$package\" [color=\"$FNODE\"]" >> pkgcolors
-    done
+    # Mark each potential orphan using a distinct color.
+    mark_pkgs ttd $ONODE
+
+    # Mark each explicitly installed package using a distinct color.
+    mark_pkgs e $ENODE
+
+    # Mark each foreign package (AUR, etc) using a distinct color.
+    mark_pkgs m $FNODE
 }
 
 generate_graph_apt() {
@@ -200,7 +219,7 @@ main() {
         generate_graph_apt
     elif command -v pactree > /dev/null; then
         echo 'Using pactree to generate the graph'
-        generate_graph_pactree
+        generate_graph_pactree "$@"
     else
         echo "Can't find pactree or debtree." >&2
         exit 1
@@ -293,4 +312,4 @@ if [[ -z $XDG_DATA_HOME ]]; then
 fi
 XDGOUT="${XDG_DATA_HOME}/wallpapers/pacwall/pacwall${BACKGROUND}.png"
 
-main
+main "$@"
