@@ -254,6 +254,7 @@ help() {
         [ -g GSIZE ]
         [ -o OUTPUT ]
         [ -S SCREEN_SIZE ]
+        [ REPO:COLOR ... ]
 
         Use -i to suppress wallpaper setting.
         Use -D to enable integration with desktop environments.
@@ -268,7 +269,10 @@ help() {
         RANKSEP is the distance in **inches** between the concentric circles.
         GSIZE is deprecated, you probably want to set RANKSEP instead.
         OUTPUT is the relative to CWD path of the generated image.
-        SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland."
+        SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
+
+        Specifying one or more REPO:COLOR changes the default highlight color for
+        packages from REPO to COLOR. Example: $0 core:green community:red"
 
     exit 0
 }

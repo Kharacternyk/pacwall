@@ -86,7 +86,7 @@ Customizations can be made on the commandline, see the options with
 
 .. code-block::
 
-    USAGE: pacwall.sh
+    USAGE: pacwall
             [ -iDW ]
             [ -b BACKGROUND_COLOR ]
             [ -d NODE_COLOR ]
@@ -99,6 +99,7 @@ Customizations can be made on the commandline, see the options with
             [ -g GSIZE ]
             [ -o OUTPUT ]
             [ -S SCREEN_SIZE ]
+            [ REPO:COLOR ... ]
 
             Use -i to suppress wallpaper setting.
             Use -D to enable integration with desktop environments.
@@ -114,6 +115,9 @@ Customizations can be made on the commandline, see the options with
             GSIZE is deprecated, you probably want to set RANKSEP instead.
             OUTPUT is the relative to CWD path of the generated image.
             SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
+
+            Specifying one or more REPO:COLOR changes the default highlight color for
+            packages from REPO to COLOR. Example: pacwall core:green community:red
 
 Additional customizations can be performed by modifying the script itself.
 The code in the script is well-structured (should be).
