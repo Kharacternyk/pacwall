@@ -13,6 +13,8 @@ RANKSEP=0.7
 GSIZE=""
 ADMIN_MODE=
 
+declare -a prev_args=()
+
 OUTPUT="pacwall.png"
 STARTDIR="${PWD}"
 
@@ -216,13 +218,28 @@ _logname() (
 )
 
 admin_mode() {
-    # nonempty ADMIN_MODE variable
-    if [[ -n "$ADMIN_MODE" ]]; then
-        # first restore the arguments
+    # recover all arguments given so far
+    # include fields using their current value
+    prev_args+=(
+        -b "$BACKGROUND"
+        -d "$NODE"
+        -e "$ENODE"
+        -p "$ONODE"
+        -f "$FNODE"
+        -s "$EDGE"
+        -c "$RANKSEP"
+        -g "$GSIZE"
+        -o "$OUTPUT"
+        -S "$SCREEN_SIZE"
+    )
+    # optional switches
+    [[ -n $PYWAL_INTEGRATION ]] && prev_args+=(-W)
+    [[ -n $DE_INTEGRATION ]] && prev_args+=(-D)
+    [[ -n $IMAGE_ONLY ]] && prev_args+=(-i)
 
-        # then execute using sudo
-        exec sudo -U "$(_logname)"
-    fi
+    # then execute using sudo
+    exec sudo -u "$(_logname)" "$0" "${prev_args[@]}"
+    exit -1
 }
 
 main() {
@@ -298,7 +315,7 @@ help() {
 options='aWDib:d:s:e:p:g:r:c:o:f:S:h'
 while getopts $options option; do
     case $option in
-        a) ADMIN_MODE=TRUE;;
+        a) ADMIN_MODE=TRUE ;;
         W) PYWAL_INTEGRATION=TRUE ;;
         D) DE_INTEGRATION=TRUE ;;
         i) IMAGE_ONLY=TRUE ;;
@@ -331,6 +348,8 @@ done
 shift $((OPTIND - 1))
 
 # if sudo mode is on, use sudo to execute on behalf of the corresponding login user
+[[ -n $ADMIN_MODE ]] && admin_mode
+
 if [[ -z $XDG_DATA_HOME ]]; then
     XDG_DATA_HOME=~/.local/share
 fi
