@@ -56,7 +56,11 @@ generate_graph_pactree() {
     mark_pkgs "" $NODE
 
     for arg in "$@"; do
-        if [[ $arg =~ ^(.+)::(.+)$ ]]; then
+        if [[ $arg =~ ^(.+):::(.+)$ ]]; then
+            package="${BASH_REMATCH[1]}"
+            COLOR="${BASH_REMATCH[2]}"
+            echo "\"$package\" [color=\"$COLOR\"]" >> pkgcolors
+        elif [[ $arg =~ ^(.+)::(.+)$ ]]; then
             GROUP="${BASH_REMATCH[1]}"
             COLOR="${BASH_REMATCH[2]}"
             RPKGS="$(pacman -Qqg $GROUP)"
