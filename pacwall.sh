@@ -55,6 +55,15 @@ generate_graph_pactree() {
 
     mark_pkgs "" $NODE
 
+    # Mark each potential orphan using a distinct color.
+    mark_pkgs ttd $ONODE
+
+    # Mark each explicitly installed package using a distinct color.
+    mark_pkgs e $ENODE
+
+    # Mark each foreign package (AUR, etc) using a distinct color.
+    mark_pkgs m $FNODE
+
     for arg in "$@"; do
         if [[ $arg =~ ^(.+):::(.+)$ ]]; then
             package="${BASH_REMATCH[1]}"
@@ -78,15 +87,6 @@ generate_graph_pactree() {
             done
         fi
     done
-
-    # Mark each potential orphan using a distinct color.
-    mark_pkgs ttd $ONODE
-
-    # Mark each explicitly installed package using a distinct color.
-    mark_pkgs e $ENODE
-
-    # Mark each foreign package (AUR, etc) using a distinct color.
-    mark_pkgs m $FNODE
 }
 
 generate_graph_apt() {
