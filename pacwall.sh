@@ -267,6 +267,8 @@ help() {
         [ -o OUTPUT ]
         [ -S SCREEN_SIZE ]
         [ REPO:COLOR ... ]
+        [ GROUP%COLOR ... ]
+        [ PACKAGE@COLOR ... ]
 
         Use -i to suppress wallpaper setting.
         Use -D to enable integration with desktop environments.
@@ -283,8 +285,10 @@ help() {
         OUTPUT is the relative to CWD path of the generated image.
         SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
 
-        Specifying one or more REPO:COLOR changes the default highlight color for
-        packages from REPO to COLOR. Example: $0 core:green community:red"
+        REPO:COLOR overrides the highlight color for packages from REPO to COLOR.
+        GROUP%COLOR overrides the highlight color for packages from GROUP to COLOR.
+        PACKAGE@COLOR overrides the highlight color for PACKAGE to COLOR.
+        "
 
     exit 0
 }
