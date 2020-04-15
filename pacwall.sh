@@ -134,6 +134,7 @@ use_wal_colors() {
     ENODE="$(head < ~/.cache/wal/colors -3 | tail -1)"
     ONODE="$(head < ~/.cache/wal/colors -6 | tail -1)"
     FNODE="$(head < ~/.cache/wal/colors -7 | tail -1)"
+    VNODE="$(head < ~/.cache/wal/colors -5 | tail -1)"
     EDGE="$(head < ~/.cache/wal/colors -8 | tail -1)44"
 
     echo "    Background:    $BACKGROUND"
@@ -141,6 +142,7 @@ use_wal_colors() {
     echo "    Explicit node: $ENODE"
     echo "    Orphan node:   $ONODE"
     echo "    Foreign node:  $FNODE"
+    echo "    Virtual node:  $VNODE"
     echo "    Edge:          $EDGE"
 }
 
@@ -294,7 +296,7 @@ help() {
     exit 0
 }
 
-options='WDib:d:s:e:p:g:r:c:o:f:S:h'
+options='WDib:d:s:e:p:g:r:c:o:f:y:S:h'
 while getopts $options option; do
     case $option in
         W) PYWAL_INTEGRATION=TRUE ;;
@@ -305,6 +307,7 @@ while getopts $options option; do
         e) ENODE=${OPTARG} ;;
         p) ONODE=${OPTARG} ;;
         f) FNODE=${OPTARG} ;;
+        y) VNODE=${OPTARG} ;;
         s) EDGE=${OPTARG} ;;
         c) ROOT=${OPTARG} ;;
         r) RANKSEP=${OPTARG} ;;
