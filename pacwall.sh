@@ -263,6 +263,7 @@ help() {
         [ -e EXPLICIT_NODE_COLOR ]
         [ -p ORPHAN_NODE_COLOR ]
         [ -f FOREIGN_NODE_COLOR ]
+        [ -y VIRTUAL_NODE_COLOR ]
         [ -s EDGE_COLOR ]
         [ -c ROOT ]
         [ -r RANKSEP ]

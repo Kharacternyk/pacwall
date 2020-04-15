@@ -19,11 +19,13 @@ Highlighting
   * *Explicitly installed*: solid orange
   * *Orphans*: solid magenta (*applies only to Arch*)
   * *Foreign* (from AUR, etc): solid "Arch" blue (*applies only to Arch*)
+  * *Virtual* (see below): transparent violet (*applies only to Arch*)
 
 * Dependencies
 
   * **A** *depends on* **B**: an arrow that points towards **B**
-  * **A** *provides* **B**: an inverted arrow that points towards **B**
+  * **A** *provides* **B** (**B** is a *virtual* package):
+    an inverted arrow that points towards **B**
     (*applies only to Arch*)
 
 ------------
@@ -93,6 +95,7 @@ Customizations can be made on the commandline, see the options with
             [ -e EXPLICIT_NODE_COLOR ]
             [ -p ORPHAN_NODE_COLOR ]
             [ -f FOREIGN_NODE_COLOR ]
+            [ -y VIRTUAL_NODE_COLOR ]
             [ -s EDGE_COLOR ]
             [ -c ROOT ]
             [ -r RANKSEP ]
