@@ -134,7 +134,7 @@ use_wal_colors() {
     ENODE="$(head < ~/.cache/wal/colors -3 | tail -1)"
     ONODE="$(head < ~/.cache/wal/colors -6 | tail -1)"
     FNODE="$(head < ~/.cache/wal/colors -7 | tail -1)"
-    VNODE="$(head < ~/.cache/wal/colors -5 | tail -1)"
+    VNODE="$(head < ~/.cache/wal/colors -5 | tail -1)88"
     EDGE="$(head < ~/.cache/wal/colors -8 | tail -1)44"
 
     echo "    Background:    $BACKGROUND"
