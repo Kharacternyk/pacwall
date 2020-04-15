@@ -4,6 +4,7 @@ set -e
 # Default values.
 BACKGROUND=darkslategray
 NODE='#dc143c88'
+VNODE='#9400d388'
 ENODE=darkorange
 ONODE=magenta
 FNODE='#1793d1'
@@ -150,7 +151,7 @@ render_graph() {
         "-Gbgcolor=${BACKGROUND}"
         "-Granksep=${RANKSEP}"
         "-Ecolor=${EDGE}"
-        "-Ncolor=${NODE}"
+        "-Ncolor=${VNODE}"
         '-Nshape=point'
         '-Nheight=0.1'
         '-Nwidth=0.1'
