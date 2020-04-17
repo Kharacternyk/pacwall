@@ -12,6 +12,10 @@ EDGE='#ffffff44'
 ROOT=""
 RANKSEP=0.7
 GSIZE=""
+ADMIN_MODE=
+
+declare -a prev_args=()
+
 OUTPUT="pacwall.png"
 STARTDIR="${PWD}"
 
@@ -222,6 +226,37 @@ copy_to_xdg() {
     cp "${STARTDIR}/${OUTPUT}" "${XDGOUT}"
 }
 
+_logname() (
+    # I remember there is an alternative way of obtaining the login username
+    # but cannot recall what it is called
+    logname "$@" || false
+)
+
+admin_mode() {
+    # recover all arguments given so far
+    # include fields using their current value
+    prev_args+=(
+        -b "$BACKGROUND"
+        -d "$NODE"
+        -e "$ENODE"
+        -p "$ONODE"
+        -f "$FNODE"
+        -s "$EDGE"
+        -c "$RANKSEP"
+        -g "$GSIZE"
+        -o "$OUTPUT"
+        -S "$SCREEN_SIZE"
+    )
+    # optional switches
+    [[ -n $PYWAL_INTEGRATION ]] && prev_args+=(-W)
+    [[ -n $DE_INTEGRATION ]] && prev_args+=(-D)
+    [[ -n $IMAGE_ONLY ]] && prev_args+=(-i)
+
+    # then execute using sudo
+    exec sudo -u "$(_logname)" "$0" "${prev_args[@]}"
+    exit -1
+}
+
 main() {
     prepare
 
@@ -297,9 +332,10 @@ help() {
     exit 0
 }
 
-options='WDib:d:s:e:p:g:r:c:o:f:y:S:h'
+options='aWDib:d:s:e:p:g:r:c:o:f:y:S:h'
 while getopts $options option; do
     case $option in
+        a) ADMIN_MODE=TRUE ;;
         W) PYWAL_INTEGRATION=TRUE ;;
         D) DE_INTEGRATION=TRUE ;;
         i) IMAGE_ONLY=TRUE ;;
@@ -331,6 +367,9 @@ while getopts $options option; do
     esac
 done
 shift $((OPTIND - 1))
+
+# if sudo mode is on, use sudo to execute on behalf of the corresponding login user
+[[ -n $ADMIN_MODE ]] && admin_mode
 
 if [[ -z $XDG_DATA_HOME ]]; then
     XDG_DATA_HOME=~/.local/share
