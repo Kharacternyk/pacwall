@@ -4,6 +4,7 @@ set -e
 # Default values.
 BACKGROUND=darkslategray
 NODE='#dc143c88'
+VNODE='#9400d388'
 ENODE=darkorange
 ONODE=magenta
 FNODE='#1793d1'
@@ -59,8 +60,29 @@ generate_graph_pactree() {
 
     mark_pkgs "" $NODE
 
+    # Mark each potential orphan using a distinct color.
+    mark_pkgs ttd $ONODE
+
+    # Mark each explicitly installed package using a distinct color.
+    mark_pkgs e $ENODE
+
+    # Mark each foreign package (AUR, etc) using a distinct color.
+    mark_pkgs m $FNODE
+
     for arg in "$@"; do
-        if [[ $arg =~ ^(.+):(.+)$ ]]; then
+        if [[ $arg =~ ^(.+)@(.+)$ ]]; then
+            package="${BASH_REMATCH[1]}"
+            COLOR="${BASH_REMATCH[2]}"
+            echo "\"$package\" [color=\"$COLOR\"]" >> pkgcolors
+        elif [[ $arg =~ ^(.+)%(.+)$ ]]; then
+            GROUP="${BASH_REMATCH[1]}"
+            COLOR="${BASH_REMATCH[2]}"
+            RPKGS="$(pacman -Qqg $GROUP)"
+            for package in $RPKGS; do
+                # Mark each package from in GROUP using a distinct color.
+                echo "\"$package\" [color=\"$COLOR\"]" >> pkgcolors
+            done
+        elif [[ $arg =~ ^(.+):(.+)$ ]]; then
             REPOS="${BASH_REMATCH[1]}"
             COLOR="${BASH_REMATCH[2]}"
             RPKGS="$(paclist $REPOS | sed -e 's/ .*$//')"
@@ -70,15 +92,6 @@ generate_graph_pactree() {
             done
         fi
     done
-
-    # Mark each potential orphan using a distinct color.
-    mark_pkgs ttd $ONODE
-
-    # Mark each explicitly installed package using a distinct color.
-    mark_pkgs e $ENODE
-
-    # Mark each foreign package (AUR, etc) using a distinct color.
-    mark_pkgs m $FNODE
 }
 
 generate_graph_apt() {
@@ -125,6 +138,7 @@ use_wal_colors() {
     ENODE="$(head < ~/.cache/wal/colors -3 | tail -1)"
     ONODE="$(head < ~/.cache/wal/colors -6 | tail -1)"
     FNODE="$(head < ~/.cache/wal/colors -7 | tail -1)"
+    VNODE="$(head < ~/.cache/wal/colors -5 | tail -1)88"
     EDGE="$(head < ~/.cache/wal/colors -8 | tail -1)44"
 
     echo "    Background:    $BACKGROUND"
@@ -132,6 +146,7 @@ use_wal_colors() {
     echo "    Explicit node: $ENODE"
     echo "    Orphan node:   $ONODE"
     echo "    Foreign node:  $FNODE"
+    echo "    Virtual node:  $VNODE"
     echo "    Edge:          $EDGE"
 }
 
@@ -142,7 +157,7 @@ render_graph() {
         "-Gbgcolor=${BACKGROUND}"
         "-Granksep=${RANKSEP}"
         "-Ecolor=${EDGE}"
-        "-Ncolor=${NODE}"
+        "-Ncolor=${VNODE}"
         '-Nshape=point'
         '-Nheight=0.1'
         '-Nwidth=0.1'
@@ -283,6 +298,7 @@ help() {
         [ -e EXPLICIT_NODE_COLOR ]
         [ -p ORPHAN_NODE_COLOR ]
         [ -f FOREIGN_NODE_COLOR ]
+        [ -y VIRTUAL_NODE_COLOR ]
         [ -s EDGE_COLOR ]
         [ -c ROOT ]
         [ -r RANKSEP ]
@@ -290,6 +306,8 @@ help() {
         [ -o OUTPUT ]
         [ -S SCREEN_SIZE ]
         [ REPO:COLOR ... ]
+        [ GROUP%COLOR ... ]
+        [ PACKAGE@COLOR ... ]
 
         Use -i to suppress wallpaper setting.
         Use -D to enable integration with desktop environments.
@@ -306,13 +324,15 @@ help() {
         OUTPUT is the relative to CWD path of the generated image.
         SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
 
-        Specifying one or more REPO:COLOR changes the default highlight color for
-        packages from REPO to COLOR. Example: $0 core:green community:red"
+        REPO:COLOR overrides the highlight color for packages from REPO to COLOR.
+        GROUP%COLOR overrides the highlight color for packages from GROUP to COLOR.
+        PACKAGE@COLOR overrides the highlight color for PACKAGE to COLOR.
+        "
 
     exit 0
 }
 
-options='aWDib:d:s:e:p:g:r:c:o:f:S:h'
+options='aWDib:d:s:e:p:g:r:c:o:f:y:S:h'
 while getopts $options option; do
     case $option in
         a) ADMIN_MODE=TRUE ;;
@@ -324,6 +344,7 @@ while getopts $options option; do
         e) ENODE=${OPTARG} ;;
         p) ONODE=${OPTARG} ;;
         f) FNODE=${OPTARG} ;;
+        y) VNODE=${OPTARG} ;;
         s) EDGE=${OPTARG} ;;
         c) ROOT=${OPTARG} ;;
         r) RANKSEP=${OPTARG} ;;

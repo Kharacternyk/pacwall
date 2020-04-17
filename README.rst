@@ -19,11 +19,13 @@ Highlighting
   * *Explicitly installed*: solid orange
   * *Orphans*: solid magenta (*applies only to Arch*)
   * *Foreign* (from AUR, etc): solid "Arch" blue (*applies only to Arch*)
+  * *Virtual* (see below): transparent violet (*applies only to Arch*)
 
 * Dependencies
 
   * **A** *depends on* **B**: an arrow that points towards **B**
-  * **A** *provides* **B**: an inverted arrow that points towards **B**
+  * **A** *provides* **B** (**B** is a *virtual* package):
+    an inverted arrow that points towards **B**
     (*applies only to Arch*)
 
 ------------
@@ -93,6 +95,7 @@ Customizations can be made on the commandline, see the options with
             [ -e EXPLICIT_NODE_COLOR ]
             [ -p ORPHAN_NODE_COLOR ]
             [ -f FOREIGN_NODE_COLOR ]
+            [ -y VIRTUAL_NODE_COLOR ]
             [ -s EDGE_COLOR ]
             [ -c ROOT ]
             [ -r RANKSEP ]
@@ -100,6 +103,8 @@ Customizations can be made on the commandline, see the options with
             [ -o OUTPUT ]
             [ -S SCREEN_SIZE ]
             [ REPO:COLOR ... ]
+            [ GROUP%COLOR ... ]
+            [ PACKAGE@COLOR ... ]
 
             Use -i to suppress wallpaper setting.
             Use -D to enable integration with desktop environments.
@@ -116,8 +121,9 @@ Customizations can be made on the commandline, see the options with
             OUTPUT is the relative to CWD path of the generated image.
             SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
 
-            Specifying one or more REPO:COLOR changes the default highlight color for
-            packages from REPO to COLOR. Example: pacwall core:green community:red
+            REPO:COLOR overrides the highlight color for packages from REPO to COLOR.
+            GROUP%COLOR overrides the highlight color for packages from GROUP to COLOR.
+            PACKAGE@COLOR overrides the highlight color for PACKAGE to COLOR.
 
 Additional customizations can be performed by modifying the script itself.
 The code in the script is well-structured (should be).
