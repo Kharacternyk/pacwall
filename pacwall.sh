@@ -302,7 +302,7 @@ main() {
         echo 'Using pactree to generate the graph'
         generate_graph_pactree "$@"
     else
-        echo "Can't find pactree or debtree." >&2
+        echo "Can't find any backends" >&2
         exit 1
     fi
 
