@@ -157,8 +157,9 @@ Contributors
 * `Nazar Vinnichuk`_: the original author and maintainer;
 * `PitcherTear22`_: integration with GNOME and other DEs, first ever rice_ with pacwall;
 * `John Ramsden`_: PKGBUILD, cmdopts parsing, general code quality;
+* `Ruijie Yu`_: PKGBUILD, sudo mode;
+* `AugustUnderground`_: Void support;
 * `Luca Leon Happel`_: pywal integration, ``hsetroot`` backend;
-* `Ruijie Yu`_: PKGBUILD;
 * `QWxleA`_: screen size autodetection via ``xdpyinfo``;
 
 ----------------
@@ -173,8 +174,9 @@ Similar software
 .. _Nazar Vinnichuk: https://github.com/Kharacternyk
 .. _PitcherTear22: https://github.com/PitcherTear22
 .. _John Ramsden: https://github.com/johnramsden
-.. _Luca Leon Happel: https://github.com/Quoteme
 .. _Ruijie Yu: https://github.com/RuijieYu
+.. _AugustUnderground: https://github.com/AugustUnderground
+.. _Luca Leon Happel: https://github.com/Quoteme
 .. _QwxleA: https://github.com/QWxleA
 .. _rice: https://www.reddit.com/r/unixporn/comments/fnfujo/gnome_first_rice_pacwall/ 
 .. _pacgraph: http://kmkeen.com/pacgraph/
