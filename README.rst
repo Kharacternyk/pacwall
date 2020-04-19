@@ -15,11 +15,19 @@ Highlighting
 
 * Packages
 
-  * *Normal*: translucent red
-  * *Explicitly installed*: solid orange
-  * *Orphans*: solid magenta (*applies only to Arch*)
-  * *Foreign* (from AUR, etc): solid "Arch" blue (*applies only to Arch*)
-  * *Virtual* (see below): transparent violet (*applies only to Arch*)
+  +---------------------+--------------------+---------+----------+
+  | Package/Distro      | Arch               | Void    | Debian*  |
+  +=====================+====================+=========+==========+
+  | Normal              | translucent red                         |
+  +---------------------+-----------------------------------------+
+  | Explicitly installed| solid orange                            |
+  +---------------------+------------------------------+----------+
+  | Orphans             | solid magenta                | X        |
+  +---------------------+--------------------+---------+----------+
+  | Foreign (AUR, etc.) | solid "Arch" blue  | X                  |
+  +---------------------+--------------------+--------------------+
+  | Virtual (see below) | translucent violet | X                  |
+  +---------------------+--------------------+--------------------+
 
 * Dependencies
 
