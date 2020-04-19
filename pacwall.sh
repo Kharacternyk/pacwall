@@ -113,6 +113,34 @@ generate_graph_apt() {
     PKGS=packages
 }
 
+generate_graph_xbps() {
+    # Get all explicitly installed packages in a space separated list
+    EPKGS=$(xbps-query -m | tr '\n' ' ')
+
+    for package in $EPKGS; do
+        touch stripped/$package
+        echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
+        DPKGS=$(xbps-query -x $package | sed -E -e 's/>?=.*//g' | tr '\n' ' ')
+        for dependency in $DPKGS; do
+            echo "\"$dependency\" [color=\"$FNODE\"]" >> pkgcolors
+            echo "\"$package\" -> \"$dependency\";" >> stripped/$package
+        done
+    done
+
+    # Get all orphaned packages
+    OPKGS=$(xbps-query -O | tr '\n' ' ')
+    for orphan in $OPKGS; do
+        echo "\"$orphan\" [color=\"$ONODE\"]" >> pkgcolors
+        ODPKGS=$(xbps-query -x $orphan | sed -E -e 's/>?=.*//g' | tr '\n' ' ')
+        for odependency in $ODPKGS; do
+            echo "\"$odependency\" [color=\"$FNODE\"]" >> pkgcolors
+            echo "\"$orphan\" -> \"$odependency\";" >> stripped/$orphan
+        done
+    done
+
+    PKGS="$EPKGS $OPKGS"
+}
+
 compile_graph() {
     # Compile the file in DOT languge.
     # The graph is directed and strict (doesn't contain any edge duplicates).
@@ -267,6 +295,9 @@ main() {
     if command -v apt > /dev/null; then
         echo 'Using apt to generate the graph'
         generate_graph_apt
+    elif command -v xbps-query > /dev/null; then
+        echo 'Using xbps to generate the graph'
+        generate_graph_xbps
     elif command -v pactree > /dev/null; then
         echo 'Using pactree to generate the graph'
         generate_graph_pactree "$@"
