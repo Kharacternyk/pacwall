@@ -22,11 +22,11 @@ Highlighting
   +---------------------+-----------------------------------------+
   | Explicitly installed| solid orange                            |
   +---------------------+------------------------------+----------+
-  | Orphans             | solid magenta                | X        |
+  | Orphans             | solid magenta                | **X**    |
   +---------------------+--------------------+---------+----------+
-  | Foreign (AUR, etc.) | solid "Arch" blue  | X                  |
+  | Foreign (AUR, etc.) | solid "Arch" blue  |  **X**             |
   +---------------------+--------------------+--------------------+
-  | Virtual (see below) | translucent violet | X                  |
+  | Virtual (see below) | translucent violet | **X**              |
   +---------------------+--------------------+--------------------+
 
 * Dependencies
