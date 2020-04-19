@@ -48,6 +48,14 @@ Debian, Ubuntu, Mint, Pop!_OS, ...
 
     sudo apt install graphviz
 
+~~~~~~~~~~
+Void Linux
+~~~~~~~~~~
+
+.. code-block:: bash
+
+    sudo xbps-install -S graphviz
+
 ~~~~~~~~~~~~~~~~~~
 Wallpaper backends
 ~~~~~~~~~~~~~~~~~~
