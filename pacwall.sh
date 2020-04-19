@@ -122,7 +122,6 @@ generate_graph_xbps() {
         echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
         DPKGS=$(xbps-query -x $package | sed -E -e 's/>?=.*//g' | tr '\n' ' ')
         for dependency in $DPKGS; do
-            echo "\"$dependency\" [color=\"$FNODE\"]" >> pkgcolors
             echo "\"$package\" -> \"$dependency\";" >> stripped/$package
         done
     done
@@ -133,7 +132,6 @@ generate_graph_xbps() {
         echo "\"$orphan\" [color=\"$ONODE\"]" >> pkgcolors
         ODPKGS=$(xbps-query -x $orphan | sed -E -e 's/>?=.*//g' | tr '\n' ' ')
         for odependency in $ODPKGS; do
-            echo "\"$odependency\" [color=\"$FNODE\"]" >> pkgcolors
             echo "\"$orphan\" -> \"$odependency\";" >> stripped/$orphan
         done
     done
