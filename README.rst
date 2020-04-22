@@ -80,6 +80,7 @@ You will be able to see the generated wallpapers in the graphical wallpaper pick
 DE integration requires ``imagemagick`` and ``xorg-xdpyinfo``
 (If you are on Wayland you need to specify the screen size manually like this:
 ``./pacwall.sh -DS 1920x1200``).
+(If you don't know your compositor, it is probably Wayland by default. To be sure, check the selected option in the settings button of your DM (the lock screen))
 
 **WARNING**:
 Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and ``hsetroot``.
@@ -186,6 +187,6 @@ Similar software
 .. _AugustUnderground: https://github.com/AugustUnderground
 .. _Luca Leon Happel: https://github.com/Quoteme
 .. _QwxleA: https://github.com/QWxleA
-.. _rice: https://www.reddit.com/r/unixporn/comments/fnfujo/gnome_first_rice_pacwall/ 
+.. _rice: https://www.reddit.com/r/unixporn/comments/fnfujo/gnome_first_rice_pacwall/
 .. _pacgraph: http://kmkeen.com/pacgraph/
 .. _pacvis: https://github.com/farseerfc/pacvis
