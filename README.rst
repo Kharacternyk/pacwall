@@ -151,6 +151,11 @@ and ``twopi``, particularly the section on *GRAPH, NODE AND EDGE ATTRIBUTES*.
 Troubleshooting
 ---------------
 
+To speed up the things on Arch you may try ``-Q``.
+Depending on your specific installation this may produce the same graph faster or,
+if you aren't lucky, a wrong graph. This should be rechecked every time a package
+is installed.
+
 If the graph is too large, use ``-r``.
 For example, ``-r 0.3`` means that the distance between the concentric circles
 of the graph will be 0.3 **inch**.
