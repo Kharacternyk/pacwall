@@ -43,7 +43,11 @@ mark_pkgs() {
 
 generate_graph_pactree() {
     # Get a space-separated list of the "leaves".
-    PKGS="$(pacman -Qttq)"
+    if [[ -z $QUICK ]]; then
+        PKGS="$(pacman -Qq)"
+    else
+        PKGS="$(pacman -Qttq)"
+    fi
     for package in $PKGS; do
         # Extract the list of edges from the output of pactree.
         pactree -g "$package" > "raw/$package"
@@ -363,9 +367,10 @@ help() {
     exit 0
 }
 
-options='aWDib:d:s:e:p:g:r:c:o:f:y:S:h'
+options='QaWDib:d:s:e:p:g:r:c:o:f:y:S:h'
 while getopts $options option; do
     case $option in
+        Q) QUICK=TRUE ;;
         a) ADMIN_MODE=TRUE ;;
         W) PYWAL_INTEGRATION=TRUE ;;
         D) DE_INTEGRATION=TRUE ;;
