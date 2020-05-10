@@ -8,6 +8,7 @@ VNODE='#9400d388'
 ENODE=darkorange
 ONODE=magenta
 FNODE='#1793d1'
+UNODE=green
 EDGE='#ffffff44'
 RANKSEP=0.7
 
@@ -93,6 +94,12 @@ generate_graph_pactree() {
             done
         fi
     done
+
+    if [[ -z $NO_UPDATES ]]; then
+        for package in "$(checkupdates | sed -e "s/ .*$//")"; do
+            echo "\"$package\" [color=\"$UNODE\"]" >> pkgcolors
+        done
+    fi
 }
 
 generate_graph_apt() {
