@@ -371,7 +371,7 @@ help() {
     exit 0
 }
 
-options='QaWDib:d:s:e:p:g:r:c:o:f:y:S:h'
+options='QaWDiUb:d:s:e:p:g:r:c:o:f:y:u:S:h'
 while getopts $options option; do
     case $option in
         Q) QUICK=TRUE ;;
@@ -379,12 +379,14 @@ while getopts $options option; do
         W) PYWAL_INTEGRATION=TRUE ;;
         D) DE_INTEGRATION=TRUE ;;
         i) IMAGE_ONLY=TRUE ;;
+        U) NO_UPDATES=TRUE ;;
         b) BACKGROUND=${OPTARG} ;;
         d) NODE=${OPTARG} ;;
         e) ENODE=${OPTARG} ;;
         p) ONODE=${OPTARG} ;;
         f) FNODE=${OPTARG} ;;
         y) VNODE=${OPTARG} ;;
+        u) UNODE=${OPTARG} ;;
         s) EDGE=${OPTARG} ;;
         c) ROOT=${OPTARG} ;;
         r) RANKSEP=${OPTARG} ;;
