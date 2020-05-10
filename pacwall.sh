@@ -96,7 +96,7 @@ generate_graph_pactree() {
     done
 
     if [[ -z $NO_UPDATES ]]; then
-        for package in "$(checkupdates | sed -e "s/ .*$//")"; do
+        for package in $(checkupdates | sed -e "s/ .*$//"); do
             echo "\"$package\" [color=\"$UNODE\"]" >> pkgcolors
         done
     fi
@@ -292,7 +292,7 @@ admin_mode() {
 
     # then execute using sudo
     exec sudo -u "$(_logname)" "$0" "${prev_args[@]}"
-    exit -1
+    exit 1
 }
 
 main() {
