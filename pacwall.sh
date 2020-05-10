@@ -175,6 +175,7 @@ use_wal_colors() {
     ONODE="$(head < ~/.cache/wal/colors -6 | tail -1)"
     FNODE="$(head < ~/.cache/wal/colors -7 | tail -1)"
     VNODE="$(head < ~/.cache/wal/colors -5 | tail -1)88"
+    UNODE="$(head < ~/.cache/wal/colors -4 | tail -1)"
     EDGE="$(head < ~/.cache/wal/colors -8 | tail -1)44"
 
     echo "    Background:    $BACKGROUND"
@@ -183,6 +184,7 @@ use_wal_colors() {
     echo "    Orphan node:   $ONODE"
     echo "    Foreign node:  $FNODE"
     echo "    Virtual node:  $VNODE"
+    echo "    Outdated node: $UNODE"
     echo "    Edge:          $EDGE"
 }
 
