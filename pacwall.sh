@@ -9,10 +9,7 @@ ENODE=darkorange
 ONODE=magenta
 FNODE='#1793d1'
 EDGE='#ffffff44'
-ROOT=""
 RANKSEP=0.7
-GSIZE=""
-ADMIN_MODE=
 
 declare -a prev_args=()
 
