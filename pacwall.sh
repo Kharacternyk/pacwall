@@ -331,13 +331,14 @@ main() {
 
 help() {
     echo "USAGE: $0
-        [ -iDW ]
+        [ -iDWU ]
         [ -b BACKGROUND_COLOR ]
         [ -d NODE_COLOR ]
         [ -e EXPLICIT_NODE_COLOR ]
         [ -p ORPHAN_NODE_COLOR ]
         [ -f FOREIGN_NODE_COLOR ]
         [ -y VIRTUAL_NODE_COLOR ]
+        [ -u OUTDATED_NODE_COLOR ]
         [ -s EDGE_COLOR ]
         [ -c ROOT ]
         [ -r RANKSEP ]
@@ -351,6 +352,7 @@ help() {
         Use -i to suppress wallpaper setting.
         Use -D to enable integration with desktop environments.
         Use -W to enable pywal integration.
+        Use -U to disable highlighting of outdated packages.
 
         All colors may be specified either as
         - a color name (black, darkorange, ...)

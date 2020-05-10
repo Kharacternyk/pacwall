@@ -24,7 +24,9 @@ Highlighting
   +---------------------+------------------------------+----------+
   | Orphans             | solid magenta                | **X**    |
   +---------------------+--------------------+---------+----------+
-  | Foreign (AUR, etc.) | solid "Arch" blue  |  **X**             |
+  | Outdated            | solid green        | **X**              |
+  +---------------------+--------------------+--------------------+
+  | Foreign (AUR, etc.) | solid "Arch" blue  | **X**              |
   +---------------------+--------------------+--------------------+
   | Virtual (see below) | translucent violet | **X**              |
   +---------------------+--------------------+--------------------+
@@ -106,13 +108,14 @@ Customizations can be made on the commandline, see the options with
 .. code-block::
 
     USAGE: pacwall
-            [ -iDW ]
+            [ -iDWU ]
             [ -b BACKGROUND_COLOR ]
             [ -d NODE_COLOR ]
             [ -e EXPLICIT_NODE_COLOR ]
             [ -p ORPHAN_NODE_COLOR ]
             [ -f FOREIGN_NODE_COLOR ]
             [ -y VIRTUAL_NODE_COLOR ]
+            [ -u OUTDATED_NODE_COLOR ]
             [ -s EDGE_COLOR ]
             [ -c ROOT ]
             [ -r RANKSEP ]
@@ -126,6 +129,7 @@ Customizations can be made on the commandline, see the options with
             Use -i to suppress wallpaper setting.
             Use -D to enable integration with desktop environments.
             Use -W to enable pywal integration.
+            Use -U to disable highlighting of outdated packages.
 
             All colors may be specified either as
             - a color name (black, darkorange, ...)
