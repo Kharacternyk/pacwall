@@ -97,7 +97,7 @@ generate_graph_pactree() {
 
     if [[ -z $NO_UPDATES ]]; then
         for package in $(checkupdates | sed -e "s/ .*$//"); do
-            echo "\"$package\" [color=\"$UNODE\"]" >> pkgcolors
+            echo "\"$package\" [color=\"$UNODE\", peripheries=3]" >> pkgcolors
         done
     fi
 }
