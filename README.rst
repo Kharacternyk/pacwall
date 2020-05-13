@@ -18,17 +18,17 @@ Highlighting
   +---------------------+--------------------+---------+----------+
   | Package/Distro      | Arch               | Void    | Debian*  |
   +=====================+====================+=========+==========+
-  | Normal              | translucent red                         |
+  | Normal              | Red                                     |
   +---------------------+-----------------------------------------+
-  | Explicitly installed| solid orange                            |
+  | Explicitly installed| Blue                                    |
   +---------------------+------------------------------+----------+
-  | Orphans             | solid magenta                | **X**    |
+  | Orphans             | Green                        | **X**    |
   +---------------------+--------------------+---------+----------+
-  | Outdated            | solid green        | **X**              |
+  | Outdated            | Yellow             | **X**              |
   +---------------------+--------------------+--------------------+
-  | Foreign (AUR, etc.) | solid "Arch" blue  | **X**              |
+  | Foreign (AUR, etc.) | Purple             | **X**              |
   +---------------------+--------------------+--------------------+
-  | Virtual (see below) | translucent violet | **X**              |
+  | Virtual (see below) | White (translucent)| **X**              |
   +---------------------+--------------------+--------------------+
 
 * Dependencies
