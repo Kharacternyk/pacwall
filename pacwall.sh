@@ -31,11 +31,12 @@ cleanup() {
 mark_pkgs() {
     PACMAN_FLAGS=$1
     COLOR=$2
+    OUTLINE=$3
     set +e
     _PKGS="$(pacman -Qq$PACMAN_FLAGS)"
     set -e
     for _PKG in $_PKGS; do
-        echo "\"$_PKG\" [color=\"$COLOR\"]" >> pkgcolors
+        echo "\"$_PKG\" [color=\"$COLOR\", peripheries=$OUTLINE]" >> pkgcolors
     done
 }
 
@@ -60,16 +61,16 @@ generate_graph_pactree() {
             "raw/$package" > "stripped/$package"
     done
 
-    mark_pkgs "" $NODE
+    mark_pkgs "" $NODE 1
 
     # Mark each potential orphan using a distinct color.
-    mark_pkgs ttd $ONODE
+    mark_pkgs ttd $ONODE 2
 
     # Mark each explicitly installed package using a distinct color.
-    mark_pkgs e $ENODE
+    mark_pkgs e $ENODE 1
 
     # Mark each foreign package (AUR, etc) using a distinct color.
-    mark_pkgs m $FNODE
+    mark_pkgs m $FNODE 1
 
     for arg in "$@"; do
         if [[ $arg =~ ^(.+)@(.+)$ ]]; then
