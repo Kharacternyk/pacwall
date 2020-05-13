@@ -142,7 +142,7 @@ generate_graph_xbps() {
         echo "\"$orphan\" [color=\"$ONODE\"]" >> pkgcolors
         ODPKGS=$(xbps-query -x $orphan | sed -E -e 's/>?=.*//g' | tr '\n' ' ')
         for odependency in $ODPKGS; do
-            echo "\"$odependency\" [color=\"$NODE\"]" >> pkgcolors
+            echo "\"$odependency\" [color=\"$NODE\", peripheries=2]" >> pkgcolors
             echo "\"$orphan\" -> \"$odependency\";" >> stripped/$orphan
         done
     done
