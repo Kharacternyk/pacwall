@@ -38,6 +38,9 @@ Highlighting
     an inverted arrow that points towards **B**
     (*applies only to Arch*)
 
+The exact default colors have been taken from pywal's solarized theme.
+See `Customization`_ and `Pywal integration`_ if you want to change them.
+
 ------------
 Requirements
 ------------
@@ -93,10 +96,11 @@ Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and
 Pywal integration
 -----------------
 
-.. image:: screenshot_monokai.png
-
 Run ``./pacwall.sh -W`` to use colors set by pywal.
-The image above shows monokai pywal theme.
+Some themes don't follow the color order convention, though many do.
+If you use a scheme that doesn't, then the color description table
+above may be partialy invalid e.g. updates are highlighted green instead of
+yellow and orphans are yellow instead of green.
 
 -------------
 Customization
