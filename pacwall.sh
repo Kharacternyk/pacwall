@@ -3,12 +3,12 @@ set -e
 
 # Default values.
 BACKGROUND=darkslategray
-EDGE='#ffffff44'
-NODE='#dc143c88'
-VNODE="$EDGE"
+EDGE=#ffffff44
+NODE=#dc143c88
+VNODE=$EDGE
 ENODE=darkorange
 ONODE=magenta
-FNODE='#1793d1'
+FNODE=#1793d1
 UNODE=green
 RANKSEP=0.7
 
@@ -169,14 +169,14 @@ use_wal_colors() {
 
     # change `n` in `head -n` to use the n-th terminal color set by pywal
     # you can preview these colors in ~/.cache/wal/colors.json
-    BACKGROUND="$(head < ~/.cache/wal/colors -1 | tail -1)"
-    EDGE="$(head < ~/.cache/wal/colors  -8 | tail -1)44"
-    NODE="$(head < ~/.cache/wal/colors  -2 | tail -1)88"
-    ENODE="$(head < ~/.cache/wal/colors -3 | tail -1)ff"
-    ONODE="$(head < ~/.cache/wal/colors -6 | tail -1)ff"
-    FNODE="$(head < ~/.cache/wal/colors -7 | tail -1)ff"
-    UNODE="$(head < ~/.cache/wal/colors -4 | tail -1)ff"
-    VNODE="$EDGE"
+    BACKGROUND=$(head < ~/.cache/wal/colors -1 | tail -1)
+    EDGE=$(head < ~/.cache/wal/colors  -8 | tail -1)44
+    NODE=$(head < ~/.cache/wal/colors  -2 | tail -1)88
+    ENODE=$(head < ~/.cache/wal/colors -3 | tail -1)ff
+    ONODE=$(head < ~/.cache/wal/colors -6 | tail -1)ff
+    FNODE=$(head < ~/.cache/wal/colors -7 | tail -1)ff
+    UNODE=$(head < ~/.cache/wal/colors -4 | tail -1)ff
+    VNODE=$EDGE
 
     echo "    Background:    ${BACKGROUND}ff"
     echo "    Node:          $NODE"
