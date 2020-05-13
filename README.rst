@@ -22,7 +22,7 @@ Highlighting
   +---------------------+-----------------------------------------+
   | Explicitly installed| Blue                                    |
   +---------------------+------------------------------+----------+
-  | Orphans             | Green                        | **X**    |
+  | Orphan              | Green                        | **X**    |
   +---------------------+--------------------+---------+----------+
   | Outdated            | Yellow             | **X**              |
   +---------------------+--------------------+--------------------+
@@ -97,6 +97,7 @@ Pywal integration
 -----------------
 
 Run ``./pacwall.sh -W`` to use colors set by pywal.
+
 Some themes don't follow the color order convention, though many do.
 If you use a scheme that doesn't, then the color description table
 above may be partialy invalid e.g. updates are highlighted green instead of
