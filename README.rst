@@ -140,7 +140,7 @@ Customizations can be made on the commandline, see the options with
 
             ROOT is the package that will be put in the center of the graph.
             RANKSEP is the distance in **inches** between the concentric circles.
-            OUTPUT is the relative to CWD path of the generated image.
+            OUTPUT is the path where the generated image is put.
             SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
 
             REPO:COLOR overrides the highlight color for packages from REPO to COLOR.

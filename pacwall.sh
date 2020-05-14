@@ -13,7 +13,7 @@ VNODE=$EDGE
 OOUTLINE=2
 UOUTLINE=3
 RANKSEP=0.7
-OUTPUT="pacwall.png"
+OUTPUT="$(pwd)/pacwall.png"
 STARTDIR="${PWD}"
 
 prepare() {
@@ -187,7 +187,7 @@ render_graph() {
     # Optional arguments
     [[ -n $ROOT ]] && twopi_args+=("-Groot=${ROOT}")
 
-    twopi "${twopi_args[@]}" > "${OUTPUT}"
+    twopi "${twopi_args[@]}" > pacwall.png
 }
 
 set_wallpaper() {
@@ -199,11 +199,11 @@ set_wallpaper() {
                 xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
             )
         fi
-        convert "${OUTPUT}" \
+        convert pacwall.png \
             -gravity center \
             -background "${BACKGROUND}" \
             -extent "${SCREEN_SIZE}" \
-            "${STARTDIR}/${OUTPUT}"
+            "${OUTPUT}"
         copy_to_xdg
 
         #Write xml so that file is recognised in gnome-control-center
@@ -228,10 +228,10 @@ set_wallpaper() {
             2> /dev/null && echo 'Using gsettings to set the wallpaper'
 
     else
-        hsetroot -solid "$BACKGROUND" -full "${STARTDIR}/${OUTPUT}" \
+        hsetroot -solid "$BACKGROUND" -full "${OUTPUT}" \
             2> /dev/null && echo 'Using hsetroot to set the wallpaper'
 
-        feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${STARTDIR}/${OUTPUT}" \
+        feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${OUTPUT}" \
             2> /dev/null && echo 'Using feh to set the wallpaper'
     fi
 
@@ -242,7 +242,7 @@ copy_to_xdg() {
     #Copy the output to $HOME/.local/share/wallpapers as it is a standard XDG Directory
     #This will make the wallpapers visible in KDE settings (and maybe WMs if they have a setting)
     mkdir -p "${XDG_DATA_HOME}/wallpapers/pacwall"
-    cp "${STARTDIR}/${OUTPUT}" "${XDGOUT}"
+    cp "${OUTPUT}" "${XDGOUT}"
 }
 
 main() {
@@ -264,7 +264,7 @@ main() {
 
     render_graph
 
-    cp "${WORKDIR}/${OUTPUT}" "${STARTDIR}"
+    cp "${WORKDIR}/pacwall.png" "${OUTPUT}"
 
     if [[ -z $IMAGE_ONLY ]]; then
         set_wallpaper
@@ -272,7 +272,7 @@ main() {
 
     cleanup
 
-    echo "The image has been put to ${STARTDIR}/${OUTPUT}"
+    echo "The image has been put to ${OUTPUT}"
 }
 
 help() {
@@ -312,7 +312,7 @@ help() {
 
         ROOT is the package that will be put in the center of the graph.
         RANKSEP is the distance in **inches** between the concentric circles.
-        OUTPUT is the relative to CWD path of the generated image.
+        OUTPUT is the path where the generated image is put.
         SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
 
         REPO:COLOR overrides the highlight color for packages from REPO to COLOR.
