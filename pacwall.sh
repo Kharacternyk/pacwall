@@ -105,20 +105,6 @@ generate_graph_pactree() {
     DEFAULT_NODE_COLOR=$VNODE
 }
 
-generate_graph_apt() {
-    PKGS="$(apt list --installed 2> /dev/null | sed -e 's/\/.*$//')"
-    apt-cache dotty $PKGS > raw/packages
-    sed -E \
-        -e '/^[^"]/d' \
-        -e '/\[shape/d' \
-        -e '/\[color=/d' \
-        -e 's/\[.*\]//' \
-        "raw/packages" > "stripped/packages"
-
-    PKGS=packages
-    DEFAULT_NODE_COLOR=$NODE
-}
-
 generate_graph_xbps() {
     # Get all explicitly installed packages in a space separated list
     EPKGS=$(xbps-query -m)
@@ -297,10 +283,7 @@ main() {
         use_wal_colors
     fi
 
-    if command -v apt > /dev/null; then
-        echo 'Using apt to generate the graph'
-        generate_graph_apt
-    elif command -v pactree > /dev/null; then
+    if command -v pactree > /dev/null; then
         echo 'Using pactree to generate the graph'
         generate_graph_pactree "$@"
     elif command -v xbps-query > /dev/null; then
