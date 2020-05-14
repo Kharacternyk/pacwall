@@ -165,6 +165,7 @@ Pacman hook
 a package is removed, added or upgraded. **It's not a part of a package from AUR**,
 because one is expected to customize the pacwall invocation and flags. Also not
 everyone likes the noticable delay that the hook introduces to pacman invocations.
+`Pywal integration`_ doesn't work.
 
 ~~~~~~~~~~~~~~~~
 Faster execution
