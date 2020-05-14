@@ -349,16 +349,17 @@ help() {
     exit 0
 }
 
-options='VQaWDiUb:d:s:e:p:r:c:o:f:y:u:S:h'
+options='haQiDWUVb:d:e:p:f:y:u:s:c:r:o:S:'
 while getopts $options option; do
     case $option in
-        V) VOID=TRUE ;;
-        Q) QUICK=TRUE ;;
+        h) help ;;
         a) ADMIN_MODE=TRUE ;;
-        W) PYWAL_INTEGRATION=TRUE ;;
-        D) DE_INTEGRATION=TRUE ;;
+        Q) QUICK=TRUE ;;
         i) IMAGE_ONLY=TRUE ;;
+        D) DE_INTEGRATION=TRUE ;;
+        W) PYWAL_INTEGRATION=TRUE ;;
         U) NO_UPDATES=TRUE ;;
+        V) VOID=TRUE ;;
         b) BACKGROUND=${OPTARG} ;;
         d) NODE=${OPTARG} ;;
         e) ENODE=${OPTARG} ;;
@@ -371,7 +372,6 @@ while getopts $options option; do
         r) RANKSEP=${OPTARG} ;;
         o) OUTPUT=${OPTARG} ;;
         S) SCREEN_SIZE=${OPTARG} ;;
-        h) help ;;
         \?)
             echo "Unknown option: -${OPTARG}" >&2
             exit 1
