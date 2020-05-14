@@ -283,15 +283,12 @@ main() {
         use_wal_colors
     fi
 
-    if command -v pactree > /dev/null; then
+    if [[ -z $VOID ]]; then
         echo 'Using pactree to generate the graph'
         generate_graph_pactree "$@"
-    elif command -v xbps-query > /dev/null; then
+    else
         echo 'Using xbps to generate the graph'
         generate_graph_xbps
-    else
-        echo "Can't find any backends" >&2
-        exit 1
     fi
 
     compile_graph
@@ -311,7 +308,7 @@ main() {
 
 help() {
     echo "USAGE: $0
-        [ -iDWU ]
+        [ -iDWUV ]
         [ -b BACKGROUND_COLOR ]
         [ -d NODE_COLOR ]
         [ -e EXPLICIT_NODE_COLOR ]
@@ -332,6 +329,7 @@ help() {
         Use -D to enable integration with desktop environments.
         Use -W to enable pywal integration.
         Use -U to disable highlighting of outdated packages.
+        Use -V if you are on VOID LINUX (EXPERIMENTAL, MOST FEATURES DON'T WORK)
 
         All colors may be specified either as
         - a color name (black, darkorange, ...)
@@ -351,9 +349,10 @@ help() {
     exit 0
 }
 
-options='QaWDiUb:d:s:e:p:r:c:o:f:y:u:S:h'
+options='VQaWDiUb:d:s:e:p:r:c:o:f:y:u:S:h'
 while getopts $options option; do
     case $option in
+        V) VOID=TRUE ;;
         Q) QUICK=TRUE ;;
         a) ADMIN_MODE=TRUE ;;
         W) PYWAL_INTEGRATION=TRUE ;;
