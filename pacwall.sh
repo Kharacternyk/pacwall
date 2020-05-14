@@ -63,11 +63,11 @@ generate_graph_pactree() {
 
     mark_pkgs "" $NODE 1
 
-    # Mark each potential orphan using a distinct color.
-    mark_pkgs ttd $ONODE 2
-
     # Mark each explicitly installed package using a distinct color.
     mark_pkgs e $ENODE 1
+
+    # Mark each potential orphan using a distinct color.
+    mark_pkgs ttd $ONODE 2
 
     # Mark each foreign package (AUR, etc) using a distinct color.
     mark_pkgs m $FNODE 1
@@ -165,9 +165,9 @@ use_wal_colors() {
     echo "    Edge:          $EDGE"
     echo "    Node:          $NODE"
     echo "    Explicit node: $ENODE"
-    echo "    Outdated node: $UNODE"
     echo "    Orphan node:   $ONODE"
     echo "    Foreign node:  $FNODE"
+    echo "    Outdated node: $UNODE"
     echo "    Virtual node:  $VNODE"
 }
 
@@ -257,11 +257,13 @@ admin_mode() {
     # include fields using their current value
     prev_args+=(
         -b "$BACKGROUND"
+        -s "$EDGE"
         -d "$NODE"
         -e "$ENODE"
         -p "$ONODE"
         -f "$FNODE"
-        -s "$EDGE"
+        -u "$UNODE"
+        -y "$VNODE"
         -c "$RANKSEP"
         -o "$OUTPUT"
         -S "$SCREEN_SIZE"
@@ -310,13 +312,13 @@ help() {
     echo "USAGE: $0
         [ -iDWUV ]
         [ -b BACKGROUND_COLOR ]
+        [ -s EDGE_COLOR ]
         [ -d NODE_COLOR ]
         [ -e EXPLICIT_NODE_COLOR ]
         [ -p ORPHAN_NODE_COLOR ]
         [ -f FOREIGN_NODE_COLOR ]
-        [ -y VIRTUAL_NODE_COLOR ]
         [ -u OUTDATED_NODE_COLOR ]
-        [ -s EDGE_COLOR ]
+        [ -y VIRTUAL_NODE_COLOR ]
         [ -c ROOT ]
         [ -r RANKSEP ]
         [ -o OUTPUT ]
@@ -361,13 +363,13 @@ while getopts $options option; do
         U) NO_UPDATES=TRUE ;;
         V) VOID=TRUE ;;
         b) BACKGROUND=${OPTARG} ;;
+        s) EDGE=${OPTARG} ;;
         d) NODE=${OPTARG} ;;
         e) ENODE=${OPTARG} ;;
         p) ONODE=${OPTARG} ;;
         f) FNODE=${OPTARG} ;;
-        y) VNODE=${OPTARG} ;;
         u) UNODE=${OPTARG} ;;
-        s) EDGE=${OPTARG} ;;
+        y) VNODE=${OPTARG} ;;
         c) ROOT=${OPTARG} ;;
         r) RANKSEP=${OPTARG} ;;
         o) OUTPUT=${OPTARG} ;;
