@@ -300,12 +300,12 @@ main() {
     if command -v apt > /dev/null; then
         echo 'Using apt to generate the graph'
         generate_graph_apt
-    elif command -v xbps-query > /dev/null; then
-        echo 'Using xbps to generate the graph'
-        generate_graph_xbps
     elif command -v pactree > /dev/null; then
         echo 'Using pactree to generate the graph'
         generate_graph_pactree "$@"
+    elif command -v xbps-query > /dev/null; then
+        echo 'Using xbps to generate the graph'
+        generate_graph_xbps
     else
         echo "Can't find any backends" >&2
         exit 1
