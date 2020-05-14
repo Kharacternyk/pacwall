@@ -8,4 +8,4 @@ Target = *
 [Action]
 Description = Regenerating the wallpaper (pacwall)
 When = PostTransaction
-Exec = /bin/pacwall
+Exec = /bin/pacwall -o pacwall.png
