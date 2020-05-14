@@ -121,7 +121,7 @@ generate_graph_apt() {
 
 generate_graph_xbps() {
     # Get all explicitly installed packages in a space separated list
-    EPKGS=$(xbps-query -m | tr '\n' ' ')
+    EPKGS=$(xbps-query -m)
 
     for package in $EPKGS; do
         touch stripped/$package
