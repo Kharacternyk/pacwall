@@ -165,10 +165,6 @@ If the graph is too large, use ``-r``.
 For example, ``-r 0.3`` means that the distance between the concentric circles
 of the graph will be 0.3 **inch**.
 
-An alternative method is to use ``-g``.
-The format should be the same as the ``twopi`` ``-Gsize`` option. ``7.5,7.5``
-for example forces the graph to be not wider nor higher than 7.5 **inches**.
-
 ------------
 Contributors
 ------------
