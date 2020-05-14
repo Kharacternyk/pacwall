@@ -135,7 +135,7 @@ generate_graph_xbps() {
     # Get all orphaned packages
     OPKGS=$(xbps-query -O | tr '\n' ' ')
     for orphan in $OPKGS; do
-        echo "\"$orphan\" [color=\"$ONODE\"]" >> pkgcolors
+        echo "\"$orphan\" [color=\"$ONODE\", peripheries=2]" >> pkgcolors
         ODPKGS=$(xbps-query -x $orphan | sed -E -e 's/>?=.*//g' | tr '\n' ' ')
         for odependency in $ODPKGS; do
             echo "\"$orphan\" -> \"$odependency\";" >> stripped/$orphan
