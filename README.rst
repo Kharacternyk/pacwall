@@ -122,6 +122,8 @@ Customizations can be made on the commandline, see the options with
             [ -f FOREIGN_NODE_COLOR ]
             [ -u OUTDATED_NODE_COLOR ]
             [ -y VIRTUAL_NODE_COLOR ]
+            [ -x ORPHAN_NODE_OUTLINE ]
+            [ -z OUTDATED_NODE_OUTLINE ]
             [ -c ROOT ]
             [ -r RANKSEP ]
             [ -o OUTPUT ]
@@ -135,6 +137,9 @@ Customizations can be made on the commandline, see the options with
             Use -W to enable pywal integration.
             Use -U to disable highlighting of outdated packages.
             Use -V if you are on VOID LINUX (EXPERIMENTAL, MOST FEATURES DON'T WORK)
+
+            If OUTLINE value is bigger than 1, then OUTLINE-1 additional circles are drawn
+            around the corresponding packages.
 
             All colors may be specified either as
             - a color name (black, darkorange, ...)

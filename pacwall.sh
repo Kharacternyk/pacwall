@@ -10,6 +10,8 @@ ONODE=#859900aa
 FNODE=#d33682aa
 UNODE=#b58900aa
 VNODE=$EDGE
+OOUTLINE=2
+UOUTLINE=3
 RANKSEP=0.7
 
 declare -a prev_args=()
@@ -67,7 +69,7 @@ generate_graph_pactree() {
     mark_pkgs e $ENODE 1
 
     # Mark each potential orphan using a distinct color.
-    mark_pkgs ttd $ONODE 2
+    mark_pkgs ttd $ONODE $OOUTLINE
 
     # Mark each foreign package (AUR, etc) using a distinct color.
     mark_pkgs m $FNODE 1
@@ -98,7 +100,7 @@ generate_graph_pactree() {
 
     if [[ -z $NO_UPDATES ]]; then
         for package in $(checkupdates | sed -e "s/ .*$//"); do
-            echo "\"$package\" [color=\"$UNODE\", peripheries=3]" >> pkgcolors
+            echo "\"$package\" [color=\"$UNODE\", peripheries=$UOUTLINE]" >> pkgcolors
         done
     fi
 
@@ -319,6 +321,8 @@ help() {
         [ -f FOREIGN_NODE_COLOR ]
         [ -u OUTDATED_NODE_COLOR ]
         [ -y VIRTUAL_NODE_COLOR ]
+        [ -x ORPHAN_NODE_OUTLINE ]
+        [ -z OUTDATED_NODE_OUTLINE ]
         [ -c ROOT ]
         [ -r RANKSEP ]
         [ -o OUTPUT ]
@@ -338,6 +342,9 @@ help() {
         - a value of format #RRGGBB
         - a value of format #RRGGBBAA
 
+        If OUTLINE value is bigger than 1, then OUTLINE-1 additional circles are drawn
+        around the corresponding packages.
+
         ROOT is the package that will be put in the center of the graph.
         RANKSEP is the distance in **inches** between the concentric circles.
         OUTPUT is the relative to CWD path of the generated image.
@@ -351,7 +358,7 @@ help() {
     exit 0
 }
 
-options='haQiDWUVb:d:e:p:f:y:u:s:c:r:o:S:'
+options='haQiDWUVb:d:e:p:f:y:x:z:u:s:c:r:o:S:'
 while getopts $options option; do
     case $option in
         h) help ;;
@@ -370,6 +377,8 @@ while getopts $options option; do
         f) FNODE=${OPTARG} ;;
         u) UNODE=${OPTARG} ;;
         y) VNODE=${OPTARG} ;;
+        x) OOUTLINE=${OPTARG} ;;
+        z) UOUTLINE=${OPTARG} ;;
         c) ROOT=${OPTARG} ;;
         r) RANKSEP=${OPTARG} ;;
         o) OUTPUT=${OPTARG} ;;
