@@ -53,14 +53,6 @@ Arch Linux
 
     sudo pacman -Syu --needed graphviz pacman-contrib
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Debian, Ubuntu, Mint, Pop!_OS, ...
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code-block:: bash
-
-    sudo apt install graphviz
-
 ~~~~~~~~~~
 Void Linux
 ~~~~~~~~~~
