@@ -124,7 +124,6 @@ Customizations can be made on the commandline, see the options with
             [ -s EDGE_COLOR ]
             [ -c ROOT ]
             [ -r RANKSEP ]
-            [ -g GSIZE ]
             [ -o OUTPUT ]
             [ -S SCREEN_SIZE ]
             [ REPO:COLOR ... ]
@@ -143,7 +142,6 @@ Customizations can be made on the commandline, see the options with
 
             ROOT is the package that will be put in the center of the graph.
             RANKSEP is the distance in **inches** between the concentric circles.
-            GSIZE is deprecated, you probably want to set RANKSEP instead.
             OUTPUT is the relative to CWD path of the generated image.
             SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
 

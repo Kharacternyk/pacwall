@@ -200,7 +200,6 @@ render_graph() {
     )
 
     # Optional arguments
-    [[ -n $GSIZE ]] && twopi_args+=("-Gsize=${GSIZE}")
     [[ -n $ROOT ]] && twopi_args+=("-Groot=${ROOT}")
 
     twopi "${twopi_args[@]}" > "${OUTPUT}"
@@ -278,7 +277,6 @@ admin_mode() {
         -f "$FNODE"
         -s "$EDGE"
         -c "$RANKSEP"
-        -g "$GSIZE"
         -o "$OUTPUT"
         -S "$SCREEN_SIZE"
     )
@@ -341,7 +339,6 @@ help() {
         [ -s EDGE_COLOR ]
         [ -c ROOT ]
         [ -r RANKSEP ]
-        [ -g GSIZE ]
         [ -o OUTPUT ]
         [ -S SCREEN_SIZE ]
         [ REPO:COLOR ... ]
@@ -360,7 +357,6 @@ help() {
 
         ROOT is the package that will be put in the center of the graph.
         RANKSEP is the distance in **inches** between the concentric circles.
-        GSIZE is deprecated, you probably want to set RANKSEP instead.
         OUTPUT is the relative to CWD path of the generated image.
         SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
 
@@ -372,7 +368,7 @@ help() {
     exit 0
 }
 
-options='QaWDiUb:d:s:e:p:g:r:c:o:f:y:u:S:h'
+options='QaWDiUb:d:s:e:p:r:c:o:f:y:u:S:h'
 while getopts $options option; do
     case $option in
         Q) QUICK=TRUE ;;
@@ -391,7 +387,6 @@ while getopts $options option; do
         s) EDGE=${OPTARG} ;;
         c) ROOT=${OPTARG} ;;
         r) RANKSEP=${OPTARG} ;;
-        g) GSIZE=${OPTARG} ;;
         o) OUTPUT=${OPTARG} ;;
         S) SCREEN_SIZE=${OPTARG} ;;
         h) help ;;
