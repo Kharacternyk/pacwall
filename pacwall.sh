@@ -101,6 +101,8 @@ generate_graph_pactree() {
             echo "\"$package\" [color=\"$UNODE\", peripheries=3]" >> pkgcolors
         done
     fi
+
+    DEFAULT_NODE_COLOR=$VNODE
 }
 
 generate_graph_apt() {
@@ -113,13 +115,8 @@ generate_graph_apt() {
         -e 's/\[.*\]//' \
         "raw/packages" > "stripped/packages"
 
-    EPKGS="$(apt-mark showmanual)"
-    for package in $EPKGS; do
-        # Mark each explicitly installed package using a distinct color.
-        echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
-    done
-
     PKGS=packages
+    DEFAULT_NODE_COLOR=$NODE
 }
 
 generate_graph_xbps() {
@@ -131,7 +128,6 @@ generate_graph_xbps() {
         echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
         DPKGS=$(xbps-query -x $package | sed -E -e 's/>?=.*//g' | tr '\n' ' ')
         for dependency in $DPKGS; do
-            echo "\"$dependency\" [color=\"$NODE\"]" >> pkgcolors
             echo "\"$package\" -> \"$dependency\";" >> stripped/$package
         done
     done
@@ -142,12 +138,12 @@ generate_graph_xbps() {
         echo "\"$orphan\" [color=\"$ONODE\"]" >> pkgcolors
         ODPKGS=$(xbps-query -x $orphan | sed -E -e 's/>?=.*//g' | tr '\n' ' ')
         for odependency in $ODPKGS; do
-            echo "\"$odependency\" [color=\"$NODE\", peripheries=2]" >> pkgcolors
             echo "\"$orphan\" -> \"$odependency\";" >> stripped/$orphan
         done
     done
 
     PKGS="$EPKGS $OPKGS"
+    DEFAULT_NODE_COLOR=$NODE
 }
 
 compile_graph() {
@@ -196,7 +192,7 @@ render_graph() {
         "-Gbgcolor=${BACKGROUND}"
         "-Granksep=${RANKSEP}"
         "-Ecolor=${EDGE}"
-        "-Ncolor=${VNODE}"
+        "-Ncolor=${DEFAULT_NODE_COLOR}"
         '-Nshape=point'
         '-Nheight=0.1'
         '-Nwidth=0.1'
