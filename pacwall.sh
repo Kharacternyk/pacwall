@@ -105,8 +105,8 @@ generate_graph_pactree() {
 }
 
 generate_graph_xbps() {
-    # Get all explicitly installed packages in a space separated list
-    EPKGS=$(xbps-query -m)
+    # Get all installed packages in a space separated list
+    EPKGS="$(xbps-query -l | sed -E -e 's/.. (.*)-[0-9].*$/\1/')"
 
     for package in $EPKGS; do
         touch stripped/$package
