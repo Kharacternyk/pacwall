@@ -1,7 +1,4 @@
 #!/bin/bash
-set -e
-
-# Default values.
 BACKGROUND=#073642
 EDGE=#eee8d522
 NODE=#dc322faa
@@ -10,9 +7,11 @@ ONODE=#859900aa
 FNODE=#d33682aa
 UNODE=#b58900aa
 VNODE=$EDGE
+
 OOUTLINE=2
 UOUTLINE=3
 RANKSEP=0.7
+
 OUTPUT="$PWD/pacwall.png"
 STARTDIR="$PWD"
 
