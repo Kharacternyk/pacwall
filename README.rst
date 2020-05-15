@@ -77,12 +77,10 @@ You will be able to see the generated wallpapers in the graphical wallpaper pick
 DE integration requires ``imagemagick`` and ``xorg-xdpyinfo``
 (If you are on Wayland you need to specify the screen size manually like this:
 ``./pacwall.sh -DS 1920x1200``).
-(If you don't know your compositor, it is probably Wayland by default. To be sure, check the selected option in the settings button of your DM (the lock screen))
 
 **WARNING**:
 Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and ``hsetroot``.
 ``-D`` is *required*.
-(If you don't know your DE, it is probably GNOME)
 
 -----------------
 Pywal integration
