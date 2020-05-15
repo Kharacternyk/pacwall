@@ -13,8 +13,8 @@ VNODE=$EDGE
 OOUTLINE=2
 UOUTLINE=3
 RANKSEP=0.7
-OUTPUT="$(pwd)/pacwall.png"
-STARTDIR="${PWD}"
+OUTPUT="$PWD/pacwall.png"
+STARTDIR="$PWD"
 
 prepare() {
     WORKDIR="$(mktemp -d)"
