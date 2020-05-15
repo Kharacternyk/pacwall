@@ -311,7 +311,7 @@ help() {
         Use -D to enable integration with desktop environments.
         Use -W to enable pywal integration.
         Use -U to disable highlighting of outdated packages.
-        Use -V if you are on VOID LINUX (EXPERIMENTAL, MOST FEATURES DON'T WORK)
+        Use -V if you are on VOID LINUX (EXPERIMENTAL, SOME FEATURES DON'T WORK)
 
         All colors may be specified either as
         - a color name (black, darkorange, ...)
