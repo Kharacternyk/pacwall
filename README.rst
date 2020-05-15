@@ -165,15 +165,6 @@ because one is expected to customize the pacwall invocation and flags. Also not
 everyone likes the noticable delay that the hook introduces to pacman invocations.
 `Pywal integration`_ doesn't work.
 
-~~~~~~~~~~~~~~~~
-Faster execution
-~~~~~~~~~~~~~~~~
-
-To speed up the things on Arch you may try ``-Q``.
-Depending on your specific installation this may produce the same graph faster or,
-if you aren't lucky, a wrong graph. This should be rechecked every time a package
-is installed.
-
 ~~~~~~~~~~
 Graph size
 ~~~~~~~~~~
