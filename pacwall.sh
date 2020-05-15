@@ -137,7 +137,7 @@ generate_graph_xbps() {
     mark_pkgs_xbps query O $ONODE $OOUTLINE
 
     # Mark outdated packages
-    mark_pkgs_xbps install nuM $UNODE $UOUTLINE
+    [[ -z $NO_UPDATES ]] && mark_pkgs_xbps install nuM $UNODE $UOUTLINE
 
     DEFAULT_NODE_COLOR=$NODE
 }
