@@ -104,30 +104,38 @@ generate_graph_pactree() {
     DEFAULT_NODE_COLOR=$VNODE
 }
 
+mark_pkgs_xbps() {
+    XBPS_FLAGS=$1
+    COLOR=$2
+    OUTLINE=$3
+    set +e
+    _PKGS="$(xbps-query -$XBPS_FLAGS | sed -E -e 's/-[0-9].*$//')"
+    echo $_PKGS
+    set -e
+    for _PKG in $_PKGS; do
+        echo "\"$_PKG\" [color=\"$COLOR\", peripheries=$OUTLINE]" >> pkgcolors
+    done
+}
+
 generate_graph_xbps() {
     # Get all installed packages in a space separated list
-    EPKGS="$(xbps-query -l | sed -E -e 's/.. (.*)-[0-9].*$/\1/')"
+    PKGS="$(xbps-query -l | sed -E -e 's/.. (.*)-[0-9].*$/\1/')"
 
-    for package in $EPKGS; do
+    for package in $PKGS; do
         touch stripped/$package
-        echo "\"$package\" [color=\"$ENODE\"]" >> pkgcolors
-        DPKGS=$(xbps-query -x $package | sed -E -e 's/>?=.*//g' | tr '\n' ' ')
+        echo "\"$package\" [color=\"$NODE\"]" >> pkgcolors
+        DPKGS=$(xbps-query -x $package | sed -E -e 's/>?=.*//g')
         for dependency in $DPKGS; do
             echo "\"$package\" -> \"$dependency\";" >> stripped/$package
         done
     done
 
-    # Get all orphaned packages
-    OPKGS=$(xbps-query -O)
-    for orphan in $OPKGS; do
-        echo "\"$orphan\" [color=\"$ONODE\", peripheries=2]" >> pkgcolors
-        ODPKGS=$(xbps-query -x $orphan | sed -E -e 's/>?=.*//g' | tr '\n' ' ')
-        for odependency in $ODPKGS; do
-            echo "\"$orphan\" -> \"$odependency\";" >> stripped/$orphan
-        done
-    done
+    # Mark manually installed packages
+    mark_pkgs_xbps m $ENODE 1
 
-    PKGS="$EPKGS $OPKGS"
+    # Mark orphaned packages
+    mark_pkgs_xbps O $ONODE $OOUTLINES
+
     DEFAULT_NODE_COLOR=$NODE
 }
 
