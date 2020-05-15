@@ -105,11 +105,12 @@ generate_graph_pactree() {
 }
 
 mark_pkgs_xbps() {
-    XBPS_FLAGS=$1
-    COLOR=$2
-    OUTLINE=$3
+    XBPS_CMD=$1
+    XBPS_FLAGS=$2
+    COLOR=$3
+    OUTLINE=$4
     set +e
-    _PKGS="$(xbps-query -$XBPS_FLAGS | sed -E -e 's/-[0-9].*$//')"
+    _PKGS="$(xbps-$XBPS_CMD -$XBPS_FLAGS | sed -E -e 's/-[0-9].*$//')"
     set -e
     for _PKG in $_PKGS; do
         echo "\"$_PKG\" [color=\"$COLOR\", peripheries=$OUTLINE]" >> pkgcolors
@@ -130,10 +131,13 @@ generate_graph_xbps() {
     done
 
     # Mark manually installed packages
-    mark_pkgs_xbps m $ENODE 1
+    mark_pkgs_xbps query m $ENODE 1
 
     # Mark orphaned packages
-    mark_pkgs_xbps O $ONODE $OOUTLINES
+    mark_pkgs_xbps query O $ONODE $OOUTLINE
+
+    # Mark outdated packages
+    mark_pkgs_xbps install nuM $UNODE $UOUTLINE
 
     DEFAULT_NODE_COLOR=$NODE
 }
