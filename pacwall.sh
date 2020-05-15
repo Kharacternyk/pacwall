@@ -110,7 +110,6 @@ mark_pkgs_xbps() {
     OUTLINE=$3
     set +e
     _PKGS="$(xbps-query -$XBPS_FLAGS | sed -E -e 's/-[0-9].*$//')"
-    echo $_PKGS
     set -e
     for _PKG in $_PKGS; do
         echo "\"$_PKG\" [color=\"$COLOR\", peripheries=$OUTLINE]" >> pkgcolors
@@ -119,7 +118,7 @@ mark_pkgs_xbps() {
 
 generate_graph_xbps() {
     # Get all installed packages in a space separated list
-    PKGS="$(xbps-query -l | sed -E -e 's/.. (.*)-[0-9].*$/\1/')"
+    PKGS="$(xbps-query -l | sed -E -e 's/^.. (.*)-[0-9].*$/\1/')"
 
     for package in $PKGS; do
         touch stripped/$package
