@@ -30,9 +30,8 @@ mark_pkgs() {
     PACMAN_FLAGS=$1
     COLOR=$2
     OUTLINE=$3
-    set +e
+
     _PKGS="$(pacman -Qq$PACMAN_FLAGS)"
-    set -e
     for _PKG in $_PKGS; do
         echo "\"$_PKG\" [color=\"$COLOR\", peripheries=$OUTLINE]" >> pkgcolors
     done
@@ -105,9 +104,8 @@ mark_pkgs_xbps() {
     XBPS_FLAGS=$2
     COLOR=$3
     OUTLINE=$4
-    set +e
+
     _PKGS="$(xbps-$XBPS_CMD -$XBPS_FLAGS | sed -E -e 's/-[0-9].*$//')"
-    set -e
     for _PKG in $_PKGS; do
         echo "\"$_PKG\" [color=\"$COLOR\", peripheries=$OUTLINE]" >> pkgcolors
     done
