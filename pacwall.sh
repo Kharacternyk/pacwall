@@ -148,7 +148,7 @@ compile_graph() {
 
 use_wal_colors() {
     if [[ ! -f ~/.cache/wal/colors ]]; then
-        echo 'Run pywal first'
+        echo 'Run pywal first' >&2
         exit 1
     fi
 
