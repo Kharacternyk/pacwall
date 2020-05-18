@@ -6,6 +6,6 @@ Type = Package
 Target = *
 
 [Action]
-Description = Regenerating the wallpaper (pacwall)
+Description = Regenerating the wallpaper...
 When = PostTransaction
 Exec = /bin/pacwall -o /tmp/pacwall.png
