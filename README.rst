@@ -128,13 +128,13 @@ Customizations can be made on the commandline, see the options with
             Use -U to disable highlighting of outdated packages.
             Use -V if you are on VOID LINUX (EXPERIMENTAL, SOME FEATURES DON'T WORK)
 
-            If OUTLINE value is bigger than 1, then OUTLINE-1 additional circles are drawn
-            around the corresponding packages.
-
             All colors may be specified either as
             - a color name (black, darkorange, ...)
             - a value of format #RRGGBB
             - a value of format #RRGGBBAA
+
+            If OUTLINE value is bigger than 1, then OUTLINE-1 additional circles are drawn
+            around the corresponding packages.
 
             ROOT is the package that will be put in the center of the graph.
             RANKSEP is the distance in **inches** between the concentric circles.
