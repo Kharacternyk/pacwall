@@ -1,6 +1,6 @@
 #!/bin/bash
 BACKGROUND=#073642
-EDGE=#eee8d522
+EDGE=#fdf6e322
 NODE=#dc322faa
 ENODE=#268bd2aa
 ONODE=#859900aa
