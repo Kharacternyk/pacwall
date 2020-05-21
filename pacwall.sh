@@ -147,22 +147,23 @@ compile_graph() {
 }
 
 use_wal_colors() {
-    if [[ ! -f ~/.cache/wal/colors ]]; then
+    if [[ ! -f ~/.cache/wal/colors.sh ]]; then
         echo 'Run pywal first' >&2
         exit 1
     fi
 
+    source ~/.cache/wal/colors.sh
     echo 'Using pywal colors:'
 
     # change `n` in `head -n` to use the n-th terminal color set by pywal
     # you can preview these colors in ~/.cache/wal/colors.json
-    BACKGROUND=$(head < ~/.cache/wal/colors -1 | tail -1)
-    EDGE=$(head < ~/.cache/wal/colors  -8 | tail -1)22
-    NODE=$(head < ~/.cache/wal/colors  -2 | tail -1)aa
-    ONODE=$(head < ~/.cache/wal/colors -3 | tail -1)aa
-    UNODE=$(head < ~/.cache/wal/colors -4 | tail -1)aa
-    ENODE=$(head < ~/.cache/wal/colors -5 | tail -1)aa
-    FNODE=$(head < ~/.cache/wal/colors -6 | tail -1)aa
+    BACKGROUND=$background
+    EDGE=${foreground}22
+    NODE=${color1}aa
+    ONODE=${color2}aa
+    UNODE=${color3}aa
+    ENODE=${color4}aa
+    FNODE=${color5}aa
     VNODE=$EDGE
 
     echo "    Background:    ${BACKGROUND}ff"
