@@ -103,7 +103,7 @@ Customizations can be made on the commandline, see the options with
 .. code-block::
 
     USAGE: pacwall
-            [ -iDWUV ]
+            [ -iDWULV ]
             [ -b BACKGROUND_COLOR ]
             [ -s EDGE_COLOR ]
             [ -d NODE_COLOR ]
@@ -126,6 +126,7 @@ Customizations can be made on the commandline, see the options with
             Use -D to enable integration with desktop environments.
             Use -W to enable pywal integration.
             Use -U to disable highlighting of outdated packages.
+            Use -L to label outdated packages using 'monospace 12.5pt' font.
             Use -V if you are on VOID LINUX (EXPERIMENTAL, SOME FEATURES DON'T WORK)
 
             All colors may be specified either as

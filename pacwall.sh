@@ -8,7 +8,6 @@ FNODE=#d33682aa
 UNODE=#b58900aa
 VNODE=$EDGE
 
-UFONT=#b58900ff
 FONTNAME="monospace"
 FONTSIZE=12.5
 
@@ -95,12 +94,19 @@ generate_graph_pactree() {
     done
 
     if [[ -z $NO_UPDATES ]]; then
+        [[ $UNODE =~ (#......).* ]]
+        UFONT=${BASH_REMATCH[1]}
         for package in $(checkupdates | sed -e "s/ .*$//"); do
+            if [[ -z $LABEL_UPDATES ]]; then
+                label=""
+            else
+                label=$package
+            fi
             echo "\"$package\" [
                 fontcolor=\"$UFONT\",
                 fontsize=\"$FONTSIZE\",
                 fontname=\"$FONTNAME\",
-                xlabel=\"$package\",
+                xlabel=\"$label\",
                 color=\"$UNODE\",
                 peripheries=$UOUTLINE
             ]" >> pkgcolors
@@ -173,7 +179,6 @@ use_wal_colors() {
     NODE=${color1}aa
     ONODE=${color2}aa
     UNODE=${color3}aa
-    UFONT=${color3}ff
     ENODE=${color4}aa
     FNODE=${color5}aa
     VNODE=$EDGE
@@ -185,7 +190,6 @@ use_wal_colors() {
     echo "    Orphan node:   $ONODE"
     echo "    Foreign node:  $FNODE"
     echo "    Outdated node: $UNODE"
-    echo "    Outdated font: $UFONT"
     echo "    Virtual node:  $VNODE"
 }
 
@@ -296,7 +300,7 @@ main() {
 
 help() {
     echo "USAGE: $0
-        [ -iDWUV ]
+        [ -iDWULV ]
         [ -b BACKGROUND_COLOR ]
         [ -s EDGE_COLOR ]
         [ -d NODE_COLOR ]
@@ -319,6 +323,7 @@ help() {
         Use -D to enable integration with desktop environments.
         Use -W to enable pywal integration.
         Use -U to disable highlighting of outdated packages.
+        Use -L to label outdated packages using 'monospace 12.5pt' font.
         Use -V if you are on VOID LINUX (EXPERIMENTAL, SOME FEATURES DON'T WORK)
 
         All colors may be specified either as
@@ -342,7 +347,7 @@ help() {
     exit 0
 }
 
-options='hiDWUVb:s:d:e:p:f:y:x:z:u:c:r:o:S:'
+options='hiDWULVb:s:d:e:p:f:y:x:z:u:c:r:o:S:'
 while getopts $options option; do
     case $option in
         h) help ;;
@@ -350,6 +355,7 @@ while getopts $options option; do
         D) DE_INTEGRATION=TRUE ;;
         W) PYWAL_INTEGRATION=TRUE ;;
         U) NO_UPDATES=TRUE ;;
+        L) LABEL_UPDATES=TRUE ;;
         V) VOID=TRUE ;;
         b) BACKGROUND=${OPTARG} ;;
         s) EDGE=${OPTARG} ;;
