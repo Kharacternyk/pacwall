@@ -94,8 +94,8 @@ generate_graph_pactree() {
     done
 
     if [[ -z $NO_UPDATES ]]; then
-        [[ $UNODE =~ (#......).* ]]
-        UFONT=${BASH_REMATCH[1]}
+        UFONT=$UNODE
+        [[ $UNODE =~ (#......).* ]] && UFONT=${BASH_REMATCH[1]}
         for package in $(checkupdates | sed -e "s/ .*$//"); do
             if [[ -z $LABEL_UPDATES ]]; then
                 label=""
