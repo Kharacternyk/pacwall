@@ -41,7 +41,6 @@ mark_pkgs() {
 }
 
 generate_graph_pactree() {
-    # Get a space-separated list of the "leaves".
     PKGS="$(pacman -Qq)"
 
     for package in $PKGS; do
@@ -79,7 +78,7 @@ generate_graph_pactree() {
             COLOR="${BASH_REMATCH[2]}"
             RPKGS="$(pacman -Qqg $GROUP)"
             for package in $RPKGS; do
-                # Mark each package from in GROUP using a distinct color.
+                # Mark each package in GROUP using a distinct color.
                 echo "\"$package\" [color=\"$COLOR\"]" >> pkgcolors
             done
         elif [[ $arg =~ ^(.+):(.+)$ ]]; then
@@ -129,7 +128,6 @@ mark_pkgs_xbps() {
 }
 
 generate_graph_xbps() {
-    # Get all installed packages in a space separated list
     PKGS="$(xbps-query -l | sed -E -e 's/^.. (.*)-[0-9].*$/\1/')"
 
     for package in $PKGS; do
@@ -172,7 +170,6 @@ use_wal_colors() {
     source ~/.cache/wal/colors.sh
     echo 'Using pywal colors:'
 
-    # change `n` in `head -n` to use the n-th terminal color set by pywal
     # you can preview these colors in ~/.cache/wal/colors.json
     BACKGROUND=$background
     EDGE=${foreground}22
