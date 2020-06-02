@@ -8,6 +8,10 @@ FNODE=#d33682aa
 UNODE=#b58900aa
 VNODE=$EDGE
 
+UFONT=#b58900ff
+FONTNAME="monospace"
+FONTSIZE=12.5
+
 OOUTLINE=2
 UOUTLINE=3
 RANKSEP=0.7
@@ -92,7 +96,14 @@ generate_graph_pactree() {
 
     if [[ -z $NO_UPDATES ]]; then
         for package in $(checkupdates | sed -e "s/ .*$//"); do
-            echo "\"$package\" [color=\"$UNODE\", peripheries=$UOUTLINE]" >> pkgcolors
+            echo "\"$package\" [
+                fontcolor=\"$UFONT\",
+                fontsize=\"$FONTSIZE\",
+                fontname=\"$FONTNAME\",
+                xlabel=\"$package\",
+                color=\"$UNODE\",
+                peripheries=$UOUTLINE
+            ]" >> pkgcolors
         done
     fi
 
@@ -162,6 +173,7 @@ use_wal_colors() {
     NODE=${color1}aa
     ONODE=${color2}aa
     UNODE=${color3}aa
+    UFONT=${color3}ff
     ENODE=${color4}aa
     FNODE=${color5}aa
     VNODE=$EDGE
@@ -173,6 +185,7 @@ use_wal_colors() {
     echo "    Orphan node:   $ONODE"
     echo "    Foreign node:  $FNODE"
     echo "    Outdated node: $UNODE"
+    echo "    Outdated font: $UFONT"
     echo "    Virtual node:  $VNODE"
 }
 
