@@ -271,10 +271,6 @@ copy_to_xdg() {
 main() {
     prepare
 
-    if [[ -n $PYWAL_INTEGRATION ]]; then
-        use_wal_colors
-    fi
-
     if [[ -z $VOID ]]; then
         echo 'Using pactree to generate the graph'
         generate_graph_pactree "$@"
@@ -353,7 +349,7 @@ while getopts $options option; do
         h) help ;;
         i) IMAGE_ONLY=TRUE ;;
         D) DE_INTEGRATION=TRUE ;;
-        W) PYWAL_INTEGRATION=TRUE ;;
+        W) use_wal_colors ;;
         U) NO_UPDATES=TRUE ;;
         L) LABEL_UPDATES=TRUE ;;
         V) VOID=TRUE ;;
