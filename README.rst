@@ -65,7 +65,7 @@ Void Linux
 Wallpaper backends
 ~~~~~~~~~~~~~~~~~~
 
-``pacwall`` tries to set the wallpaper using ``feh`` and ``hsetroot``.
+``pacwall`` tries to set the wallpaper using ``feh``, ``hsetroot`` and ``swaymsg``.
 
 -------------------------------
 Desktop environment integration
@@ -74,9 +74,9 @@ Desktop environment integration
 Use ``-D`` to enable desktop environment integration (KDE Plasma, GNOME, ...).
 You will be able to see the generated wallpapers in the graphical wallpaper picker.
 
-DE integration requires ``imagemagick`` and ``xorg-xdpyinfo``
-(If you are on Wayland you need to specify the screen size manually like this:
-``./pacwall.sh -DS 1920x1200``).
+DE integration requires ``imagemagick`` and if you are on X11, ``xorg-xdpyinfo``.
+If you are using another Wayland compositor, you need to specify the screen size
+manually like this: ``./pacwall.sh -DS 1920x1200``.
 
 **WARNING**:
 Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and ``hsetroot``.
