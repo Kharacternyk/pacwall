@@ -185,6 +185,7 @@ Contributors
 * `Yannic Uhlmann`_: Void support;
 * `Luca Leon Happel`_: pywal integration, ``hsetroot`` backend;
 * `QWxleA`_: screen size autodetection via ``xdpyinfo``;
+* `Daniel Bertalan`_: sway_ integration;
 
 ----------------
 Similar software
@@ -202,6 +203,8 @@ Similar software
 .. _Yannic Uhlmann: https://github.com/AugustUnderground
 .. _Luca Leon Happel: https://github.com/Quoteme
 .. _QwxleA: https://github.com/QWxleA
+.. _Daniel Bertalan: https://github.com/BertalanD
 .. _rice: https://www.reddit.com/r/unixporn/comments/fnfujo/gnome_first_rice_pacwall/
 .. _pacgraph: http://kmkeen.com/pacgraph/
 .. _pacvis: https://github.com/farseerfc/pacvis
+.. _sway: https://github.com/swaywm/sway
