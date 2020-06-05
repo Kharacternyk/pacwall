@@ -238,22 +238,18 @@ set_wallpaper() {
         </wallpapers>" \
             > "${XDG_DATA_HOME}/gnome-background-properties/pacwall${BACKGROUND}.xml"
 
-        hsetroot -solid "$BACKGROUND"-full "${XDGOUT}" \
-            2> /dev/null && echo 'Using hsetroot to set the wallpaper'
-
-        feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${XDGOUT}" \
-            2> /dev/null && echo 'Using feh to set the wallpaper'
-
         gsettings set org.gnome.desktop.background picture-uri "${XDGOUT}" \
             2> /dev/null && echo 'Using gsettings to set the wallpaper'
 
-    else
-        hsetroot -solid "$BACKGROUND" -full "${OUTPUT}" \
-            2> /dev/null && echo 'Using hsetroot to set the wallpaper'
+        OUTPUT="$XDGOUT"
 
-        feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${OUTPUT}" \
-            2> /dev/null && echo 'Using feh to set the wallpaper'
     fi
+
+    hsetroot -solid "$BACKGROUND" -full "${OUTPUT}" \
+        2> /dev/null && echo 'Using hsetroot to set the wallpaper'
+
+    feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${OUTPUT}" \
+        2> /dev/null && echo 'Using feh to set the wallpaper'
 
     set -e
 }
