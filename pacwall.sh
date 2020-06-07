@@ -250,8 +250,6 @@ set_wallpaper() {
         gsettings set org.gnome.desktop.background picture-uri "${XDGOUT}" \
             2> /dev/null && echo 'Using gsettings to set the wallpaper'
 
-        OUTPUT="$XDGOUT"
-
     fi
 
     hsetroot -solid "$BACKGROUND" -full "${OUTPUT}" \
