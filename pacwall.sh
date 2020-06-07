@@ -215,10 +215,19 @@ set_wallpaper() {
 
     if [[ -n $DE_INTEGRATION ]]; then
         if [[ -z $SCREEN_SIZE ]]; then
-            SCREEN_SIZE=$(
-                xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
-            )
+            command -v xdpyinfo &> /dev/null &&
+                SCREEN_SIZE=$(
+                    xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
+                )
+
+            command -v swaymsg &> /dev/null &&
+                SCREEN_SIZE=$(
+                    swaymsg -t get_outputs -p | grep 'Current mode:' |
+                        sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/'
+                )
+            #TODO: handle if neither exists
         fi
+
         convert pacwall.png \
             -gravity center \
             -background "${BACKGROUND}" \
@@ -238,22 +247,19 @@ set_wallpaper() {
         </wallpapers>" \
             > "${XDG_DATA_HOME}/gnome-background-properties/pacwall${BACKGROUND}.xml"
 
-        hsetroot -solid "$BACKGROUND"-full "${XDGOUT}" \
-            2> /dev/null && echo 'Using hsetroot to set the wallpaper'
-
-        feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${XDGOUT}" \
-            2> /dev/null && echo 'Using feh to set the wallpaper'
-
         gsettings set org.gnome.desktop.background picture-uri "${XDGOUT}" \
             2> /dev/null && echo 'Using gsettings to set the wallpaper'
 
-    else
-        hsetroot -solid "$BACKGROUND" -full "${OUTPUT}" \
-            2> /dev/null && echo 'Using hsetroot to set the wallpaper'
-
-        feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${OUTPUT}" \
-            2> /dev/null && echo 'Using feh to set the wallpaper'
     fi
+
+    hsetroot -solid "$BACKGROUND" -full "${OUTPUT}" \
+        2> /dev/null && echo 'Using hsetroot to set the wallpaper'
+
+    feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${OUTPUT}" \
+        2> /dev/null && echo 'Using feh to set the wallpaper'
+
+    swaymsg "output '*' bg '${OUTPUT}' center '$BACKGROUND'" \
+        2> /dev/null && echo "Using swaymsg to set the wallpaper"
 
     set -e
 }

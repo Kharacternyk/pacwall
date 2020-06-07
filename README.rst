@@ -65,7 +65,7 @@ Void Linux
 Wallpaper backends
 ~~~~~~~~~~~~~~~~~~
 
-``pacwall`` tries to set the wallpaper using ``feh`` and ``hsetroot``.
+``pacwall`` tries to set the wallpaper using ``feh``, ``hsetroot`` and ``swaymsg``.
 
 -------------------------------
 Desktop environment integration
@@ -74,9 +74,9 @@ Desktop environment integration
 Use ``-D`` to enable desktop environment integration (KDE Plasma, GNOME, ...).
 You will be able to see the generated wallpapers in the graphical wallpaper picker.
 
-DE integration requires ``imagemagick`` and ``xorg-xdpyinfo``
-(If you are on Wayland you need to specify the screen size manually like this:
-``./pacwall.sh -DS 1920x1200``).
+DE integration requires ``imagemagick`` and if you are on X11, ``xorg-xdpyinfo``.
+If you are using a Wayland compositor other than sway, you need to specify
+the screen size manually like this: ``./pacwall.sh -DS 1920x1200``.
 
 **WARNING**:
 Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and ``hsetroot``.
@@ -90,14 +90,14 @@ Run ``./pacwall.sh -W`` to use colors set by pywal.
 
 Some themes don't follow the color order convention, though many do.
 If you use a scheme that doesn't, then the color description table
-above may be partialy invalid e.g. updates are highlighted green instead of
+above may be partially invalid e.g. updates are highlighted green instead of
 yellow and orphans are yellow instead of green.
 
 -------------
 Customization
 -------------
 
-Customizations can be made on the commandline, see the options with
+Customizations can be made on the command line, see the options with
 ``./pacwall.sh -h``.
 
 .. code-block::
@@ -163,7 +163,7 @@ Pacman hook
 ``/usr/share/libalpm/hooks/``. It will trigger wallpaper regenerating each time
 a package is removed, added or upgraded. **It's not a part of a package from AUR**,
 because one is expected to customize the pacwall invocation and flags. Also not
-everyone likes the noticable delay that the hook introduces to pacman invocations.
+everyone likes the noticeable delay that the hook introduces to pacman invocations.
 `Pywal integration`_ doesn't work.
 
 ~~~~~~~~~~
@@ -185,6 +185,7 @@ Contributors
 * `Yannic Uhlmann`_: Void support;
 * `Luca Leon Happel`_: pywal integration, ``hsetroot`` backend;
 * `QWxleA`_: screen size autodetection via ``xdpyinfo``;
+* `Daniel Bertalan`_: sway_ integration;
 
 ----------------
 Similar software
@@ -202,6 +203,8 @@ Similar software
 .. _Yannic Uhlmann: https://github.com/AugustUnderground
 .. _Luca Leon Happel: https://github.com/Quoteme
 .. _QwxleA: https://github.com/QWxleA
+.. _Daniel Bertalan: https://github.com/BertalanD
 .. _rice: https://www.reddit.com/r/unixporn/comments/fnfujo/gnome_first_rice_pacwall/
 .. _pacgraph: http://kmkeen.com/pacgraph/
 .. _pacvis: https://github.com/farseerfc/pacvis
+.. _sway: https://github.com/swaywm/sway
