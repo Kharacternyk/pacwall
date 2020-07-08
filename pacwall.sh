@@ -190,6 +190,45 @@ use_wal_colors() {
     echo "    Virtual node:  $VNODE"
 }
 
+get_xresources_background_color() {
+    cat $HOME/.Xresources | grep "^\*\.background" | grep -o "\#[a-zA-Z0-9]*"
+}
+
+get_xresources_foreground_color() {
+    cat $HOME/.Xresources | grep "^\*\.foreground" | grep -o "\#[a-zA-Z0-9]*"
+}
+
+get_xresources_color() {
+    cat $HOME/.Xresources | grep $1: | grep -o "\#[a-zA-Z0-9]*"
+}
+
+use_xresources_colors() {
+    if [[ ! -f ~/.Xresources ]]; then
+        echo 'Cannot find Xresources' >&2
+        exit 1
+    fi
+
+    echo 'Using Xresources colors:'
+
+    BACKGROUND=$(get_xresources_background_color)
+    EDGE=$(get_xresources_foreground_color)22
+    NODE=$(get_xresources_color color1)
+    ONODE=$(get_xresources_color color2)
+    UNODE=$(get_xresources_color color3)
+    ENODE=$(get_xresources_color color4)
+    FNODE=$(get_xresources_color color5)
+    VNODE=$EDGE
+
+    echo "    Background:    ${BACKGROUND}ff"
+    echo "    Edge:          $EDGE"
+    echo "    Node:          $NODE"
+    echo "    Explicit node: $ENODE"
+    echo "    Orphan node:   $ONODE"
+    echo "    Foreign node:  $FNODE"
+    echo "    Outdated node: $UNODE"
+    echo "    Virtual node:  $VNODE"
+}
+
 render_graph() {
     # Style the graph according to preferences.
     declare -a twopi_args=(
@@ -321,6 +360,7 @@ help() {
         Use -i to suppress wallpaper setting.
         Use -D to enable integration with desktop environments.
         Use -W to enable pywal integration.
+        Use -X to enable Xresources integration.
         Use -U to disable highlighting of outdated packages.
         Use -L to label outdated packages using 'monospace 12.5pt' font.
         Use -V if you are on VOID LINUX (EXPERIMENTAL, SOME FEATURES DON'T WORK)
@@ -346,13 +386,14 @@ help() {
     exit 0
 }
 
-options='hiDWULVb:s:d:e:p:f:y:x:z:u:c:r:o:S:'
+options='hiDWXULVb:s:d:e:p:f:y:x:z:u:c:r:o:S:'
 while getopts $options option; do
     case $option in
         h) help ;;
         i) IMAGE_ONLY=TRUE ;;
         D) DE_INTEGRATION=TRUE ;;
         W) use_wal_colors ;;
+        X) use_xresources_colors ;;
         U) NO_UPDATES=TRUE ;;
         L) LABEL_UPDATES=TRUE ;;
         V) VOID=TRUE ;;
