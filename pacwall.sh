@@ -212,11 +212,11 @@ use_xresources_colors() {
 
     BACKGROUND=$(get_xresources_background_color)
     EDGE=$(get_xresources_foreground_color)22
-    NODE=$(get_xresources_color color1)
-    ONODE=$(get_xresources_color color2)
-    UNODE=$(get_xresources_color color3)
-    ENODE=$(get_xresources_color color4)
-    FNODE=$(get_xresources_color color5)
+    NODE=$(get_xresources_color color1)aa
+    ONODE=$(get_xresources_color color2)aa
+    UNODE=$(get_xresources_color color3)aa
+    ENODE=$(get_xresources_color color4)aa
+    FNODE=$(get_xresources_color color5)aa
     VNODE=$EDGE
 
     echo "    Background:    ${BACKGROUND}ff"
