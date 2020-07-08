@@ -161,7 +161,7 @@ Pacman hook
 
 ``90-pacwall.hook`` is an example of a pacman hook that you may put into
 ``/usr/share/libalpm/hooks/``. It will trigger wallpaper regenerating each time
-a package is removed, added or upgraded. **It's not a part of a package from AUR**,
+a package is removed, added or upgraded. **It's not a part of the package in AUR**,
 because one is expected to customize the pacwall invocation and flags. Also not
 everyone likes the noticeable delay that the hook introduces to pacman invocations.
 `Pywal integration`_ doesn't work.
