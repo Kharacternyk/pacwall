@@ -193,6 +193,7 @@ Contributors
 * `Luca Leon Happel`_: pywal integration, ``hsetroot`` backend;
 * `QWxleA`_: screen size autodetection via ``xdpyinfo``;
 * `Daniel Bertalan`_: sway_ integration;
+* `Lucas Goudin`_: Xresources integration;
 
 ----------------
 Similar software
@@ -211,6 +212,7 @@ Similar software
 .. _Luca Leon Happel: https://github.com/Quoteme
 .. _QwxleA: https://github.com/QWxleA
 .. _Daniel Bertalan: https://github.com/BertalanD
+.. _Lucas Goudin: https://github.com/Rukkaitto
 .. _rice: https://www.reddit.com/r/unixporn/comments/fnfujo/gnome_first_rice_pacwall/
 .. _pacgraph: http://kmkeen.com/pacgraph/
 .. _pacvis: https://github.com/farseerfc/pacvis
