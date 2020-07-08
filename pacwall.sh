@@ -338,7 +338,7 @@ main() {
 
 help() {
     echo "USAGE: $0
-        [ -iDWULV ]
+        [ -iDWXULV ]
         [ -b BACKGROUND_COLOR ]
         [ -s EDGE_COLOR ]
         [ -d NODE_COLOR ]

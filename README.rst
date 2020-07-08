@@ -93,6 +93,12 @@ If you use a scheme that doesn't, then the color description table
 above may be partially invalid e.g. updates are highlighted green instead of
 yellow and orphans are yellow instead of green.
 
+----------------------
+Xresources integration
+----------------------
+
+Run ``./pacwall.sh -X`` to use colors set in Xresources.
+
 -------------
 Customization
 -------------
@@ -103,7 +109,7 @@ Customizations can be made on the command line, see the options with
 .. code-block::
 
     USAGE: pacwall
-            [ -iDWULV ]
+            [ -iDWXULV ]
             [ -b BACKGROUND_COLOR ]
             [ -s EDGE_COLOR ]
             [ -d NODE_COLOR ]
@@ -125,6 +131,7 @@ Customizations can be made on the command line, see the options with
             Use -i to suppress wallpaper setting.
             Use -D to enable integration with desktop environments.
             Use -W to enable pywal integration.
+            Use -X to enable Xresources integration.
             Use -U to disable highlighting of outdated packages.
             Use -L to label outdated packages using 'monospace 12.5pt' font.
             Use -V if you are on VOID LINUX (EXPERIMENTAL, SOME FEATURES DON'T WORK)
