@@ -67,7 +67,7 @@ Gentoo Linux
 
 .. code-block:: bash
 
-    sudo emerge app-portage/gentoolkit app-portage/eix media-gfx/graphviz
+    sudo emerge media-gfx/graphviz app-portage/eix
 
 
 ~~~~~~~~~~~~~~~~~~
