@@ -29,6 +29,64 @@ cleanup() {
     cd "${STARTDIR}" && rm -rf "${WORKDIR}"
 }
 
+mark_pkgs_portage() {
+	PKG_TYPE=$1
+	COLOR=$2
+	OUTLINE=$3
+
+	_PKGS="$(qlist -IqC)"
+	case "$PKG_TYPE" in
+        "")
+			for _PKG in $_PKGS ; do
+				echo "\"$_PKG\" [color=\"$COLOR\", peripheries=$OUTLINE]" >> pkgcolors
+			done
+			;;
+		"e")
+			for _PKG in $(eix -c# --selected) ; do
+				echo "\"$_PKG\" [color=\"$COLOR\", peripheries=$OUTLINE]" >> pkgcolors
+			done
+			;;
+		"o")
+			for _PKG in $_PKGS ; do
+				if [ "$(qlist -RC $_PKG)" != "gentoo" ] ; then
+					echo "\"$_PKG\" [color=\"$COLOR\", peripheries=$OUTLINE]" >> pkgcolors
+				fi
+			done
+			;;
+		*)
+			;;
+    esac
+}
+
+generate_graph_portage() {
+    PKGS="$(qlist -IqC)"
+
+    for package in $PKGS; do
+		mkdir -p {"raw","stripped"}"/${package%%/*}"
+        qdepends -iC ${package} | tr " " "\n" | tail -n +2 > "raw/${package}"
+        sed -E \
+			-e 's/^!?<?>?=?//g' \
+			-e 's/\[.*\]$//g' \
+			-e 's/:.*$//g' \
+			-e 's/\-([0-9]+\.?)+.*$//g' \
+            "raw/${package}" | while read -r dependency ; do
+				if qdepends -iqC "${dependency}" > /dev/null; then
+                    echo "\"${package}\" -> \"${dependency}\" ;"
+				fi
+            done >> "stripped/${package}"
+    done
+
+
+	mark_pkgs_portage "" $NODE 1
+	# Mark explicitly installed packages
+	mark_pkgs_portage e $ENODE 1
+
+	# Mark packages from overlays
+	mark_pkgs_portage o $FNODE 1
+
+	DEFAULT_NODE_COLOR=$NODE
+}
+
 mark_pkgs() {
     PACMAN_FLAGS=$1
     COLOR=$2
@@ -274,10 +332,13 @@ copy_to_xdg() {
 main() {
     prepare
 
-    if [[ -z $VOID ]]; then
+	if command -v emerge > /dev/null ; then
+		echo "Using portage to generate the graph"
+		generate_graph_portage
+    elif [[ -z $VOID ]]; then
         echo 'Using pactree to generate the graph'
         generate_graph_pactree "$@"
-    else
+	else
         echo 'Using xbps to generate the graph'
         generate_graph_xbps
     fi

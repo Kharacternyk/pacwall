@@ -61,6 +61,15 @@ Void Linux
 
     sudo xbps-install -S graphviz
 
+~~~~~~~~~~~~
+Gentoo Linux
+~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    sudo emerge app-portage/gentoolkit app-portage/eix media-gfx/graphviz
+
+
 ~~~~~~~~~~~~~~~~~~
 Wallpaper backends
 ~~~~~~~~~~~~~~~~~~
