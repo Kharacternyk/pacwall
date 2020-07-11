@@ -205,6 +205,7 @@ Contributors
 * `QWxleA`_: screen size autodetection via ``xdpyinfo``;
 * `Daniel Bertalan`_: sway_ integration;
 * `Lucas Goudin`_: Xresources integration;
+* `Adithya Nair`_: Gentoo support;
 
 ----------------
 Similar software
@@ -224,6 +225,7 @@ Similar software
 .. _QwxleA: https://github.com/QWxleA
 .. _Daniel Bertalan: https://github.com/BertalanD
 .. _Lucas Goudin: https://github.com/Rukkaitto
+.. _Adithya Nair: https://github.com/adtyanair
 .. _rice: https://www.reddit.com/r/unixporn/comments/fnfujo/gnome_first_rice_pacwall/
 .. _pacgraph: http://kmkeen.com/pacgraph/
 .. _pacvis: https://github.com/farseerfc/pacvis
