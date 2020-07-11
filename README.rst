@@ -143,7 +143,6 @@ Customizations can be made on the command line, see the options with
             Use -X to enable Xresources integration.
             Use -U to disable highlighting of outdated packages.
             Use -L to label outdated packages using 'monospace 12.5pt' font.
-            Use -V if you are on VOID LINUX (EXPERIMENTAL, SOME FEATURES DON'T WORK)
 
             All colors may be specified either as
             - a color name (black, darkorange, ...)
@@ -161,6 +160,9 @@ Customizations can be made on the command line, see the options with
             REPO:COLOR overrides the highlight color for packages from REPO to COLOR.
             GROUP%COLOR overrides the highlight color for packages from GROUP to COLOR.
             PACKAGE@COLOR overrides the highlight color for PACKAGE to COLOR.
+
+            If you are on a distribution other than Arch, not all of the above will work.
+            Partly supported distributions: Void, Gentoo.
 
 Additional customizations can be performed by modifying the script itself.
 The code in the script is well-structured (should be).

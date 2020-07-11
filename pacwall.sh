@@ -424,7 +424,6 @@ help() {
         Use -X to enable Xresources integration.
         Use -U to disable highlighting of outdated packages.
         Use -L to label outdated packages using 'monospace 12.5pt' font.
-        Use -V if you are on VOID LINUX (EXPERIMENTAL, SOME FEATURES DON'T WORK) [Package manager is identified automatically. This flag will be ignored]
 
         All colors may be specified either as
         - a color name (black, darkorange, ...)
@@ -442,6 +441,9 @@ help() {
         REPO:COLOR overrides the highlight color for packages from REPO to COLOR.
         GROUP%COLOR overrides the highlight color for packages from GROUP to COLOR.
         PACKAGE@COLOR overrides the highlight color for PACKAGE to COLOR.
+
+        If you are on a distribution other than Arch, not all of the above will work.
+        Partly supported distributions: Void, Gentoo.
         "
 
     exit 0
