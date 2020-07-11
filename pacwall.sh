@@ -332,15 +332,15 @@ copy_to_xdg() {
 main() {
     prepare
 
-    if command -v emerge > /dev/null; then
-        echo "Using portage to generate the graph"
-        generate_graph_portage
-    elif [[ -z $VOID ]]; then
+    if command -v pacman > /dev/null; then
         echo 'Using pactree to generate the graph'
         generate_graph_pactree "$@"
-    else
+    elif command -v xbps-install > /dev/null; then
         echo 'Using xbps to generate the graph'
         generate_graph_xbps
+    elif command -v emerge > /dev/null; then
+        echo "Using portage to generate the graph"
+        generate_graph_portage
     fi
 
     compile_graph
@@ -384,7 +384,7 @@ help() {
         Use -W to enable pywal integration.
         Use -U to disable highlighting of outdated packages.
         Use -L to label outdated packages using 'monospace 12.5pt' font.
-        Use -V if you are on VOID LINUX (EXPERIMENTAL, SOME FEATURES DON'T WORK)
+        Use -V if you are on VOID LINUX (EXPERIMENTAL, SOME FEATURES DON'T WORK) [Package manager is identified automatically. This flag will be ignored]
 
         All colors may be specified either as
         - a color name (black, darkorange, ...)
@@ -416,7 +416,7 @@ while getopts $options option; do
         W) use_wal_colors ;;
         U) NO_UPDATES=TRUE ;;
         L) LABEL_UPDATES=TRUE ;;
-        V) VOID=TRUE ;;
+        V) echo "Warning: Package manager is identified automatically. -V flag will be ignored." ;;
         b) BACKGROUND=${OPTARG} ;;
         s) EDGE=${OPTARG} ;;
         d) NODE=${OPTARG} ;;
