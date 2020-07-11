@@ -29,6 +29,64 @@ cleanup() {
     cd "${STARTDIR}" && rm -rf "${WORKDIR}"
 }
 
+mark_pkgs_portage() {
+    PKG_TYPE=$1
+    COLOR=$2
+    OUTLINE=$3
+
+    _PKGS="$(qlist -IqC)"
+    case "$PKG_TYPE" in
+        "")
+            for _PKG in $_PKGS; do
+                echo "\"$_PKG\" [color=\"$COLOR\", peripheries=$OUTLINE]" >> pkgcolors
+            done
+            ;;
+        "e")
+            for _PKG in $(eix -c# --selected); do
+                echo "\"$_PKG\" [color=\"$COLOR\", peripheries=$OUTLINE]" >> pkgcolors
+            done
+            ;;
+        "o")
+            for _PKG in $_PKGS; do
+                if [ "$(qlist -RC $_PKG)" != "gentoo" ]; then
+                    echo "\"$_PKG\" [color=\"$COLOR\", peripheries=$OUTLINE]" >> pkgcolors
+                fi
+            done
+            ;;
+        *) ;;
+
+    esac
+}
+
+generate_graph_portage() {
+    PKGS="$(qlist -IqC)"
+
+    for package in $PKGS; do
+        mkdir -p {"raw","stripped"}"/${package%%/*}"
+        qdepends -iC ${package} | tr " " "\n" | tail -n +2 > "raw/${package}"
+        sed -E \
+            -e 's/^!?<?>?=?//g' \
+            -e 's/\[.*\]$//g' \
+            -e 's/:.*$//g' \
+            -e 's/\-([0-9]+\.?)+.*$//g' \
+            "raw/${package}" | while read -r dependency; do
+            if qdepends -iqC "${dependency}" > /dev/null; then
+                echo "\"${package}\" -> \"${dependency}\" ;"
+            fi
+        done >> "stripped/${package}"
+    done
+
+    mark_pkgs_portage "" $NODE 1
+
+    # Mark explicitly installed packages
+    mark_pkgs_portage e $ENODE 1
+
+    # Mark packages from overlays
+    mark_pkgs_portage o $FNODE 1
+
+    DEFAULT_NODE_COLOR=$NODE
+}
+
 mark_pkgs() {
     PACMAN_FLAGS=$1
     COLOR=$2
@@ -313,12 +371,15 @@ copy_to_xdg() {
 main() {
     prepare
 
-    if [[ -z $VOID ]]; then
+    if command -v pacman > /dev/null; then
         echo 'Using pactree to generate the graph'
         generate_graph_pactree "$@"
-    else
+    elif command -v xbps-install > /dev/null; then
         echo 'Using xbps to generate the graph'
         generate_graph_xbps
+    elif command -v emerge > /dev/null; then
+        echo "Using portage to generate the graph"
+        generate_graph_portage
     fi
 
     compile_graph
@@ -363,7 +424,7 @@ help() {
         Use -X to enable Xresources integration.
         Use -U to disable highlighting of outdated packages.
         Use -L to label outdated packages using 'monospace 12.5pt' font.
-        Use -V if you are on VOID LINUX (EXPERIMENTAL, SOME FEATURES DON'T WORK)
+        Use -V if you are on VOID LINUX (EXPERIMENTAL, SOME FEATURES DON'T WORK) [Package manager is identified automatically. This flag will be ignored]
 
         All colors may be specified either as
         - a color name (black, darkorange, ...)
@@ -396,7 +457,7 @@ while getopts $options option; do
         X) use_xresources_colors ;;
         U) NO_UPDATES=TRUE ;;
         L) LABEL_UPDATES=TRUE ;;
-        V) VOID=TRUE ;;
+        V) echo "Warning: Package manager is identified automatically. -V flag will be ignored." ;;
         b) BACKGROUND=${OPTARG} ;;
         s) EDGE=${OPTARG} ;;
         d) NODE=${OPTARG} ;;
