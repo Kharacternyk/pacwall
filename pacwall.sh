@@ -349,7 +349,7 @@ set_wallpaper() {
 
     fi
 
-    hsetroot -solid "$BACKGROUND" -full "${OUTPUT}" \
+    hsetroot -solid "$BACKGROUND" -center "${OUTPUT}" \
         2> /dev/null && echo 'Using hsetroot to set the wallpaper'
 
     feh --bg-center --no-fehbg --image-bg "$BACKGROUND" "${OUTPUT}" \
