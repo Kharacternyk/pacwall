@@ -1,9 +1,10 @@
 #include <alpm.h>
 
+#include "opts.h"
 #include "util.h"
 
-void generate_graph(const char *filename) {
-    alpm_errno_t error;
+void generate_graph(const struct opts *opts) {
+    alpm_errno_t error = 0;
     alpm_handle_t *alpm = alpm_initialize("/", "/var/lib/pacman", &error);
     if (error) {
         panic("%s.\n", "Can not create a handle for the pacman database");
@@ -12,7 +13,7 @@ void generate_graph(const char *filename) {
     alpm_db_t *db = alpm_get_localdb(alpm);
     alpm_list_t *pkgs = alpm_db_get_pkgcache(db);
 
-    FILE *file = fopen(filename, "w");
+    FILE *file = fopen(opts->gv_out, "w");
     if (file == NULL) {
         panic("%s.\n", "Can not create a temporary file for the graph");
     }

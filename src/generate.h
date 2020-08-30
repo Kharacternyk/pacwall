@@ -1,1 +1,3 @@
-void generate_graph(const char *filename);
+#include "opts.h"
+
+void generate_graph(const struct opts *opts);

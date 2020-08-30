@@ -1,8 +1,9 @@
+#include "opts.h"
 #include "util.h"
 
-void display_graph(const char *in_filename, const char *out_filename) {
-    int errorcode;
-    subprocess(&errorcode, "twopi", "-Tpng", "-o", out_filename, in_filename);
+void render_graph(const struct opts *opts) {
+    int errorcode = 0;
+    subprocess(&errorcode, "twopi", "-Tpng", "-o", opts->png_out, opts->gv_out);
     if (errorcode) {
         panic("Twopi returned %d.\n", errorcode);
     }
