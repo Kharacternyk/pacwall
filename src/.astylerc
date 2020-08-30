@@ -1,0 +1,15 @@
+# Formating opts.
+style=attach
+indent=spaces=4
+pad-oper
+pad-comma
+pad-header
+unpad-paren
+align-pointer=name
+add-braces
+attach-return-type
+attach-return-type-decl
+max-code-length=88
+
+# Command invocation opts.
+suffix=none
