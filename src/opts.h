@@ -4,8 +4,8 @@
 #include <libconfig.h>
 
 struct opts {
-    const char *gv_out;
-    const char *png_out;
+    const char *output_graphviz;
+    const char *output_png;
     const char *pacman_db;
 };
 

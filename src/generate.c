@@ -13,9 +13,9 @@ void generate_graph(const struct opts *opts) {
     alpm_db_t *db = alpm_get_localdb(alpm);
     alpm_list_t *pkgs = alpm_db_get_pkgcache(db);
 
-    FILE *file = fopen(opts->gv_out, "w");
+    FILE *file = fopen(opts->output_graphviz, "w");
     if (file == NULL) {
-        panic("Could not create %s.\n", opts->gv_out);
+        panic("Could not create %s.\n", opts->output_graphviz);
     }
 
     fprintf(file, "strict digraph G {\n");
