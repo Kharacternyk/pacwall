@@ -5,9 +5,9 @@
 
 void generate_graph(const struct opts *opts) {
     alpm_errno_t error = 0;
-    alpm_handle_t *alpm = alpm_initialize("/", "/var/lib/pacman", &error);
+    alpm_handle_t *alpm = alpm_initialize("/", opts->pacman_db, &error);
     if (error) {
-        panic("%s.\n", "Can not create a handle for the pacman database");
+        panic("Could not read pacman database at %s.\n", opts->pacman_db);
     }
 
     alpm_db_t *db = alpm_get_localdb(alpm);
@@ -15,7 +15,7 @@ void generate_graph(const struct opts *opts) {
 
     FILE *file = fopen(opts->gv_out, "w");
     if (file == NULL) {
-        panic("%s.\n", "Can not create a temporary file for the graph");
+        panic("Could not create %s.\n", opts->gv_out);
     }
 
     fprintf(file, "strict digraph G {\n");

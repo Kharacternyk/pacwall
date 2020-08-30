@@ -6,7 +6,8 @@
 struct opts parse_opts(config_t *cfg) {
     struct opts opts = {
         .gv_out = "/tmp/pacwall.gv",
-        .png_out = "/tmp/pacwall.png"
+        .png_out = "/tmp/pacwall.png",
+        .pacman_db = "/var/lib/pacman"
     };
 
     /*TODO: respect XDG_CONFIG_HOME*/
@@ -24,6 +25,7 @@ struct opts parse_opts(config_t *cfg) {
 
     config_lookup_string(cfg, "output.graphviz", &opts.gv_out);
     config_lookup_string(cfg, "output.png", &opts.png_out);
+    config_lookup_string(cfg, "pacman.db", &opts.pacman_db);
 
     return opts;
 }
