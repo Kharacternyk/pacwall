@@ -1,4 +1,4 @@
-#include "opts.h"
+#include "render.h"
 #include "util.h"
 
 void render_graph(const struct opts *opts) {

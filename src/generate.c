@@ -1,6 +1,6 @@
 #include <alpm.h>
 
-#include "opts.h"
+#include "generate.h"
 #include "util.h"
 
 void generate_graph(const struct opts *opts) {
