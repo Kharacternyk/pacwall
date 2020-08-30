@@ -15,6 +15,3 @@ format:
 
 graph:
 	@cinclude2dot | xdot -
-
-valgrind:
-	@valgrind ./pacwall
