@@ -20,6 +20,7 @@ void generate_graph(const struct opts *opts) {
 
     fprintf(file, "strict digraph G {\n");
     while (pkgs) {
+        fprintf(file, "\"%s\";\n", alpm_pkg_get_name(pkgs->data));
         alpm_list_t *requiredby = alpm_pkg_compute_requiredby(pkgs->data);
         while (requiredby) {
             fprintf(file, "\"%s\" -> \"%s\";\n",
