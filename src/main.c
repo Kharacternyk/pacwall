@@ -1,5 +1,5 @@
 #include "generate.h"
-#include "display.h"
+#include "render.h"
 
 int main(int argc, char **argv) {
     generate_graph("/tmp/pacwall.gv");
