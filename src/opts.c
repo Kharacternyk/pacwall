@@ -14,7 +14,8 @@ struct opts parse_opts(config_t *cfg) {
         .appearance_dependency_hard =
         "arrowhead=normal, color=\"#fdf6e322\"",
         .appearance_dependency_optional =
-        "arrowhead=normal, style=dashed, color=\"#fdf6e322\""
+        "arrowhead=normal, style=dashed, color=\"#fdf6e322\"",
+        .hook = NULL
     };
 
     /*TODO: respect XDG_CONFIG_HOME*/
@@ -40,6 +41,7 @@ struct opts parse_opts(config_t *cfg) {
                          &opts.appearance_dependency_hard);
     config_lookup_string(cfg, "appearance.dependency.optional",
                          &opts.appearance_dependency_optional);
+    config_lookup_string(cfg, "hook", &opts.hook);
 
     return opts;
 }
