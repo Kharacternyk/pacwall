@@ -20,7 +20,7 @@ void generate_graph(const struct opts *opts) {
         panic("Could not create %s.\n", opts->output_graphviz);
     }
 
-    fprintf(file, "strict digraph G {\n");
+    fprintf(file, "strict digraph G {\n%s;\n", opts->appearance_graph);
     while (pkgs) {
         fprintf(file, "\"%s\" [%s];\n",
                 alpm_pkg_get_name(pkgs->data), opts->appearance_package_common);
