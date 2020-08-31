@@ -24,19 +24,19 @@ void generate_graph(const struct opts *opts) {
     while (pkgs) {
         /* Common attributes */
         fprintf(file, "\"%s\" [%s];\n",
-                alpm_pkg_get_name(pkgs->data), opts->appearance_package_common);
+                alpm_pkg_get_name(pkgs->data), opts->attributes_package_common);
 
         /* Explicitly installed */
         if (alpm_pkg_get_reason(pkgs->data) == ALPM_PKG_REASON_EXPLICIT) {
             fprintf(file, "\"%s\" [%s];\n",
-                    alpm_pkg_get_name(pkgs->data), opts->appearance_package_explicit);
+                    alpm_pkg_get_name(pkgs->data), opts->attributes_package_explicit);
         }
 
         /* Direct dependencies */
         alpm_list_t *requiredby = alpm_pkg_compute_requiredby(pkgs->data);
         while (requiredby) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)requiredby->data,
-                    alpm_pkg_get_name(pkgs->data), opts->appearance_dependency_hard);
+                    alpm_pkg_get_name(pkgs->data), opts->attributes_dependency_hard);
             requiredby = requiredby->next;
         }
         FREELIST(requiredby);
@@ -45,7 +45,7 @@ void generate_graph(const struct opts *opts) {
         alpm_list_t *optionalfor = alpm_pkg_compute_optionalfor(pkgs->data);
         while (optionalfor) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)optionalfor->data,
-                    alpm_pkg_get_name(pkgs->data), opts->appearance_dependency_optional);
+                    alpm_pkg_get_name(pkgs->data), opts->attributes_dependency_optional);
             optionalfor = optionalfor->next;
         }
         FREELIST(optionalfor);
@@ -53,7 +53,7 @@ void generate_graph(const struct opts *opts) {
         pkgs = pkgs->next;
     }
     /* Global attributes */
-    fprintf(file, "%s\n}\n", opts->appearance_graph);
+    fprintf(file, "%s\n}\n", opts->attributes_graph);
 
     fclose(file);
     alpm_release(alpm);

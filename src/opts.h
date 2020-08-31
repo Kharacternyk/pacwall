@@ -9,11 +9,11 @@ struct opts {
     const char *output_path;
     const char *output_graph;
     const char *pacman_db;
-    const char *appearance_graph;
-    const char *appearance_package_common;
-    const char *appearance_package_explicit;
-    const char *appearance_dependency_hard;
-    const char *appearance_dependency_optional;
+    const char *attributes_graph;
+    const char *attributes_package_common;
+    const char *attributes_package_explicit;
+    const char *attributes_dependency_hard;
+    const char *attributes_dependency_optional;
     const char *hook;
 };
 

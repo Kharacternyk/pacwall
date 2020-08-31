@@ -10,14 +10,14 @@ struct opts parse_opts(config_t *cfg) {
         .output_path = "/tmp/pacwall",
         .output_graph = "/tmp/pacwall.gv",
         .pacman_db = "/var/lib/pacman",
-        .appearance_graph = "bgcolor=\"#073642\"",
-        .appearance_package_common =
+        .attributes_graph = "bgcolor=\"#073642\"",
+        .attributes_package_common =
         "shape=point, color=\"#dc322faa\", height=0.1",
-        .appearance_package_explicit =
+        .attributes_package_explicit =
         "color=\"#268bd2aa\"",
-        .appearance_dependency_hard =
+        .attributes_dependency_hard =
         "arrowhead=normal, color=\"#fdf6e322\"",
-        .appearance_dependency_optional =
+        .attributes_dependency_optional =
         "arrowhead=normal, style=dashed, color=\"#fdf6e322\"",
         .hook = NULL
     };
@@ -40,15 +40,15 @@ struct opts parse_opts(config_t *cfg) {
     config_lookup_string(cfg, "output.path", &opts.output_path);
     config_lookup_string(cfg, "output.graph", &opts.output_graph);
     config_lookup_string(cfg, "pacman.db", &opts.pacman_db);
-    config_lookup_string(cfg, "appearance.graph", &opts.appearance_graph);
-    config_lookup_string(cfg, "appearance.package.common",
-                         &opts.appearance_package_common);
-    config_lookup_string(cfg, "appearance.package.explicit",
-                         &opts.appearance_package_explicit);
-    config_lookup_string(cfg, "appearance.dependency.hard",
-                         &opts.appearance_dependency_hard);
-    config_lookup_string(cfg, "appearance.dependency.optional",
-                         &opts.appearance_dependency_optional);
+    config_lookup_string(cfg, "attributes.graph", &opts.attributes_graph);
+    config_lookup_string(cfg, "attributes.package.common",
+                         &opts.attributes_package_common);
+    config_lookup_string(cfg, "attributes.package.explicit",
+                         &opts.attributes_package_explicit);
+    config_lookup_string(cfg, "attributes.dependency.hard",
+                         &opts.attributes_dependency_hard);
+    config_lookup_string(cfg, "attributes.dependency.optional",
+                         &opts.attributes_dependency_optional);
     config_lookup_string(cfg, "hook", &opts.hook);
 
     return opts;
