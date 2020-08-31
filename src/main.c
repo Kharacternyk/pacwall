@@ -15,13 +15,13 @@ int main(int argc, char **argv) {
                "-o", opts.output_png,
                opts.output_graphviz);
     if (errorcode) {
-        panic("Twopi returned %d.\n", errorcode);
+        panic("Twopi returned %d\n", errorcode);
     }
 
     if (opts.hook != NULL) {
         errorcode = system(opts.hook);
         if (errorcode) {
-            panic("Hook returned %d.\n", errorcode);
+            panic("Hook returned %d\n", errorcode);
         }
     }
 }
