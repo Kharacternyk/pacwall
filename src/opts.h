@@ -4,8 +4,10 @@
 #include <libconfig.h>
 
 struct opts {
-    const char *output_graphviz;
-    const char *output_png;
+    const char *renderer;
+    const char *output_format;
+    const char *output_path;
+    const char *output_graph;
     const char *pacman_db;
     const char *appearance_graph;
     const char *appearance_package_common;

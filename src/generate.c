@@ -14,10 +14,10 @@ void generate_graph(const struct opts *opts) {
     alpm_db_t *db = alpm_get_localdb(alpm);
     alpm_list_t *pkgs = alpm_db_get_pkgcache(db);
 
-    FILE *file = fopen(opts->output_graphviz, "w");
+    FILE *file = fopen(opts->output_graph, "w");
     if (file == NULL) {
         alpm_release(alpm);
-        panic("Could not create %s\n", opts->output_graphviz);
+        panic("Could not create %s\n", opts->output_graph);
     }
 
     fprintf(file, "strict digraph pacwall {\n");

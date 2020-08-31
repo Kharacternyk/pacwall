@@ -11,11 +11,12 @@ int main(int argc, char **argv) {
 
     int errorcode = 0;
     subprocess(&errorcode,
-               "twopi", "-Tpng",
-               "-o", opts.output_png,
-               opts.output_graphviz);
+               opts.renderer,
+               "-T", opts.output_format,
+               "-o", opts.output_path,
+               opts.output_graph);
     if (errorcode) {
-        panic("Twopi returned %d\n", errorcode);
+        panic("%s returned %d\n", opts.renderer, errorcode);
     }
 
     if (opts.hook != NULL) {
