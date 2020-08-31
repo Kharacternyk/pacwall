@@ -22,14 +22,17 @@ void generate_graph(const struct opts *opts) {
 
     fprintf(file, "strict digraph pacwall {\n");
     while (pkgs) {
+        /* Common attributes */
         fprintf(file, "\"%s\" [%s];\n",
                 alpm_pkg_get_name(pkgs->data), opts->appearance_package_common);
 
+        /* Explicitly installed */
         if (alpm_pkg_get_reason(pkgs->data) == ALPM_PKG_REASON_EXPLICIT) {
             fprintf(file, "\"%s\" [%s];\n",
                     alpm_pkg_get_name(pkgs->data), opts->appearance_package_explicit);
         }
 
+        /* Direct dependencies */
         alpm_list_t *requiredby = alpm_pkg_compute_requiredby(pkgs->data);
         while (requiredby) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)requiredby->data,
@@ -38,6 +41,7 @@ void generate_graph(const struct opts *opts) {
         }
         FREELIST(requiredby);
 
+        /* Optional dependencies */
         alpm_list_t *optionalfor = alpm_pkg_compute_optionalfor(pkgs->data);
         while (optionalfor) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)optionalfor->data,
@@ -48,6 +52,7 @@ void generate_graph(const struct opts *opts) {
 
         pkgs = pkgs->next;
     }
+    /* Global attributes */
     fprintf(file, "%s\n}\n", opts->appearance_graph);
 
     fclose(file);
