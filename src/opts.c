@@ -8,8 +8,10 @@ struct opts parse_opts(config_t *cfg) {
         .output_graphviz = "/tmp/pacwall.gv",
         .output_png = "/tmp/pacwall.png",
         .pacman_db = "/var/lib/pacman",
-        .appearance_package_common = "color=\"#dc322faa\"",
-        .appearance_dependency_hard = "color=\"#fdf6e322\""
+        .appearance_package_common =
+        "shape=point, color=\"#dc322faa\", height=0.1, width=0.1",
+        .appearance_dependency_hard =
+        "arrowhead=normal, color=\"#fdf6e322\""
     };
 
     /*TODO: respect XDG_CONFIG_HOME*/
