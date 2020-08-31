@@ -7,6 +7,7 @@ void generate_graph(const struct opts *opts) {
     alpm_errno_t error = 0;
     alpm_handle_t *alpm = alpm_initialize("/", opts->pacman_db, &error);
     if (error) {
+        alpm_release(alpm);
         panic("Could not read pacman database at %s.\n", opts->pacman_db);
     }
 
@@ -15,6 +16,7 @@ void generate_graph(const struct opts *opts) {
 
     FILE *file = fopen(opts->output_graphviz, "w");
     if (file == NULL) {
+        alpm_release(alpm);
         panic("Could not create %s.\n", opts->output_graphviz);
     }
 
