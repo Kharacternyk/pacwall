@@ -20,10 +20,15 @@ void generate_graph(const struct opts *opts) {
         panic("Could not create %s.\n", opts->output_graphviz);
     }
 
-    fprintf(file, "strict digraph G {\n");
+    fprintf(file, "strict digraph pacwall {\n");
     while (pkgs) {
         fprintf(file, "\"%s\" [%s];\n",
                 alpm_pkg_get_name(pkgs->data), opts->appearance_package_common);
+
+        if (alpm_pkg_get_reason(pkgs->data) == ALPM_PKG_REASON_EXPLICIT) {
+            fprintf(file, "\"%s\" [%s];\n",
+                    alpm_pkg_get_name(pkgs->data), opts->appearance_package_explicit);
+        }
 
         alpm_list_t *requiredby = alpm_pkg_compute_requiredby(pkgs->data);
         while (requiredby) {

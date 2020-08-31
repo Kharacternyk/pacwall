@@ -10,7 +10,9 @@ struct opts parse_opts(config_t *cfg) {
         .pacman_db = "/var/lib/pacman",
         .appearance_graph = "bgcolor=\"#073642\"",
         .appearance_package_common =
-        "shape=point, color=\"#dc322faa\", height=0.1, width=0.1",
+        "shape=point, color=\"#dc322faa\", height=0.1",
+        .appearance_package_explicit =
+        "color=\"#268bd2aa\"",
         .appearance_dependency_hard =
         "arrowhead=normal, color=\"#fdf6e322\"",
         .appearance_dependency_optional =
@@ -37,6 +39,8 @@ struct opts parse_opts(config_t *cfg) {
     config_lookup_string(cfg, "appearance.graph", &opts.appearance_graph);
     config_lookup_string(cfg, "appearance.package.common",
                          &opts.appearance_package_common);
+    config_lookup_string(cfg, "appearance.package.explicit",
+                         &opts.appearance_package_explicit);
     config_lookup_string(cfg, "appearance.dependency.hard",
                          &opts.appearance_dependency_hard);
     config_lookup_string(cfg, "appearance.dependency.optional",
