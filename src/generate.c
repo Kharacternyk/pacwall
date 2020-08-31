@@ -33,6 +33,14 @@ void generate_graph(const struct opts *opts) {
         }
         FREELIST(requiredby);
 
+        alpm_list_t *optionalfor = alpm_pkg_compute_optionalfor(pkgs->data);
+        while (optionalfor) {
+            fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)optionalfor->data,
+                    alpm_pkg_get_name(pkgs->data), opts->appearance_dependency_optional);
+            optionalfor = optionalfor->next;
+        }
+        FREELIST(optionalfor);
+
         pkgs = pkgs->next;
     }
     fprintf(file, "}\n");

@@ -12,7 +12,9 @@ struct opts parse_opts(config_t *cfg) {
         .appearance_package_common =
         "shape=point, color=\"#dc322faa\", height=0.1, width=0.1",
         .appearance_dependency_hard =
-        "arrowhead=normal, color=\"#fdf6e322\""
+        "arrowhead=normal, color=\"#fdf6e322\"",
+        .appearance_dependency_optional =
+        "arrowhead=normal, style=dashed, color=\"#fdf6e322\""
     };
 
     /*TODO: respect XDG_CONFIG_HOME*/
@@ -36,6 +38,8 @@ struct opts parse_opts(config_t *cfg) {
                          &opts.appearance_package_common);
     config_lookup_string(cfg, "appearance.dependency.hard",
                          &opts.appearance_dependency_hard);
+    config_lookup_string(cfg, "appearance.dependency.optional",
+                         &opts.appearance_dependency_optional);
 
     return opts;
 }

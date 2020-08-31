@@ -10,6 +10,7 @@ struct opts {
     const char *appearance_graph;
     const char *appearance_package_common;
     const char *appearance_dependency_hard;
+    const char *appearance_dependency_optional;
 };
 
 struct opts parse_opts(config_t *cfg);
