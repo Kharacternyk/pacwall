@@ -15,6 +15,8 @@ struct opts parse_opts(config_t *cfg) {
         "shape=point, color=\"#dc322faa\", height=0.1",
         .attributes_package_explicit =
         "color=\"#268bd2aa\"",
+        .attributes_package_orphan =
+        "color=\"#859900aa\", peripheries=2",
         .attributes_dependency_hard =
         "arrowhead=normal, color=\"#fdf6e322\"",
         .attributes_dependency_optional =
@@ -45,6 +47,8 @@ struct opts parse_opts(config_t *cfg) {
                          &opts.attributes_package_common);
     config_lookup_string(cfg, "attributes.package.explicit",
                          &opts.attributes_package_explicit);
+    config_lookup_string(cfg, "attributes.package.orphan",
+                         &opts.attributes_package_orphan);
     config_lookup_string(cfg, "attributes.dependency.hard",
                          &opts.attributes_dependency_hard);
     config_lookup_string(cfg, "attributes.dependency.optional",

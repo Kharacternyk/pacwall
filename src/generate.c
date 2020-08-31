@@ -32,8 +32,16 @@ void generate_graph(const struct opts *opts) {
                     alpm_pkg_get_name(pkgs->data), opts->attributes_package_explicit);
         }
 
-        /* Direct dependencies */
         alpm_list_t *requiredby = alpm_pkg_compute_requiredby(pkgs->data);
+
+        /* Orphan */
+        if (alpm_pkg_get_reason(pkgs->data) == ALPM_PKG_REASON_DEPEND &&
+                requiredby == NULL) {
+            fprintf(file, "\"%s\" [%s];\n",
+                    alpm_pkg_get_name(pkgs->data), opts->attributes_package_orphan);
+        }
+
+        /* Direct dependencies */
         while (requiredby) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)requiredby->data,
                     alpm_pkg_get_name(pkgs->data), opts->attributes_dependency_hard);

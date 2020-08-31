@@ -12,6 +12,7 @@ struct opts {
     const char *attributes_graph;
     const char *attributes_package_common;
     const char *attributes_package_explicit;
+    const char *attributes_package_orphan;
     const char *attributes_dependency_hard;
     const char *attributes_dependency_optional;
     const char *hook;
