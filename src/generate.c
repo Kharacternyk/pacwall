@@ -22,14 +22,17 @@ void generate_graph(const struct opts *opts) {
 
     fprintf(file, "strict digraph G {\n");
     while (pkgs) {
-        fprintf(file, "\"%s\";\n", alpm_pkg_get_name(pkgs->data));
+        fprintf(file, "\"%s\" [%s];\n",
+                alpm_pkg_get_name(pkgs->data), opts->appearance_package_common);
+
         alpm_list_t *requiredby = alpm_pkg_compute_requiredby(pkgs->data);
         while (requiredby) {
-            fprintf(file, "\"%s\" -> \"%s\";\n",
-                    (char *)requiredby->data, alpm_pkg_get_name(pkgs->data));
+            fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)requiredby->data,
+                    alpm_pkg_get_name(pkgs->data), opts->appearance_dependency_hard);
             requiredby = requiredby->next;
         }
         FREELIST(requiredby);
+
         pkgs = pkgs->next;
     }
     fprintf(file, "}\n");
