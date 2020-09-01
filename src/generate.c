@@ -1,7 +1,45 @@
 #include <alpm.h>
+#include <string.h>
+#include <errno.h>
 
 #include "generate.h"
 #include "util.h"
+
+static void fetch_updates(const struct opts *opts) {
+    int pid = fork();
+    if (pid == -1) {
+        panic("Could not execute fork(): %s", strerror(errno));
+    }
+    if (pid == 0) {
+        execlp(opts->showupdates, opts->showupdates,
+               opts->attributes_package_outdated,
+               opts->output_updates,
+               opts->pacman_db,
+               opts->output_fakedb,
+               (char *)NULL);
+        _exit(1);
+    }
+}
+
+static void write_updates(FILE *file, const struct opts *opts) {
+    /*
+     * It's important to not insert any fork() in between
+     * fetch_updates() and write_updates().
+     */
+    int exitcode;
+    wait(&exitcode);
+    if (WEXITSTATUS(exitcode)) {
+        panic("Could not execute showupdates.sh at %s\n", opts->showupdates);
+        exit(1);
+    }
+    FILE *updates = fopen(opts->output_updates, "r");
+    char c;
+    while ((c = getc(updates)) != EOF) {
+        putc(c, file);
+    }
+    fclose(updates);
+}
+
 
 void generate_graph(const struct opts *opts) {
     alpm_errno_t error = 0;
@@ -10,6 +48,8 @@ void generate_graph(const struct opts *opts) {
         alpm_release(alpm);
         panic("Could not read pacman database at %s\n", opts->pacman_db);
     }
+
+    fetch_updates(opts);
 
     alpm_db_t *db = alpm_get_localdb(alpm);
     alpm_list_t *pkgs = alpm_db_get_pkgcache(db);
@@ -60,6 +100,10 @@ void generate_graph(const struct opts *opts) {
 
         pkgs = pkgs->next;
     }
+
+    /* Updates */
+    write_updates(file, opts);
+
     /* Global attributes */
     fprintf(file, "%s\n}\n", opts->attributes_graph);
 

@@ -6,8 +6,11 @@
 struct opts parse_opts(config_t *cfg) {
     struct opts opts = {
         .renderer = "twopi",
+        .showupdates = "/usr/share/pacwall/showupdates.sh",
         .output_format = "png",
         .output_path = "/tmp/pacwall",
+        .output_updates = "/tmp/pacwall-updates",
+        .output_fakedb = "/tmp/pacwall-fakedb",
         .output_graph = "/tmp/pacwall.gv",
         .pacman_db = "/var/lib/pacman",
         .attributes_graph = "bgcolor=\"#073642\"",
@@ -17,6 +20,8 @@ struct opts parse_opts(config_t *cfg) {
         "color=\"#268bd2aa\"",
         .attributes_package_orphan =
         "color=\"#859900aa\", peripheries=2",
+        .attributes_package_outdated =
+        "color=\"#b58900aa\", peripheries=3",
         .attributes_dependency_hard =
         "arrowhead=normal, color=\"#fdf6e322\"",
         .attributes_dependency_optional =
@@ -38,8 +43,11 @@ struct opts parse_opts(config_t *cfg) {
     fclose(cfg_file);
 
     config_lookup_string(cfg, "renderer", &opts.renderer);
+    config_lookup_string(cfg, "showupdates", &opts.showupdates);
     config_lookup_string(cfg, "output.format", &opts.output_format);
     config_lookup_string(cfg, "output.path", &opts.output_path);
+    config_lookup_string(cfg, "output.updates", &opts.output_updates);
+    config_lookup_string(cfg, "output.fakedb", &opts.output_fakedb);
     config_lookup_string(cfg, "output.graph", &opts.output_graph);
     config_lookup_string(cfg, "pacman.db", &opts.pacman_db);
     config_lookup_string(cfg, "attributes.graph", &opts.attributes_graph);
@@ -49,6 +57,8 @@ struct opts parse_opts(config_t *cfg) {
                          &opts.attributes_package_explicit);
     config_lookup_string(cfg, "attributes.package.orphan",
                          &opts.attributes_package_orphan);
+    config_lookup_string(cfg, "attributes.package.outdated",
+                         &opts.attributes_package_outdated);
     config_lookup_string(cfg, "attributes.dependency.hard",
                          &opts.attributes_dependency_hard);
     config_lookup_string(cfg, "attributes.dependency.optional",
