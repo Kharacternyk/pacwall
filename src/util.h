@@ -23,7 +23,7 @@
             wait(&exitcode); \
             exitcode = WEXITSTATUS(exitcode); \
             if (exitcode) { \
-                panic("%s returned %d", name, exitcode); \
+                panic("%s returned %d\n", name, exitcode); \
             } \
         } \
     } while(0)
