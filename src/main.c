@@ -9,18 +9,13 @@ int main(int argc, char **argv) {
 
     generate_graph(&opts);
 
-    int errorcode = 0;
-    subprocess(&errorcode,
-               opts.renderer,
+    subprocess(opts.renderer,
                "-T", opts.output_format,
                "-o", opts.output_path,
                opts.output_graph);
-    if (errorcode) {
-        panic("%s returned %d\n", opts.renderer, errorcode);
-    }
 
     if (opts.hook != NULL) {
-        errorcode = system(opts.hook);
+        int errorcode = system(opts.hook);
         if (errorcode) {
             panic("Hook returned %d\n", errorcode);
         }
