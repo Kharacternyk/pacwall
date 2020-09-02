@@ -13,7 +13,7 @@ struct opts parse_opts(config_t *cfg) {
         .output_fakedb = "/tmp/pacwall-fakedb",
         .output_graph = "/tmp/pacwall.gv",
         .pacman_db = "/var/lib/pacman",
-        .attributes_graph = "bgcolor=\"#073642\"",
+        .attributes_graph = "bgcolor=\"#0000\"",
         .attributes_package_common =
         "shape=point, color=\"#dc322faa\", height=0.1",
         .attributes_package_explicit =
