@@ -7,14 +7,13 @@ int main(int argc, char **argv) {
     config_init(&cfg);
     const struct opts opts = parse_opts(&cfg);
 
+    chdir_xdg("XDG_CACHE_HOME", ".cache/", "pacwall");
     generate_graph(&opts);
 
     subprocess("twopi", "-Tpng",
-               "-o", opts.output_path,
-               opts.output_graph);
-
+               "-o", "pacwall.png",
+               "pacwall.gv");
     subprocess("hsetroot",
                "-solid", opts.background,
-               "-center", opts.output_path);
-
+               "-center", "pacwall.png");
 }

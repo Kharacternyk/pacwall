@@ -13,9 +13,9 @@ static void fetch_updates(const struct opts *opts) {
     if (pid == 0) {
         execlp(opts->showupdates, opts->showupdates,
                opts->attributes_package_outdated,
-               opts->output_updates,
+               "updates.gv",
                opts->pacman_db,
-               opts->output_fakedb,
+               "updates.db",
                (char *)NULL);
         _exit(1);
     }
@@ -32,7 +32,7 @@ static void write_updates(FILE *file, const struct opts *opts) {
         panic("Could not execute showupdates.sh at %s\n", opts->showupdates);
         exit(1);
     }
-    FILE *updates = fopen(opts->output_updates, "r");
+    FILE *updates = fopen("updates.gv", "r");
     char c;
     while ((c = getc(updates)) != EOF) {
         putc(c, file);
@@ -54,10 +54,10 @@ void generate_graph(const struct opts *opts) {
     alpm_db_t *db = alpm_get_localdb(alpm);
     alpm_list_t *pkgs = alpm_db_get_pkgcache(db);
 
-    FILE *file = fopen(opts->output_graph, "w");
+    FILE *file = fopen("pacwall.gv", "w");
     if (file == NULL) {
         alpm_release(alpm);
-        panic("Could not create %s\n", opts->output_graph);
+        panic("Could not create %s\n", "pacwall.gv");
     }
 
     fprintf(file, "strict digraph pacwall {\n");

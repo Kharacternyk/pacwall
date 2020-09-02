@@ -6,10 +6,6 @@
 struct opts parse_opts(config_t *cfg) {
     struct opts opts = {
         .showupdates = "/usr/share/pacwall/showupdates.sh",
-        .output_path = "/tmp/pacwall",
-        .output_updates = "/tmp/pacwall-updates",
-        .output_fakedb = "/tmp/pacwall-fakedb",
-        .output_graph = "/tmp/pacwall.gv",
         .pacman_db = "/var/lib/pacman",
         .background = "#073642",
         .attributes_graph = "bgcolor=\"#00000000\"",
@@ -27,9 +23,8 @@ struct opts parse_opts(config_t *cfg) {
         "arrowhead=normal, style=dashed, color=\"#fdf6e322\"",
     };
 
-    /*TODO: respect XDG_CONFIG_HOME*/
-    chdir(getenv("HOME"));
-    FILE *cfg_file = fopen(".config/pacwall/pacwall.conf", "r");
+    chdir_xdg("XDG_CONFIG_HOME", ".config/", "pacwall");
+    FILE *cfg_file = fopen("pacwall.conf", "r");
     if (cfg_file == NULL) {
         return opts;
     }
@@ -41,10 +36,6 @@ struct opts parse_opts(config_t *cfg) {
     fclose(cfg_file);
 
     config_lookup_string(cfg, "showupdates", &opts.showupdates);
-    config_lookup_string(cfg, "output.path", &opts.output_path);
-    config_lookup_string(cfg, "output.updates", &opts.output_updates);
-    config_lookup_string(cfg, "output.fakedb", &opts.output_fakedb);
-    config_lookup_string(cfg, "output.graph", &opts.output_graph);
     config_lookup_string(cfg, "pacman.db", &opts.pacman_db);
     config_lookup_string(cfg, "background", &opts.background);
     config_lookup_string(cfg, "attributes.graph", &opts.attributes_graph);
