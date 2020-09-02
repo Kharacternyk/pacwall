@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 ATTRIBUTES=${1:-""}
@@ -13,7 +13,7 @@ mkdir -p "$FAKEDB"
 ln -s "$PACMANDB/local/" "$FAKEDB/" &> /dev/null || true
 
 # Fetch fresh sync databases.
-fakeroot pacman -Sy --dbpath "$FAKEDB" --logfile /dev/null &> /dev/null
+fakeroot -- pacman -Sy --dbpath "$FAKEDB" --logfile /dev/null &> /dev/null
 
 # Show the updates.
 cat /dev/null > "$OUTPUT"
