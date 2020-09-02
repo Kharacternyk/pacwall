@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
-ATTRIBUTES=${1:-""}
-OUTPUT=${2:-/dev/stdout}
-PACMANDB=${3:-/var/lib/pacman}
-FAKEDB=${4:-/tmp/showupdates-fake-db}
+ATTRIBUTES=$1
+OUTPUT=$2
+PACMANDB=$3
+FAKEDB=$4
 
 # Create a fake db directory for pacman.
 mkdir -p "$FAKEDB"
