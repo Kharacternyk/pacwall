@@ -11,6 +11,7 @@ struct opts parse_opts(config_t *cfg) {
         .output_fakedb = "/tmp/pacwall-fakedb",
         .output_graph = "/tmp/pacwall.gv",
         .pacman_db = "/var/lib/pacman",
+        .background = "#073642",
         .attributes_graph = "bgcolor=\"#00000000\"",
         .attributes_package_common =
         "shape=point, color=\"#dc322faa\", height=0.1",
@@ -24,7 +25,6 @@ struct opts parse_opts(config_t *cfg) {
         "arrowhead=normal, color=\"#fdf6e322\"",
         .attributes_dependency_optional =
         "arrowhead=normal, style=dashed, color=\"#fdf6e322\"",
-        .hook = NULL
     };
 
     /*TODO: respect XDG_CONFIG_HOME*/
@@ -46,6 +46,7 @@ struct opts parse_opts(config_t *cfg) {
     config_lookup_string(cfg, "output.fakedb", &opts.output_fakedb);
     config_lookup_string(cfg, "output.graph", &opts.output_graph);
     config_lookup_string(cfg, "pacman.db", &opts.pacman_db);
+    config_lookup_string(cfg, "background", &opts.background);
     config_lookup_string(cfg, "attributes.graph", &opts.attributes_graph);
     config_lookup_string(cfg, "attributes.package.common",
                          &opts.attributes_package_common);
@@ -59,7 +60,6 @@ struct opts parse_opts(config_t *cfg) {
                          &opts.attributes_dependency_hard);
     config_lookup_string(cfg, "attributes.dependency.optional",
                          &opts.attributes_dependency_optional);
-    config_lookup_string(cfg, "hook", &opts.hook);
 
     return opts;
 }

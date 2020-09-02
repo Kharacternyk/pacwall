@@ -13,10 +13,8 @@ int main(int argc, char **argv) {
                "-o", opts.output_path,
                opts.output_graph);
 
-    if (opts.hook != NULL) {
-        int errorcode = system(opts.hook);
-        if (errorcode) {
-            panic("Hook returned %d\n", errorcode);
-        }
-    }
+    subprocess("hsetroot",
+               "-solid", opts.background,
+               "-center", opts.output_path);
+
 }

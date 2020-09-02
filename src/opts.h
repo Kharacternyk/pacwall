@@ -10,6 +10,7 @@ struct opts {
     const char *output_fakedb;
     const char *output_graph;
     const char *pacman_db;
+    const char *background;
     const char *attributes_graph;
     const char *attributes_package_common;
     const char *attributes_package_explicit;
@@ -17,7 +18,6 @@ struct opts {
     const char *attributes_package_outdated;
     const char *attributes_dependency_hard;
     const char *attributes_dependency_optional;
-    const char *hook;
 };
 
 struct opts parse_opts(config_t *cfg);
