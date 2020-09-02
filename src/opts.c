@@ -5,15 +5,13 @@
 
 struct opts parse_opts(config_t *cfg) {
     struct opts opts = {
-        .renderer = "twopi",
         .showupdates = "/usr/share/pacwall/showupdates.sh",
-        .output_format = "png",
         .output_path = "/tmp/pacwall",
         .output_updates = "/tmp/pacwall-updates",
         .output_fakedb = "/tmp/pacwall-fakedb",
         .output_graph = "/tmp/pacwall.gv",
         .pacman_db = "/var/lib/pacman",
-        .attributes_graph = "bgcolor=\"#0000\"",
+        .attributes_graph = "bgcolor=\"#00000000\"",
         .attributes_package_common =
         "shape=point, color=\"#dc322faa\", height=0.1",
         .attributes_package_explicit =
@@ -42,9 +40,7 @@ struct opts parse_opts(config_t *cfg) {
     }
     fclose(cfg_file);
 
-    config_lookup_string(cfg, "renderer", &opts.renderer);
     config_lookup_string(cfg, "showupdates", &opts.showupdates);
-    config_lookup_string(cfg, "output.format", &opts.output_format);
     config_lookup_string(cfg, "output.path", &opts.output_path);
     config_lookup_string(cfg, "output.updates", &opts.output_updates);
     config_lookup_string(cfg, "output.fakedb", &opts.output_fakedb);

@@ -9,8 +9,7 @@ int main(int argc, char **argv) {
 
     generate_graph(&opts);
 
-    subprocess(opts.renderer,
-               "-T", opts.output_format,
+    subprocess("twopi", "-Tpng",
                "-o", opts.output_path,
                opts.output_graph);
 
