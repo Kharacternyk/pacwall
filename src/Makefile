@@ -1,10 +1,13 @@
 DEPS = libalpm libconfig
 
+CFLAGS ?= -g -Werror -Wall
+CFLAGS += $(shell pkg-config --cflags $(DEPS))
+CFLAGS += $(shell pkg-config --libs $(DEPS))
+
 debug: format check build
 
 build:
-	@gcc `pkg-config --cflags $(DEPS)` -o pacwall -g -Werror -Wall *.c \
-		`pkg-config --libs $(DEPS)`
+	$(CC) $(CFLAGS) -o pacwall *.c
 
 check:
 	@cppcheck --suppress=missingIncludeSystem --template=gcc \
@@ -12,6 +15,3 @@ check:
 
 format:
 	@astyle --formatted --project *.c *.h
-
-graph:
-	@cinclude2dot | xdot -
