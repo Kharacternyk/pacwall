@@ -10,10 +10,12 @@ int main(int argc, char **argv) {
     chdir_xdg("XDG_CACHE_HOME", ".cache/", "pacwall");
     generate_graph(&opts);
 
-    subprocess("twopi", "-Tpng",
-               "-o", "pacwall.png",
-               "pacwall.gv");
-    subprocess("hsetroot",
-               "-solid", opts.background,
-               "-center", "pacwall.png");
+    subprocess_wait(subprocess_begin("twopi", "-Tpng",
+                                     "-o", "pacwall.png",
+                                     "pacwall.gv"),
+                    "twopi");
+    subprocess_wait(subprocess_begin("hsetroot",
+                                     "-solid", opts.background,
+                                     "-center", "pacwall.png"),
+                    "hsetroot");
 }

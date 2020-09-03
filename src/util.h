@@ -11,25 +11,30 @@
 #include <errno.h>
 #include <string.h>
 
-#define panic(fmt, ...) do {fprintf(stderr, fmt, __VA_ARGS__); exit(1);} while(0)
+#define panic(fmt, ...) ({fprintf(stderr, fmt, __VA_ARGS__); exit(1);})
 
-#define subprocess(name, ...) do { \
-    int exitcode = 127; \
-    if (!fork()) { \
-        int null = open("/dev/null", O_WRONLY); \
-        dup2(null, 1); \
-        dup2(null, 2); \
-        if (execlp(name, name, __VA_ARGS__, (char *)NULL)) { \
-            _exit(127); \
-        } \
-    } else { \
-        wait(&exitcode); \
-        exitcode = WEXITSTATUS(exitcode); \
-        if (exitcode) { \
-            panic("%s returned %d\n", name, exitcode); \
-        } \
+#define subprocess_begin(name, ...) ({ \
+    pid_t pid = fork(); \
+    if (pid < 0) { \
+        panic("Could not execute fork(): %s\n", strerror(errno)); \
     } \
-} while(0)
+    if (pid == 0) { \
+        execlp(name, name, __VA_ARGS__, (char *)NULL); \
+        _exit(127); \
+    } \
+    pid; \
+})
+
+#define subprocess_wait(pid, name) ({ \
+    int wstatus; \
+    if (waitpid(pid, &wstatus, WUNTRACED) == -1) { \
+        panic("Wait for %s failed: %s\n", name, strerror(errno)); \
+    } \
+    int exitcode = WEXITSTATUS(wstatus); \
+    if (exitcode) { \
+        panic("%s returned %d\n", name, exitcode); \
+    } \
+})
 
 #define chdir_xdg(xdg_name, xdg_fallback, dir) do { \
     chdir(getenv("HOME")); \
