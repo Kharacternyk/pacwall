@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
+#include <string.h>
 
 #define panic(fmt, ...) do {fprintf(stderr, fmt, __VA_ARGS__); exit(1);} while(0)
 
@@ -38,11 +39,11 @@
     } \
     mkdir(xdg, 0755); \
     if(chdir(xdg)) { \
-        panic("Could not change the current directory to %s\n", xdg); \
+        panic("Could not change the current directory to %s: %s\n", xdg, strerror(errno)); \
     } \
     mkdir(dir, 0755); \
     if(chdir(dir)) { \
-        panic("Could not change the current directory to %s/%s\n", xdg, dir); \
+        panic("Could not change the current directory to %s/%s: %s\n", xdg, dir, strerror(errno)); \
     } \
 } while(0)
 

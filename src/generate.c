@@ -1,6 +1,4 @@
 #include <alpm.h>
-#include <string.h>
-#include <errno.h>
 
 #include "generate.h"
 #include "util.h"
