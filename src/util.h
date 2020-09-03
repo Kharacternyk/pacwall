@@ -11,12 +11,12 @@
 #include <errno.h>
 #include <string.h>
 
-#define panic(fmt, ...) ({fprintf(stderr, fmt, __VA_ARGS__); exit(1);})
+#define panic(fmt, ...) ({fprintf(stderr, fmt "\n", __VA_ARGS__); exit(1);})
 
 #define subprocess_begin(name, ...) ({ \
     pid_t pid = fork(); \
     if (pid < 0) { \
-        panic("Could not execute fork(): %s\n", strerror(errno)); \
+        panic("Could not execute fork(): %s", strerror(errno)); \
     } \
     if (pid == 0) { \
         execlp(name, name, __VA_ARGS__, (char *)NULL); \
@@ -28,11 +28,11 @@
 #define subprocess_wait(pid, name) ({ \
     int wstatus; \
     if (waitpid(pid, &wstatus, WUNTRACED) == -1) { \
-        panic("Wait for %s failed: %s\n", name, strerror(errno)); \
+        panic("Wait for %s failed: %s", name, strerror(errno)); \
     } \
     int exitcode = WEXITSTATUS(wstatus); \
     if (exitcode) { \
-        panic("%s returned %d\n", name, exitcode); \
+        panic("%s returned %d", name, exitcode); \
     } \
 })
 
@@ -44,11 +44,11 @@
     } \
     mkdir(xdg, 0755); \
     if(chdir(xdg)) { \
-        panic("Could not change the current directory to %s: %s\n", xdg, strerror(errno)); \
+        panic("Could not change the current directory to %s: %s", xdg, strerror(errno)); \
     } \
     mkdir(dir, 0755); \
     if(chdir(dir)) { \
-        panic("Could not change the current directory to %s/%s: %s\n", xdg, dir, strerror(errno)); \
+        panic("Could not change the current directory to %s/%s: %s", xdg, dir, strerror(errno)); \
     } \
 } while(0)
 

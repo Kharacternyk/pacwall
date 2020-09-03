@@ -29,7 +29,7 @@ struct opts parse_opts(config_t *cfg) {
         return opts;
     }
     if (!config_read(cfg, cfg_file)) {
-        panic("Malformed config (line %d): %s\n",
+        panic("Malformed config (line %d): %s",
               config_error_line(cfg),
               config_error_text(cfg));
     }
