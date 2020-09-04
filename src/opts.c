@@ -4,20 +4,25 @@
 #include "util.h"
 
 struct opts parse_opts(config_t *cfg) {
+    /*INDENT-OFF*/
     struct opts opts = {
         .hook = NULL,
         .showupdates = "/usr/share/pacwall/showupdates.sh",
         .pacman_db = "/var/lib/pacman",
         .attributes_graph = "bgcolor=\"#00000000\"",
-        .attributes_package_common = "shape=point, height=0.1",
+        .attributes_package_common = "shape=point, height=0.1,"
+        "fontname=monospace, fontsize=9",
         .attributes_package_implicit = "color=\"#dc322faa\"",
         .attributes_package_explicit = "color=\"#268bd2aa\"",
-        .attributes_package_orphan = "color=\"#859900aa\", peripheries=2",
-        .attributes_package_outdated = "color=\"#b58900aa\", peripheries=3",
+        .attributes_package_orphan = "color=\"#2aa198aa\", peripheries=2,"
+                                     "fontcolor=\"#2aa198\", xlabel=\"\\N\",",
+        .attributes_package_outdated = "color=\"#b58900aa\", peripheries=3,"
+                                       "fontcolor=\"#b58900\", xlabel=\"\\N\"",
         .attributes_dependency_common = "color=\"#fdf6e322\"",
         .attributes_dependency_hard = "",
         .attributes_dependency_optional = "arrowhead=empty, style=dashed"
     };
+    /*INDENT-ON*/
 
     chdir_xdg("XDG_CONFIG_HOME", ".config/", "pacwall");
     FILE *cfg_file = fopen("pacwall.conf", "r");
