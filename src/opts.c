@@ -3,6 +3,25 @@
 #include "opts.h"
 #include "util.h"
 
+static void config_lookup_escape(config_t *cfg, const char *path, const char **out) {
+    const char *str = NULL;
+    config_lookup_string(cfg, path, &str);
+    if (str == NULL) {
+        return;
+    }
+
+    char *tmp = strdup(str);
+    for (char *cp = tmp; *cp; ++cp) {
+        if (*cp == '"') {
+            *cp = '\'';
+        } else if (*cp == '\'') {
+            *cp = '"';
+        }
+    }
+
+    *out = tmp;
+}
+
 struct opts parse_opts(config_t *cfg) {
     /*INDENT-OFF*/
     struct opts opts = {
@@ -36,25 +55,25 @@ struct opts parse_opts(config_t *cfg) {
     }
     fclose(cfg_file);
 
-    config_lookup_string(cfg, "hook", &opts.hook);
-    config_lookup_string(cfg, "showupdates", &opts.showupdates);
-    config_lookup_string(cfg, "pacman.db", &opts.pacman_db);
-    config_lookup_string(cfg, "attributes.graph", &opts.attributes_graph);
-    config_lookup_string(cfg, "attributes.package.common",
+    config_lookup_escape(cfg, "hook", &opts.hook);
+    config_lookup_escape(cfg, "showupdates", &opts.showupdates);
+    config_lookup_escape(cfg, "pacman.db", &opts.pacman_db);
+    config_lookup_escape(cfg, "attributes.graph", &opts.attributes_graph);
+    config_lookup_escape(cfg, "attributes.package.common",
                          &opts.attributes_package_common);
-    config_lookup_string(cfg, "attributes.package.implicit",
+    config_lookup_escape(cfg, "attributes.package.implicit",
                          &opts.attributes_package_implicit);
-    config_lookup_string(cfg, "attributes.package.explicit",
+    config_lookup_escape(cfg, "attributes.package.explicit",
                          &opts.attributes_package_explicit);
-    config_lookup_string(cfg, "attributes.package.orphan",
+    config_lookup_escape(cfg, "attributes.package.orphan",
                          &opts.attributes_package_orphan);
-    config_lookup_string(cfg, "attributes.package.outdated",
+    config_lookup_escape(cfg, "attributes.package.outdated",
                          &opts.attributes_package_outdated);
-    config_lookup_string(cfg, "attributes.dependency.common",
+    config_lookup_escape(cfg, "attributes.dependency.common",
                          &opts.attributes_dependency_common);
-    config_lookup_string(cfg, "attributes.dependency.hard",
+    config_lookup_escape(cfg, "attributes.dependency.hard",
                          &opts.attributes_dependency_hard);
-    config_lookup_string(cfg, "attributes.dependency.optional",
+    config_lookup_escape(cfg, "attributes.dependency.optional",
                          &opts.attributes_dependency_optional);
 
     return opts;
