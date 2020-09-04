@@ -8,7 +8,6 @@ struct opts parse_opts(config_t *cfg) {
         .hook = NULL,
         .showupdates = "/usr/share/pacwall/showupdates.sh",
         .pacman_db = "/var/lib/pacman",
-        .background = "#073642",
         .attributes_graph = "bgcolor=\"#00000000\"",
         .attributes_package_common =
         "shape=point, color=\"#dc322faa\", height=0.1",
@@ -39,7 +38,6 @@ struct opts parse_opts(config_t *cfg) {
     config_lookup_string(cfg, "hook", &opts.hook);
     config_lookup_string(cfg, "showupdates", &opts.showupdates);
     config_lookup_string(cfg, "pacman.db", &opts.pacman_db);
-    config_lookup_string(cfg, "background", &opts.background);
     config_lookup_string(cfg, "attributes.graph", &opts.attributes_graph);
     config_lookup_string(cfg, "attributes.package.common",
                          &opts.attributes_package_common);
