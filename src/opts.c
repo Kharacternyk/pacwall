@@ -1,5 +1,3 @@
-#include <unistd.h>
-
 #include "opts.h"
 #include "util.h"
 
