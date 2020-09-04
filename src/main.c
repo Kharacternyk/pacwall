@@ -12,10 +12,11 @@ int main(int argc, char **argv) {
 
     subprocess_wait(subprocess_begin("twopi", "-Tpng",
                                      "-o", "pacwall.png",
-                                     "pacwall.gv"),
-                    "twopi");
-    subprocess_wait(subprocess_begin("hsetroot",
-                                     "-solid", opts.background,
-                                     "-center", "pacwall.png"),
-                    "hsetroot");
+                                     "pacwall.gv"), "twopi");
+
+    if (opts.hook != NULL) {
+        setenv("W", "./pacwall.png", 1);
+        execl("/bin/sh", "/bin/sh", "-c", opts.hook, (char *)NULL);
+        panic("Could not execute /bin/sh: %s", strerror(errno));
+    }
 }

@@ -5,6 +5,7 @@
 
 struct opts parse_opts(config_t *cfg) {
     struct opts opts = {
+        .hook = NULL,
         .showupdates = "/usr/share/pacwall/showupdates.sh",
         .pacman_db = "/var/lib/pacman",
         .background = "#073642",
@@ -35,6 +36,7 @@ struct opts parse_opts(config_t *cfg) {
     }
     fclose(cfg_file);
 
+    config_lookup_string(cfg, "hook", &opts.hook);
     config_lookup_string(cfg, "showupdates", &opts.showupdates);
     config_lookup_string(cfg, "pacman.db", &opts.pacman_db);
     config_lookup_string(cfg, "background", &opts.background);

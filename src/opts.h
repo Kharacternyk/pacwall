@@ -4,6 +4,7 @@
 #include <libconfig.h>
 
 struct opts {
+    const char *hook;
     const char *showupdates;
     const char *pacman_db;
     const char *background;
