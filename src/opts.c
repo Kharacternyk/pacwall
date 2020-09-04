@@ -24,7 +24,7 @@ struct opts parse_opts(config_t *cfg) {
     /*INDENT-OFF*/
     struct opts opts = {
         .hook = NULL,
-        .showupdates = "/usr/share/pacwall/showupdates.sh",
+        .showupdates = "/usr/lib/pacwall/showupdates.sh",
         .pacman_db = "/var/lib/pacman",
         .attributes_graph = "bgcolor=\"#00000000\"",
         .attributes_package_common = "shape=point, height=0.1,"
