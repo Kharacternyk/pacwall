@@ -51,6 +51,9 @@ void generate_graph(const struct opts *opts) {
         if (alpm_pkg_get_reason(pkgs->data) == ALPM_PKG_REASON_EXPLICIT) {
             fprintf(file, "\"%s\" [%s];\n",
                     alpm_pkg_get_name(pkgs->data), opts->attributes_package_explicit);
+        } else {
+            fprintf(file, "\"%s\" [%s];\n",
+                    alpm_pkg_get_name(pkgs->data), opts->attributes_package_implicit);
         }
 
         alpm_list_t *requiredby = alpm_pkg_compute_requiredby(pkgs->data);
@@ -65,6 +68,8 @@ void generate_graph(const struct opts *opts) {
         /* Direct dependencies */
         while (requiredby) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)requiredby->data,
+                    alpm_pkg_get_name(pkgs->data), opts->attributes_dependency_common);
+            fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)requiredby->data,
                     alpm_pkg_get_name(pkgs->data), opts->attributes_dependency_hard);
             requiredby = requiredby->next;
         }
@@ -73,6 +78,8 @@ void generate_graph(const struct opts *opts) {
         /* Optional dependencies */
         alpm_list_t *optionalfor = alpm_pkg_compute_optionalfor(pkgs->data);
         while (optionalfor) {
+            fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)optionalfor->data,
+                    alpm_pkg_get_name(pkgs->data), opts->attributes_dependency_common);
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)optionalfor->data,
                     alpm_pkg_get_name(pkgs->data), opts->attributes_dependency_optional);
             optionalfor = optionalfor->next;

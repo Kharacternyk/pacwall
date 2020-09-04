@@ -9,18 +9,14 @@ struct opts parse_opts(config_t *cfg) {
         .showupdates = "/usr/share/pacwall/showupdates.sh",
         .pacman_db = "/var/lib/pacman",
         .attributes_graph = "bgcolor=\"#00000000\"",
-        .attributes_package_common =
-        "shape=point, color=\"#dc322faa\", height=0.1",
-        .attributes_package_explicit =
-        "color=\"#268bd2aa\"",
-        .attributes_package_orphan =
-        "color=\"#859900aa\", peripheries=2",
-        .attributes_package_outdated =
-        "color=\"#b58900aa\", peripheries=3",
-        .attributes_dependency_hard =
-        "arrowhead=normal, color=\"#fdf6e322\"",
-        .attributes_dependency_optional =
-        "arrowhead=normal, style=dashed, color=\"#fdf6e322\"",
+        .attributes_package_common = "shape=point, height=0.1",
+        .attributes_package_implicit = "color=\"#dc322faa\"",
+        .attributes_package_explicit = "color=\"#268bd2aa\"",
+        .attributes_package_orphan = "color=\"#859900aa\", peripheries=2",
+        .attributes_package_outdated = "color=\"#b58900aa\", peripheries=3",
+        .attributes_dependency_common = "color=\"#fdf6e322\"",
+        .attributes_dependency_hard = "",
+        .attributes_dependency_optional = "arrowhead=empty, style=dashed"
     };
 
     chdir_xdg("XDG_CONFIG_HOME", ".config/", "pacwall");
@@ -41,12 +37,16 @@ struct opts parse_opts(config_t *cfg) {
     config_lookup_string(cfg, "attributes.graph", &opts.attributes_graph);
     config_lookup_string(cfg, "attributes.package.common",
                          &opts.attributes_package_common);
+    config_lookup_string(cfg, "attributes.package.implicit",
+                         &opts.attributes_package_implicit);
     config_lookup_string(cfg, "attributes.package.explicit",
                          &opts.attributes_package_explicit);
     config_lookup_string(cfg, "attributes.package.orphan",
                          &opts.attributes_package_orphan);
     config_lookup_string(cfg, "attributes.package.outdated",
                          &opts.attributes_package_outdated);
+    config_lookup_string(cfg, "attributes.dependency.common",
+                         &opts.attributes_dependency_common);
     config_lookup_string(cfg, "attributes.dependency.hard",
                          &opts.attributes_dependency_hard);
     config_lookup_string(cfg, "attributes.dependency.optional",
