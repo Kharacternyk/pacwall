@@ -41,7 +41,7 @@ void generate_graph(const struct opts *opts) {
         panic("Could not create %s", "pacwall.gv");
     }
 
-    fprintf(file, "strict digraph pacwall {\n");
+    fprintf(file, "strict digraph pacwall {\n%s\n", opts->attributes_graph);
     while (pkgs) {
         /* Common attributes */
         fprintf(file, "\"%s\" [%s];\n",
