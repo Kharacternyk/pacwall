@@ -45,6 +45,8 @@ void generate_graph(const struct opts *opts) {
     fprintf(file, "node [%s];\n", opts->attributes_package_common);
     fprintf(file, "edge [%s];\n", opts->attributes_dependency_common);
     while (pkgs) {
+        fprintf(file, "\n");
+
         if (alpm_pkg_get_reason(pkgs->data) == ALPM_PKG_REASON_EXPLICIT) {
             fprintf(file, "\"%s\" [%s];\n",
                     alpm_pkg_get_name(pkgs->data), opts->attributes_package_explicit);
