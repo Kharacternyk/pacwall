@@ -2,7 +2,7 @@
 Description=Run pacwall on package update/removal/installation
 
 [Path]
-PathChanged=/var/lib/pacman/local/
+PathChanged=/var/lib/pacwall/systemd/trigger
 
 [Install]
 WantedBy=default.target

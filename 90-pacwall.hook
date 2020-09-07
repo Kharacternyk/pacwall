@@ -1,0 +1,12 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Triggering wallpaper regenerating...
+When = PostTransaction
+Exec = /bin/sh -c 'echo > /var/lib/pacwall/systemd/trigger'
+
