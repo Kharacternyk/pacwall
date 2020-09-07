@@ -1,0 +1,7 @@
+[Unit]
+Description=Pacwall
+ConditionUser=!root
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/pacwall

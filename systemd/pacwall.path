@@ -1,0 +1,8 @@
+[Unit]
+Description=Run pacwall on package update/removal/installation
+
+[Path]
+PathChanged=/var/lib/pacman/local/
+
+[Install]
+WantedBy=default.target
