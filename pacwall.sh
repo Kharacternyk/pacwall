@@ -290,7 +290,7 @@ use_xresources_colors() {
 render_graph() {
     # Style the graph according to preferences.
     declare -a twopi_args=(
-        '-Tpng' 'pacwall.gv'
+        '-O' '-Tpng' '-Tplain' 'pacwall.gv'
         "-Gbgcolor=${BACKGROUND}"
         "-Granksep=${RANKSEP}"
         "-Ecolor=${EDGE}"
@@ -304,7 +304,29 @@ render_graph() {
     # Optional arguments
     [[ -n $ROOT ]] && twopi_args+=("-Groot=${ROOT}")
 
-    twopi "${twopi_args[@]}" > pacwall.png
+    twopi "${twopi_args[@]}"
+}
+
+center_root() {
+    [[ -z $ROOT ]] && return 0
+    HEADLINE=($(head -n1 pacwall.gv.plain))
+    GPHW=${HEADLINE[2]}
+    GPHH=${HEADLINE[3]}
+    ROOTLINE=($(grep -E "node \"?$ROOT\"? " pacwall.gv.plain))
+    ROOTX=${ROOTLINE[2]}
+    ROOTY=${ROOTLINE[3]}
+    IMGW=$(convert pacwall.gv.png -print '%w\n' /dev/null)
+    IMGH=$(convert pacwall.gv.png -print '%h\n' /dev/null)
+    XOFFSET=$(bc <<< "scale=5; $IMGW*(2.0*$ROOTX/$GPHW-1.0)")
+    YOFFSET=$(bc <<< "scale=5; $IMGH*(2.0*$ROOTY/$GPHH-1.0)")
+    # Set -gravity string depending on absolute values of XOFFSET and YOFFSET
+    [[ $XOFFSET = -* ]] && GRAVX='west'  || GRAVX='east'
+    [[ $YOFFSET = -* ]] && GRAVY='south' || GRAVY='north'
+    convert pacwall.gv.png \
+        -background "$BACKGROUND" \
+        -gravity "$GRAVY$GRAVX" \
+        -splice ${XOFFSET#-}x${YOFFSET#-} \
+        pacwall.gv.png
 }
 
 set_wallpaper() {
@@ -325,7 +347,7 @@ set_wallpaper() {
             #TODO: handle if neither exists
         fi
 
-        convert pacwall.png \
+        convert pacwall.gv.png \
             -gravity center \
             -background "${BACKGROUND}" \
             -extent "${SCREEN_SIZE}" \
@@ -386,7 +408,9 @@ main() {
 
     render_graph
 
-    cp "${WORKDIR}/pacwall.png" "${OUTPUT}"
+    center_root
+
+    cp "${WORKDIR}/pacwall.gv.png" "${OUTPUT}"
 
     if [[ -z $IMAGE_ONLY ]]; then
         set_wallpaper
@@ -433,7 +457,8 @@ help() {
         If OUTLINE value is bigger than 1, then OUTLINE-1 additional circles are drawn
         around the corresponding packages.
 
-        ROOT is the package that will be put in the center of the graph.
+        ROOT is the package that will be put in the center of the graph. If not
+        specified, a package will be chosen, and the graph may be slightly off center.
         RANKSEP is the distance in **inches** between the concentric circles.
         OUTPUT is the path where the generated image is put.
         SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
