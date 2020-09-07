@@ -152,7 +152,8 @@ Customizations can be made on the command line, see the options with
             If OUTLINE value is bigger than 1, then OUTLINE-1 additional circles are drawn
             around the corresponding packages.
 
-            ROOT is the package that will be put in the center of the graph.
+            ROOT is the package that will be put in the center of the graph. If not
+            specified, a package will be chosen, and the graph may be slightly off center.
             RANKSEP is the distance in **inches** between the concentric circles.
             OUTPUT is the path where the generated image is put.
             SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
@@ -191,6 +192,14 @@ Graph size
 If the graph is too large/small, use ``-r``.
 For example, ``-r 0.3`` means that the distance between the concentric circles
 of the graph will be 0.3 **inch**.
+
+~~~~~~~~~~~~~~~~~~~
+Centering the graph
+~~~~~~~~~~~~~~~~~~~
+If the ``-c ROOT`` option is not used to specify a pacage to put at the center of
+the graph, one will be chosen (see the ``twopi`` man page). In this case, the
+central node will likely be somewhat off center in the resulting image.
+Specifying a root package will fix this.
 
 ------------
 Contributors

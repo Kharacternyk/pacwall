@@ -457,7 +457,8 @@ help() {
         If OUTLINE value is bigger than 1, then OUTLINE-1 additional circles are drawn
         around the corresponding packages.
 
-        ROOT is the package that will be put in the center of the graph.
+        ROOT is the package that will be put in the center of the graph. If not
+        specified, a package will be chosen, and the graph may be slightly off center.
         RANKSEP is the distance in **inches** between the concentric circles.
         OUTPUT is the path where the generated image is put.
         SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
