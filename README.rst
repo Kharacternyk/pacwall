@@ -71,7 +71,8 @@ If you want the wallpaper to be automatically updated each ~5 minutes, run:
 Customization
 -------------
 
-``~/.config/pacwall/pacwall.conf`` is the configuration file in `libconfig format`_.
+``~/.config/pacwall/pacwall.conf`` is used to configure ``pacwall``.
+The file is in the `libconfig format`_.
 
 TODO
 
