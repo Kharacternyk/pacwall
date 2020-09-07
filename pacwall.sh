@@ -307,6 +307,28 @@ render_graph() {
     twopi "${twopi_args[@]}" > pacwall.png
 }
 
+center_root() {
+    [[ -z $ROOT ]] && return 0
+    HEADLINE=($(head -n1 pacwall.gv.plain))
+    GPHW=${HEADLINE[2]}
+    GPHH=${HEADLINE[3]}
+    ROOTLINE=($(grep -E "node \"?$ROOT\"? " pacwall.gv.plain))
+    ROOTX=${ROOTLINE[2]}
+    ROOTY=${ROOTLINE[3]}
+    IMGW=$(convert pacwall.gv.png -print '%w\n' /dev/null)
+    IMGH=$(convert pacwall.gv.png -print '%h\n' /dev/null)
+    XOFFSET=$(bc <<< "scale=5; $IMGW*(2.0*$ROOTX/$GPHW-1.0)")
+    YOFFSET=$(bc <<< "scale=5; $IMGH*(2.0*$ROOTY/$GPHH-1.0)")
+    # Set -gravity string depending on absolute values of XOFFSET and YOFFSET
+    [[ $XOFFSET = -* ]] && GRAVX='west'  || GRAVX='east'
+    [[ $YOFFSET = -* ]] && GRAVY='south' || GRAVY='north'
+    convert pacwall.gv.png \
+        -background "$BACKGROUND" \
+        -gravity "$GRAVY$GRAVX" \
+        -splice ${XOFFSET#-}x${YOFFSET#-} \
+        pacwall.gv.png
+}
+
 set_wallpaper() {
     set +e
 
