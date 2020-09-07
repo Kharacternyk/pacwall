@@ -408,6 +408,8 @@ main() {
 
     render_graph
 
+    center_root
+
     cp "${WORKDIR}/pacwall.gv.png" "${OUTPUT}"
 
     if [[ -z $IMAGE_ONLY ]]; then
