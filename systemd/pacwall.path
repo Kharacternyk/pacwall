@@ -1,5 +1,5 @@
 [Unit]
-Description=Run pacwall on package update/removal/installation
+Description=Run pacwall on package upgrade/removal/installation
 
 [Path]
 PathChanged=/var/lib/pacwall/systemd/trigger
