@@ -61,7 +61,7 @@ upgraded/removed/installed, run:
 
     systemctl --user enable pacwall.path
 
-If you want the wallpaper to be automatically updated each ~5 minutes, run:
+If you want the wallpaper to be automatically updated every 30 minutes, run:
 
 .. code-block:: bash
 
