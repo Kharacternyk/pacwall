@@ -1,0 +1,1 @@
+hook: "hsetroot -solid '#073642' -center '$W' > /dev/null"
