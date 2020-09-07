@@ -290,7 +290,7 @@ use_xresources_colors() {
 render_graph() {
     # Style the graph according to preferences.
     declare -a twopi_args=(
-        '-Tpng' 'pacwall.gv'
+        '-O' '-Tpng' '-Tplain' 'pacwall.gv'
         "-Gbgcolor=${BACKGROUND}"
         "-Granksep=${RANKSEP}"
         "-Ecolor=${EDGE}"
@@ -304,7 +304,7 @@ render_graph() {
     # Optional arguments
     [[ -n $ROOT ]] && twopi_args+=("-Groot=${ROOT}")
 
-    twopi "${twopi_args[@]}" > pacwall.png
+    twopi "${twopi_args[@]}"
 }
 
 center_root() {
@@ -347,7 +347,7 @@ set_wallpaper() {
             #TODO: handle if neither exists
         fi
 
-        convert pacwall.png \
+        convert pacwall.gv.png \
             -gravity center \
             -background "${BACKGROUND}" \
             -extent "${SCREEN_SIZE}" \
@@ -408,7 +408,7 @@ main() {
 
     render_graph
 
-    cp "${WORKDIR}/pacwall.png" "${OUTPUT}"
+    cp "${WORKDIR}/pacwall.gv.png" "${OUTPUT}"
 
     if [[ -z $IMAGE_ONLY ]]; then
         set_wallpaper
