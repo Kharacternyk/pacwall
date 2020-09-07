@@ -5,9 +5,9 @@ by ``pacman`` packages. Each node is a package and each edge represents
 a dependency between two packages. ``pacwall`` highlights outdated packages
 and orphans. The highlighting is meaningful by default still customizable.
 
-``pacwall`` package also includes systemd units that provide functionality
-such as triggering wallpaper regenerating on package
-upgrade/removal/installation, as well as periodical regenerating,
+``pacwall`` is bundled with systemd units that provide functionality
+such as triggering wallpaper regeneration on package
+upgrade/removal/installation, as well as periodical regeneration,
 which ensures that the displayed set of available updates is up-to-date.
 
 .. contents:: Navigation:
