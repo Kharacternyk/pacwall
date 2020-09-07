@@ -26,8 +26,7 @@ struct opts parse_opts() {
     /*INDENT-OFF*/
     struct opts opts = {
         .hook = NULL,
-        .showupdates = "/usr/lib/pacwall/showupdates.sh",
-        .pacman_db = "/var/lib/pacman",
+        .db = "/var/lib/pacman",
         .attributes_graph = "bgcolor=\"#00000000\"",
         .attributes_package_common = "shape=point, height=0.1,"
         "fontname=monospace, fontsize=9",
@@ -59,8 +58,7 @@ struct opts parse_opts() {
     fclose(cfg_file);
 
     config_lookup_escape(&cfg, "hook", &opts.hook);
-    config_lookup_escape(&cfg, "showupdates", &opts.showupdates);
-    config_lookup_escape(&cfg, "pacman.db", &opts.pacman_db);
+    config_lookup_escape(&cfg, "db", &opts.db);
     config_lookup_escape(&cfg, "attributes.graph", &opts.attributes_graph);
     config_lookup_escape(&cfg, "attributes.package.common",
                          &opts.attributes_package_common);
@@ -82,5 +80,3 @@ struct opts parse_opts() {
     config_destroy(&cfg);
     return opts;
 }
-
-

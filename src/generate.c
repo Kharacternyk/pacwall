@@ -4,15 +4,15 @@
 #include "util.h"
 
 static pid_t fetch_updates(const struct opts *opts) {
-    return subprocess_begin(opts->showupdates,
+    return subprocess_begin("/usr/lib/pacwall/showupdates.sh",
                             opts->attributes_package_outdated,
                             "updates.gv",
-                            opts->pacman_db,
+                            opts->db,
                             "updates.db");
 }
 
 static void write_updates(pid_t pid, FILE *file, const struct opts *opts) {
-    subprocess_wait(pid, opts->showupdates);
+    subprocess_wait(pid, "/usr/lib/pacwall/showupdates.sh");
     FILE *updates = fopen("updates.gv", "r");
     char c;
     while ((c = getc(updates)) != EOF) {
@@ -24,10 +24,10 @@ static void write_updates(pid_t pid, FILE *file, const struct opts *opts) {
 
 void generate_graph(const struct opts *opts) {
     alpm_errno_t error = 0;
-    alpm_handle_t *alpm = alpm_initialize("/", opts->pacman_db, &error);
+    alpm_handle_t *alpm = alpm_initialize("/", opts->db, &error);
     if (error) {
         alpm_release(alpm);
-        panic("Could not read pacman database at %s", opts->pacman_db);
+        panic("Could not read pacman database at %s", opts->db);
     }
 
     pid_t pid = fetch_updates(opts);

@@ -3,8 +3,7 @@
 
 struct opts {
     const char *hook;
-    const char *showupdates;
-    const char *pacman_db;
+    const char *db;
     const char *attributes_graph;
     const char *attributes_package_common;
     const char *attributes_package_implicit;
