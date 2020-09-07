@@ -43,7 +43,7 @@ If you use Sway, run:
 Usage
 -----
 
-Run `pacwall`.
+Run ``pacwall``.
 
 Blue dots are manually (explicitly) installed packages, red ones are automatically
 (implicitly) installed packages. Outlined teal dots are orphans, outlined yellow
@@ -51,7 +51,7 @@ dots are outdated packages. Dashed edges represent optional dependencies, normal
 edges represent strict (hard, direct) dependencies. If you don't like the default look,
 ``goto`` `Customization`_.
 
-If you want the wallpaper to be persistent, run `pacwall-hook` in the init file
+If you want the wallpaper to be persistent, run ``pacwall-hook`` in the init file
 of DE or WM you use.
 
 If you want the wallpaper to be automatically updated when a package is
