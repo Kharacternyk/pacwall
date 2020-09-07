@@ -1,0 +1,15 @@
+attributes: {
+    graph: "bgcolor='#00000000'"
+    package: {
+        common:   "shape=point, height=0.1, fontname=monospace, fontsize=9"
+        implicit: "color='#dc322faa'"
+        explicit: "color='#268bd2aa'"
+        orphan:   "color='#2aa198aa', fontcolor='#2aa198', peripheries=2, xlabel='\\N'"
+        outdated: "color='#b58900aa', fontcolor='#b58900', peripheries=3, xlabel='\\N'"
+    }
+    dependency: {
+        common:   "color='#fdf6e322'"
+        hard:     ""
+        optional: "arrowhead=empty, style=dashed"
+    }
+}
