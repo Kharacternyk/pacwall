@@ -3,10 +3,7 @@
 #include "util.h"
 
 int main(int argc, char **argv) {
-    config_t cfg;
-    config_init(&cfg);
-    const struct opts opts = parse_opts(&cfg);
-
+    const struct opts opts = parse_opts();
     chdir_xdg("XDG_CACHE_HOME", ".cache/", "pacwall");
     generate_graph(&opts);
 

@@ -1,8 +1,6 @@
 #ifndef OPTS_H
 #define OPTS_H
 
-#include <libconfig.h>
-
 struct opts {
     const char *hook;
     const char *showupdates;
@@ -18,6 +16,6 @@ struct opts {
     const char *attributes_dependency_optional;
 };
 
-struct opts parse_opts(config_t *cfg);
+struct opts parse_opts();
 
 #endif
