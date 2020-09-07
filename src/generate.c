@@ -88,7 +88,7 @@ void generate_graph(const struct opts *opts) {
     write_updates(pid, file, opts);
 
     /* Global attributes */
-    fprintf(file, "%s\n}\n", opts->attributes_graph);
+    fprintf(file, "\n%s\n}\n", opts->attributes_graph);
 
     fclose(file);
     alpm_release(alpm);
