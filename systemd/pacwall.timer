@@ -1,0 +1,9 @@
+[Unit]
+Description=Run pacwall periodically
+
+[Timer]
+OnBootSec=4m 30s
+OnActiveSec=4m 30s
+
+[Install]
+WantedBy=default.target
