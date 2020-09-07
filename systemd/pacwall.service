@@ -1,5 +1,5 @@
 [Unit]
-Description=Pacwall
+Description=Pacwall wallpaper generator
 ConditionUser=!root
 
 [Service]
