@@ -22,18 +22,21 @@ Install the ``pacwall-git`` `AUR package`_.
 If you use GNOME, run:
 
 .. code-block:: bash
+
     sudo pacman -S --needed imagemagick xorg-xdpyinfo
     cp /usr/share/pacwall/examples/hook/gsettings ~/.config/pacwall/pacwall.conf
 
 If you use Xorg sans GNOME, run:
     
 .. code-block:: bash
+
     sudo pacman -S --needed hsetroot
     cp /usr/share/pacwall/examples/hook/hsetroot ~/.config/pacwall/pacwall.conf
 
 If you use Sway, run:
 
 .. code-block:: bash
+
     cp /usr/share/pacwall/examples/hook/swaymsg ~/.config/pacwall/pacwall.conf
 
 -----
@@ -55,11 +58,13 @@ If you want the wallpaper to be automatically updated when a package is
 upgraded/removed/installed, run:
 
 .. code-block:: bash
+
     systemctl --user enable pacwall.path
 
 If you want the wallpaper to be automatically updated each ~5 minutes, run:
 
 .. code-block:: bash
+
     systemctl --user enable pacwall.timer
 
 -------------
