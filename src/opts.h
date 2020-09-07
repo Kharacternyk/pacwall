@@ -3,6 +3,7 @@
 
 struct opts {
     const char *hook;
+    const char *shell;
     const char *db;
     const char *attributes_graph;
     const char *attributes_package_common;

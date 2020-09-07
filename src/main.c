@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
 
     if (opts.hook != NULL) {
         setenv("W", "./pacwall.png", 1);
-        execl("/bin/sh", "/bin/sh", "-c", opts.hook, (char *)NULL);
-        panic("Could not execute /bin/sh: %s", strerror(errno));
+        execlp(opts.shell, opts.shell, "-c", opts.hook, (char *)NULL);
+        panic("Could not execute shell %s: %s", opts.shell, strerror(errno));
     }
 }

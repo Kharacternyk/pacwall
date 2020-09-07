@@ -26,6 +26,7 @@ struct opts parse_opts() {
     /*INDENT-OFF*/
     struct opts opts = {
         .hook = NULL,
+        .shell = "bash",
         .db = "/var/lib/pacman",
         .attributes_graph = "bgcolor=\"#00000000\"",
         .attributes_package_common = "shape=point, height=0.1,"
@@ -58,6 +59,7 @@ struct opts parse_opts() {
     fclose(cfg_file);
 
     config_lookup_escape(&cfg, "hook", &opts.hook);
+    config_lookup_escape(&cfg, "shell", &opts.shell);
     config_lookup_escape(&cfg, "db", &opts.db);
     config_lookup_escape(&cfg, "attributes.graph", &opts.attributes_graph);
     config_lookup_escape(&cfg, "attributes.package.common",
