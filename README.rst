@@ -1,220 +1,90 @@
 .. image:: screenshot.png
 
-``pacwall.sh`` is a shell script that changes your wallpaper to the dependency
-graph of installed packages. Each package is a node and each edge indicates a
-dependency between two packages.
+``pacwall`` changes your wallpaper to the dependency graph of installed
+by ``pacman`` packages. Each node is a package and each edge represents
+a dependency between two packages. ``pacwall`` highlights outdated packages
+and orphans. The highlighting is meaningful by default still customizable.
 
-An `AUR package`_ is available.
+``pacwall`` package also includes systemd units that provide functionality
+such as triggering wallpaper regenerating on package
+upgrade/removal/installation, as well as periodical regenerating,
+which ensures that the displayed set of available updates is up-to-date.
 
 .. contents:: Navigation:
    :backlinks: none
 
 ------------
-Highlighting
+Installation
 ------------
 
-* Packages
+Install the ``pacwall-git`` `AUR package`_.
 
-  +---------------------+--------------------+-------+--------+
-  | Package/Distro      | Arch               | Void  | Gentoo |
-  +=====================+====================+=======+========+
-  | Normal              | Red                                 |
-  +---------------------+-------------------------------------+
-  | Explicitly installed| Blue                                |
-  +---------------------+----------------------------+--------+
-  | Orphan              | Green (outlined)           | **X**  |
-  +---------------------+--------------------+-------+--------+
-  | Foreign (AUR, etc.) | Purple             | **X** | Purple |
-  +---------------------+--------------------+-------+--------+
-  | Outdated            | Yellow (outlined)          | **X**  |
-  +---------------------+--------------------+-------+--------+
-  | Virtual (see below) | White (translucent)| **X**          |
-  +---------------------+--------------------+----------------+
-
-* Dependencies
-
-  * **A** *depends on* **B**: an arrow that points towards **B**
-  * **A** *provides* **B** (**B** is a *virtual* package):
-    an inverted arrow that points towards **B**
-    (*applies only to Arch*)
-
-The exact default colors have been taken from pywal's solarized theme.
-See `Customization`_ and `Pywal integration`_ if you want to change them.
-
-------------
-Requirements
-------------
-
-~~~~~~~~~~
-Arch Linux
-~~~~~~~~~~
+If you use GNOME, run:
 
 .. code-block:: bash
+    sudo pacman -S --needed imagemagick xorg-xdpyinfo
+    cp /usr/share/pacwall/examples/hook/gsettings ~/.config/pacwall/pacwall.conf
 
-    sudo pacman -Syu --needed graphviz pacman-contrib
+If you use Xorg sans GNOME, run:
+    
+.. code-block:: bash
+    sudo pacman -S --needed hsetroot
+    cp /usr/share/pacwall/examples/hook/hsetroot ~/.config/pacwall/pacwall.conf
 
-~~~~~~~~~~
-Void Linux
-~~~~~~~~~~
+If you use Sway, run:
 
 .. code-block:: bash
+    cp /usr/share/pacwall/examples/hook/swaymsg ~/.config/pacwall/pacwall.conf
 
-    sudo xbps-install -S graphviz
+-----
+Usage
+-----
 
-~~~~~~~~~~~~
-Gentoo Linux
-~~~~~~~~~~~~
+Run `pacwall`.
+
+Blue dots are manually (explicitly) installed packages, red ones are automatically
+(implicitly) installed packages. Outlined teal dots are orphans, outlined yellow
+dots are outdated packages. Dashed edges represent optional dependencies, normal
+edges represent strict (hard, direct) dependencies. If you don't like the default look,
+``goto`` `Customization`_.
+
+If you want the wallpaper to be persistent, run `pacwall-hook` in the init file
+of DE or WM you use.
+
+If you want the wallpaper to be automatically updated when a package is
+upgraded/removed/installed, run:
 
 .. code-block:: bash
+    systemctl --user enable pacwall.path
 
-    sudo emerge media-gfx/graphviz app-portage/eix
+If you want the wallpaper to be automatically updated each ~5 minutes, run:
 
-
-~~~~~~~~~~~~~~~~~~
-Wallpaper backends
-~~~~~~~~~~~~~~~~~~
-
-``pacwall`` tries to set the wallpaper using ``feh``, ``hsetroot`` and ``swaymsg``.
-
--------------------------------
-Desktop environment integration
--------------------------------
-
-Use ``-D`` to enable desktop environment integration (KDE Plasma, GNOME, ...).
-You will be able to see the generated wallpapers in the graphical wallpaper picker.
-
-DE integration requires ``imagemagick`` and if you are on X11, ``xorg-xdpyinfo``.
-If you are using a Wayland compositor other than sway, you need to specify
-the screen size manually like this: ``./pacwall.sh -DS 1920x1200``.
-
-**WARNING**:
-Setting a wallpaper in GNOME and the derivatives isn't possible with ``feh`` and ``hsetroot``.
-``-D`` is *required*.
-
------------------
-Pywal integration
------------------
-
-Run ``./pacwall.sh -W`` to use colors set by pywal.
-
-Some themes don't follow the color order convention, though many do.
-If you use a scheme that doesn't, then the color description table
-above may be partially invalid e.g. updates are highlighted green instead of
-yellow and orphans are yellow instead of green.
-
-----------------------
-Xresources integration
-----------------------
-
-Run ``./pacwall.sh -X`` to use colors set in Xresources.
+.. code-block:: bash
+    systemctl --user enable pacwall.timer
 
 -------------
 Customization
 -------------
 
-Customizations can be made on the command line, see the options with
-``./pacwall.sh -h``.
+`~/.config/pacwall/pacwall.conf` is the configuration file in `libconfig format`_.
 
-.. code-block::
-
-    USAGE: pacwall
-            [ -iDWXULV ]
-            [ -b BACKGROUND_COLOR ]
-            [ -s EDGE_COLOR ]
-            [ -d NODE_COLOR ]
-            [ -e EXPLICIT_NODE_COLOR ]
-            [ -p ORPHAN_NODE_COLOR ]
-            [ -f FOREIGN_NODE_COLOR ]
-            [ -u OUTDATED_NODE_COLOR ]
-            [ -y VIRTUAL_NODE_COLOR ]
-            [ -x ORPHAN_NODE_OUTLINE ]
-            [ -z OUTDATED_NODE_OUTLINE ]
-            [ -c ROOT ]
-            [ -r RANKSEP ]
-            [ -o OUTPUT ]
-            [ -S SCREEN_SIZE ]
-            [ REPO:COLOR ... ]
-            [ GROUP%COLOR ... ]
-            [ PACKAGE@COLOR ... ]
-
-            Use -i to suppress wallpaper setting.
-            Use -D to enable integration with desktop environments.
-            Use -W to enable pywal integration.
-            Use -X to enable Xresources integration.
-            Use -U to disable highlighting of outdated packages.
-            Use -L to label outdated packages using 'monospace 12.5pt' font.
-
-            All colors may be specified either as
-            - a color name (black, darkorange, ...)
-            - a value of format #RRGGBB
-            - a value of format #RRGGBBAA
-
-            If OUTLINE value is bigger than 1, then OUTLINE-1 additional circles are drawn
-            around the corresponding packages.
-
-            ROOT is the package that will be put in the center of the graph. If not
-            specified, a package will be chosen, and the graph may be slightly off center.
-            RANKSEP is the distance in **inches** between the concentric circles.
-            OUTPUT is the path where the generated image is put.
-            SCREEN_SIZE makes sense to set only if -D is enabled and you're on Wayland.
-
-            REPO:COLOR overrides the highlight color for packages from REPO to COLOR.
-            GROUP%COLOR overrides the highlight color for packages from GROUP to COLOR.
-            PACKAGE@COLOR overrides the highlight color for PACKAGE to COLOR.
-
-            If you are on a distribution other than Arch, not all of the above will work.
-            Partly supported distributions: Void, Gentoo.
-
-Additional customizations can be performed by modifying the script itself.
-The code in the script is well-structured (should be).
-To discover the customization possibilities, read the man page of ``graphviz``
-and ``twopi``, particularly the section on *GRAPH, NODE AND EDGE ATTRIBUTES*.
+TODO
 
 ---------------
 Tips and tricks
 ---------------
 
-~~~~~~~~~~~
-Pacman hook
-~~~~~~~~~~~
+~~~~~
+Pywal
+~~~~~
 
-``90-pacwall.hook`` is an example of a pacman hook that you may put into
-``/usr/share/libalpm/hooks/``. It will trigger wallpaper regenerating each time
-a package is removed, added or upgraded. **It's not a part of the package in AUR**,
-because one is expected to customize the pacwall invocation and flags. Also not
-everyone likes the noticeable delay that the hook introduces to pacman invocations.
-`Pywal integration`_ doesn't work.
+TODO
 
 ~~~~~~~~~~
 Graph size
 ~~~~~~~~~~
 
-If the graph is too large/small, use ``-r``.
-For example, ``-r 0.3`` means that the distance between the concentric circles
-of the graph will be 0.3 **inch**.
-
-~~~~~~~~~~~~~~~~~~~
-Centering the graph
-~~~~~~~~~~~~~~~~~~~
-If the ``-c ROOT`` option is not used to specify a pacage to put at the center of
-the graph, one will be chosen (see the ``twopi`` man page). In this case, the
-central node will likely be somewhat off center in the resulting image.
-Specifying a root package will fix this.
-
-------------
-Contributors
-------------
-
-* `Nazar Vinnichuk`_: the original author and maintainer;
-* `PitcherTear22`_: integration with GNOME and other DEs, first ever rice_ with pacwall;
-* `John Ramsden`_: PKGBUILD, cmdopts parsing, general code quality;
-* `Ruijie Yu`_: PKGBUILD, sudo mode;
-* `Yannic Uhlmann`_: Void support;
-* `Luca Leon Happel`_: pywal integration, ``hsetroot`` backend;
-* `QWxleA`_: screen size autodetection via ``xdpyinfo``;
-* `Daniel Bertalan`_: sway_ integration;
-* `Lucas Goudin`_: Xresources integration;
-* `Adithya Nair`_: Gentoo support;
+TODO
 
 ----------------
 Similar software
@@ -225,17 +95,6 @@ Similar software
 
 .. LINKS:
 .. _AUR package: https://aur.archlinux.org/packages/pacwall-git/
-.. _Nazar Vinnichuk: https://github.com/Kharacternyk
-.. _PitcherTear22: https://github.com/PitcherTear22
-.. _John Ramsden: https://github.com/johnramsden
-.. _Ruijie Yu: https://github.com/RuijieYu
-.. _Yannic Uhlmann: https://github.com/AugustUnderground
-.. _Luca Leon Happel: https://github.com/Quoteme
-.. _QwxleA: https://github.com/QWxleA
-.. _Daniel Bertalan: https://github.com/BertalanD
-.. _Lucas Goudin: https://github.com/Rukkaitto
-.. _Adithya Nair: https://github.com/adtyanair
-.. _rice: https://www.reddit.com/r/unixporn/comments/fnfujo/gnome_first_rice_pacwall/
+.. _libconfig format: https://hyperrealm.github.io/libconfig/libconfig_manual.html#Configuration-Files
 .. _pacgraph: http://kmkeen.com/pacgraph/
 .. _pacvis: https://github.com/farseerfc/pacvis
-.. _sway: https://github.com/swaywm/sway
