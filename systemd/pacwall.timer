@@ -1,9 +1,19 @@
 [Unit]
 Description=Run pacwall periodically
 
+# The timer elapses each hour within a 20 minutes long
+# window. The actual invocation time is randomized and
+# evenly distributed within the window. This technique
+# avoids overloading of the mirrors.
+#
+# The timer is persistent, which means that if one or
+# more timer invocations are skipped because the machine
+# is powered off, the timer will be invoked immediately
+# on login to catch up.
 [Timer]
-OnBootSec=4m 30s
-OnActiveSec=29m 30s
+OnCalendar=*-*-* *:00:50
+RandomizedDelaySec=20m
+Persistent=true
 
 [Install]
 WantedBy=default.target

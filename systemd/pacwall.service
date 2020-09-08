@@ -3,5 +3,6 @@ Description=Pacwall wallpaper generator
 ConditionUser=!root
 
 [Service]
-Type=oneshot
 ExecStart=/usr/bin/pacwall
+Type=oneshot
+Restart=no
