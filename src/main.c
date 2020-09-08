@@ -3,13 +3,10 @@
 #include "util.h"
 
 int main(int argc, char **argv) {
-    const struct opts opts = parse_opts();
+    const struct opts opts = parse_opts(argc, argv);
     chdir_xdg("XDG_CACHE_HOME", ".cache/", "pacwall");
 
-    /* If invoked as `*pacwall-hook`, just jump straightly to the hook. */
-    const char *slash = strrchr(argv[0], '/');
-    const char *basename = slash ? slash + 1 : argv[0];
-    if (strcmp(basename, "pacwall-hook")) {
+    if (!opts._hook_only) {
         generate_graph(&opts);
         subprocess_wait(subprocess_begin("twopi", "-Tpng",
                                          "-o", "pacwall.png",

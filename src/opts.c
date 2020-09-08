@@ -3,6 +3,25 @@
 #include "opts.h"
 #include "util.h"
 
+static void parse_cli_opts(struct opts *opts, int argc, char **argv) {
+    while (argc-- > 1) {
+        char *s = argv[argc];
+        while (*s) {
+            switch (*(s++)) {
+            case '-':
+                break;
+            case 'k':
+                opts->_hook_only = 1;
+                break;
+            default:
+                panic("USAGE: %s [-k]\n"
+                      "See /usr/share/doc/pacwall/README.rst for more info.",
+                      argv[0]);
+            }
+        }
+    }
+}
+
 static void config_lookup_escape(config_t *cfg, const char *path, const char **out) {
     const char *str = NULL;
     config_lookup_string(cfg, path, &str);
@@ -22,7 +41,7 @@ static void config_lookup_escape(config_t *cfg, const char *path, const char **o
     *out = tmp;
 }
 
-struct opts parse_opts() {
+struct opts parse_opts(int argc, char **argv) {
     /*INDENT-OFF*/
     struct opts opts = {
         .hook = NULL,
@@ -39,7 +58,8 @@ struct opts parse_opts() {
                                        "fontcolor=\"#b58900\", xlabel=\"\\N\"",
         .attributes_dependency_common = "color=\"#fdf6e322\"",
         .attributes_dependency_hard = "",
-        .attributes_dependency_optional = "arrowhead=empty, style=dashed"
+        .attributes_dependency_optional = "arrowhead=empty, style=dashed",
+        ._hook_only = 0,
     };
     /*INDENT-ON*/
 
@@ -78,7 +98,9 @@ struct opts parse_opts() {
                          &opts.attributes_dependency_hard);
     config_lookup_escape(&cfg, "attributes.dependency.optional",
                          &opts.attributes_dependency_optional);
-
     config_destroy(&cfg);
+
+    parse_cli_opts(&opts, argc, argv);
+
     return opts;
 }
