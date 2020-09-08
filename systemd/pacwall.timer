@@ -11,8 +11,9 @@ Description=Run pacwall periodically
 # is powered off, the timer will be invoked immediately
 # on login to catch up.
 [Timer]
-OnCalendar=*-*-* *:00:50
+OnCalendar=*-*-* *:49:30
 RandomizedDelaySec=20m
+AccuracySec=1m
 Persistent=true
 
 [Install]
