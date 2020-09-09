@@ -5,10 +5,9 @@
 
 static pid_t fetch_updates(const struct opts *opts) {
     return subprocess_begin("/usr/lib/pacwall/showupdates.sh",
+                            "updates.db",
                             opts->attributes_package_outdated,
-                            "updates.gv",
-                            opts->db,
-                            "updates.db");
+                            "updates.gv");
 }
 
 static void write_updates(pid_t pid, FILE *file, const struct opts *opts) {
