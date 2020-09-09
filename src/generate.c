@@ -3,15 +3,11 @@
 #include "generate.h"
 #include "util.h"
 
-static pid_t fetch_updates(const struct opts *opts) {
-    return subprocess_begin("/usr/lib/pacwall/showupdates.sh",
-                            "updates.db",
-                            opts->attributes_package_outdated,
-                            "updates.gv");
-}
-
-static void write_updates(pid_t pid, FILE *file, const struct opts *opts) {
-    subprocess_wait(pid, "/usr/lib/pacwall/showupdates.sh");
+static void write_updates(FILE *file, const struct opts *opts) {
+    subprocess_wait(subprocess_begin("/usr/lib/pacwall/showupdates.sh",
+                                     "updates.db",
+                                     opts->attributes_package_outdated,
+                                     "updates.gv"), "/usr/lib/pacwall/showupdates.sh");
     FILE *updates = fopen("updates.gv", "r");
     char c;
     while ((c = getc(updates)) != EOF) {
@@ -21,15 +17,13 @@ static void write_updates(pid_t pid, FILE *file, const struct opts *opts) {
 }
 
 
-void generate_graph(const struct opts *opts) {
+void generate_graph(pid_t fetch_pid, const struct opts *opts) {
     alpm_errno_t error = 0;
     alpm_handle_t *alpm = alpm_initialize("/", opts->db, &error);
     if (error) {
         alpm_release(alpm);
         panic("Could not read pacman database at %s", opts->db);
     }
-
-    pid_t pid = fetch_updates(opts);
 
     alpm_db_t *db = alpm_get_localdb(alpm);
     alpm_list_t *pkgs = alpm_db_get_pkgcache(db);
@@ -84,7 +78,10 @@ void generate_graph(const struct opts *opts) {
     }
 
     /* Updates */
-    write_updates(pid, file, opts);
+    if (fetch_pid > 0) {
+        subprocess_wait(fetch_pid, "/usr/lib/pacwall/fetchupdates.sh");
+    }
+    write_updates(file, opts);
 
     /* Global attributes */
     fprintf(file, "\n%s\n}\n", opts->attributes_graph);
