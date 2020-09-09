@@ -55,8 +55,8 @@ dependencies, the normal edges represent strict (hard, direct) dependencies. If
 you don't like the default appearance, ``goto`` `Customization`_.
 
 If you want the wallpaper to be persistent, run ``pacwall -ug`` in the init file
-of DE or WM you use. (Note that it doesn't regenerate the wallpaper, it just sets
-the most recent one.)
+of DE or WM you use. Note that it doesn't regenerate the wallpaper, it just sets
+the most recent one.
 
 If you want the wallpaper to be automatically updated when a package is
 upgraded/removed/installed, run:
@@ -65,7 +65,7 @@ upgraded/removed/installed, run:
 
     systemctl --user enable pacwall-watch-packages.path
 
-(Note that this one runs ``pacwall -u`` i.e. doesn't fetch newly available updates.)
+Note that this one runs ``pacwall -u`` i.e. doesn't fetch newly available updates.
 
 If you want the wallpaper to fetch and show newly available updates each hour, run:
 
