@@ -15,7 +15,9 @@ struct opts {
     const char *attributes_dependency_common;
     const char *attributes_dependency_hard;
     const char *attributes_dependency_optional;
-    int _hook_only;
+    int _skip_fetch;
+    int _skip_generate;
+    int _skip_hook;
 };
 
 struct opts parse_opts(int argc, char **argv);
