@@ -24,6 +24,7 @@ If you use GNOME, run:
 .. code-block:: bash
 
     sudo pacman -S --needed imagemagick xorg-xdpyinfo
+    mkdir -p ~/.config/pacwall
     cp /usr/share/pacwall/examples/hook/gsettings ~/.config/pacwall/pacwall.conf
 
 If you use Xorg sans GNOME, run:
@@ -31,12 +32,14 @@ If you use Xorg sans GNOME, run:
 .. code-block:: bash
 
     sudo pacman -S --needed hsetroot
+    mkdir -p ~/.config/pacwall
     cp /usr/share/pacwall/examples/hook/hsetroot ~/.config/pacwall/pacwall.conf
 
 If you use Sway, run:
 
 .. code-block:: bash
 
+    mkdir -p ~/.config/pacwall
     cp /usr/share/pacwall/examples/hook/swaymsg ~/.config/pacwall/pacwall.conf
 
 -----
