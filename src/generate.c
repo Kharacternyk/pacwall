@@ -76,6 +76,7 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
 
         pkgs = pkgs->next;
     }
+    alpm_release(alpm);
 
     /* Updates */
     if (fetch_pid > 0) {
@@ -87,5 +88,9 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
     fprintf(file, "\n%s\n}\n", opts->attributes_graph);
 
     fclose(file);
-    alpm_release(alpm);
+
+    /* Rendering */
+    subprocess_wait(subprocess_begin("twopi", "-Tpng",
+                                     "-o", "pacwall.png",
+                                     "pacwall.gv"), "twopi");
 }

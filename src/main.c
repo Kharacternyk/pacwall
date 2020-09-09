@@ -14,9 +14,6 @@ int main(int argc, char **argv) {
 
     if (!opts._skip_generate) {
         generate_graph(fetch_pid, &opts);
-        subprocess_wait(subprocess_begin("twopi", "-Tpng",
-                                         "-o", "pacwall.png",
-                                         "pacwall.gv"), "twopi");
     } else if (fetch_pid > 0) {
         subprocess_wait(fetch_pid, "/usr/lib/pacwall/fetchupdates.sh");
     }
