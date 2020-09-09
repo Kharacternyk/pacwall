@@ -85,8 +85,8 @@ CLI
 
 * ``-g``: do not regenerate the graph
 
-   This flag also considerably speed-ups ``pacwall``. If you are sure that the graph
-   hasn't changed, it makes perfect sense to pass this flag.
+  This flag also considerably speed-ups ``pacwall``. If you are sure that the graph
+  hasn't changed, it makes perfect sense to pass this flag.
 
 * ``-k``: do not run the hook
 
