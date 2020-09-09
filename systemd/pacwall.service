@@ -1,8 +1,0 @@
-[Unit]
-Description=Pacwall wallpaper generator
-ConditionUser=!root
-
-[Service]
-ExecStart=/usr/bin/pacwall
-Type=oneshot
-Restart=no

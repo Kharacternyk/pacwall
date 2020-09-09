@@ -2,6 +2,7 @@
 Description=Run pacwall on package upgrade/removal/installation
 
 [Path]
+Unit=pacwall@u.service
 PathChanged=/var/lib/pacwall/systemd/trigger
 
 [Install]

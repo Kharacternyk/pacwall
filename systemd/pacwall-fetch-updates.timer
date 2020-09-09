@@ -8,9 +8,10 @@ Description=Run pacwall periodically
 #
 # The timer is persistent, which means that if one or
 # more timer invocations are skipped because the machine
-# is powered off, the timer will be invoked immediately
-# on login to catch up.
+# is powered off, the timer will be invoked some time
+# after login to catch up.
 [Timer]
+Unit=pacwall@-.service
 OnCalendar=*-*-* *:49:30
 RandomizedDelaySec=20m
 AccuracySec=1m
