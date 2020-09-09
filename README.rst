@@ -55,7 +55,8 @@ dependencies, the normal edges represent strict (hard, direct) dependencies. If
 you don't like the default appearance, ``goto`` `Customization`_.
 
 If you want the wallpaper to be persistent, run ``pacwall -ug`` in the init file
-of DE or WM you use.
+of DE or WM you use. (Note that it doesn't regenerate the wallpaper, it just sets
+the most recent one.)
 
 If you want the wallpaper to be automatically updated when a package is
 upgraded/removed/installed, run:
@@ -71,6 +72,27 @@ If you want the wallpaper to fetch and show newly available updates each hour, r
 .. code-block:: bash
 
     systemctl --user enable pacwall-fetch-updates.timer
+
+---
+CLI
+---
+
+* ``-u``: do not fetch updates
+
+  This flag considerably speed-ups ``pacwall``. It also puts off some load from the
+  Arch mirrors, though the load is arguably minor. Note that this flag doesn't prevent
+  already fetched updates to be displayed.
+
+* ``-g``: do not regenerate the graph
+
+   This flag also considerably speed-ups ``pacwall``. If you are sure that the graph
+   hasn't changed, it makes perfect sense to pass this flag.
+
+* ``-k``: do not run the hook
+
+  TODO
+
+Common use cases: TODO
 
 -------------
 Customization
