@@ -52,7 +52,7 @@ The blue dots are manually (explicitly) installed packages, the red ones are
 automatically (implicitly) installed packages. The outlined teal dots are orphans,
 the outlined yellow dots are outdated packages. The dashed edges represent optional
 dependencies, the normal edges represent strict (hard, direct) dependencies. If
-you don't like the default look, ``goto`` `Customization`_.
+you don't like the default appearance, ``goto`` `Customization`_.
 
 If you want the wallpaper to be persistent, run ``pacwall -ug`` in the init file
 of DE or WM you use.
