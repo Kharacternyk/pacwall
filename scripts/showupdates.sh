@@ -1,19 +1,9 @@
 #!/bin/bash
 set -e
 
-ATTRIBUTES=$1
-OUTPUT=$2
-PACMANDB=$3
-FAKEDB=$4
-
-# Create a fake db directory for pacman.
-mkdir -p "$FAKEDB"
-
-# Link local packages.
-ln -s "$PACMANDB/local/" "$FAKEDB/" &> /dev/null || true
-
-# Fetch fresh sync databases.
-fakeroot -- pacman -Sy --dbpath "$FAKEDB" --logfile /dev/null &> /dev/null
+FAKEDB=$1
+ATTRIBUTES=$2
+OUTPUT=$3
 
 # Show the updates.
 cat /dev/null > "$OUTPUT"
