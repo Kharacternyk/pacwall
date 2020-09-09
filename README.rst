@@ -64,7 +64,7 @@ upgraded/removed/installed, run:
 
     systemctl --user enable pacwall-watch-packages.path
 
-(Note that this one runs ``pacwall -u`` i.e. doesn't fetch newly available updates)
+(Note that this one runs ``pacwall -u`` i.e. doesn't fetch newly available updates.)
 
 If you want the wallpaper to fetch and show newly available updates each hour, run:
 
