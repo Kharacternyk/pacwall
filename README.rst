@@ -133,7 +133,7 @@ Hook
 
 The hook is one or more shell commands that are executed after the graph
 has been generated. The hook is expected to set the wallpaper. The path
-to the graph image is exported in ``$W`` environmental variable.
+to the graph image is exported in the ``$W`` environmental variable.
 
 ``/usr/share/pacwall/examples/hook`` contains some example hooks for different
 setups, one of which you have copied to ``pacwall.conf`` in the Installation_
