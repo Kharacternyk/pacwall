@@ -157,7 +157,8 @@ List of settings
   ``/usr/share/pacwall/examples/attributes/default`` contains the attributes
   that are identical to the hardcoded defaults. It may be easier for you
   to copy them to your ``pacwall.conf`` and then further modify instead
-  of writing these settings from scratch.
+  of writing these settings from scratch. You can also try out the other
+  examples in the directory.
 
   * ``graph`` (default: ``bgcolor='#00000000'``)
 
