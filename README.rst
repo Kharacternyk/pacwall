@@ -129,8 +129,7 @@ and the value strings would be littered with ugly escaped ``\"`` otherwise.
 Settings
 ~~~~~~~~
 
-* ``hook``
-  Default value: null
+* ``hook`` (no default value)
 
   The hook is one or more shell commands that are executed after the graph
   has been generated. The hook is expected to set the wallpaper. The path
@@ -140,13 +139,11 @@ Settings
   setups, one of which you have copied to ``pacwall.conf`` in the Installation_
   section.
 
-* ``shell``
-  Default value: ``bash``
+* ``shell`` (default: ``bash``)
 
   The shell in which the commands specified in ``hook`` ought to be executed.
 
-* ``db``
-  Default value: ``/var/lib/pacman``
+* ``db`` (default: ``/var/lib/pacman``)
 
   The path to the pacman packages database.
 
