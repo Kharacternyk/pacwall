@@ -73,7 +73,7 @@ available updates displayed, run:
 
 .. code-block:: bash
 
-    systemctl --user enable pacwall-fetch-updates.timer
+    systemctl --user enable pacwall-watch-updates.timer
 
 ---
 CLI
