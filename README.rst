@@ -105,39 +105,50 @@ The file is in the `libconfig format`_. TL;DR:
     # comment
     // comment
 
-    key: "value"
+    setting: "value"
     # or
-    key = "value"; # semicolon is optional
+    setting = "value"; # semicolon is optional
 
     group: {
-        key: "value"
+        setting: "value"
         another-group: {
-            key: "value"
+            setting: "value"
             ...
         }
         ...
     }
 
-    key: "too-long" # consequtive strings are
-         "-value"   # glued together, like in C
+    setting: "too-long" # consequtive strings are
+             "-value"   # glued together, like in C
 
 Note that you should use ``'`` in value strings wherever you would normally
 use ``"`` and vice versa. It has been done because ``"`` is needed far more often
 and the value strings would be littered with ugly escaped ``\"`` otherwise.
 
-~~~~
-Hook
-~~~~
+~~~~~~~~
+Settings
+~~~~~~~~
 
-``hook: "some shell commands"``
+* ``hook``
+  Default value: null
 
-The hook is one or more shell commands that are executed after the graph
-has been generated. The hook is expected to set the wallpaper. The path
-to the graph image is exported in the ``$W`` environmental variable.
+  The hook is one or more shell commands that are executed after the graph
+  has been generated. The hook is expected to set the wallpaper. The path
+  to the graph image is exported in the ``$W`` environmental variable.
 
-``/usr/share/pacwall/examples/hook`` contains some example hooks for different
-setups, one of which you have copied to ``pacwall.conf`` in the Installation_
-section.
+  ``/usr/share/pacwall/examples/hook`` contains some example hooks for different
+  setups, one of which you have copied to ``pacwall.conf`` in the Installation_
+  section.
+
+* ``shell``
+  Default value: ``bash``
+
+  The shell in which the commands specified in ``hook`` ought to be executed.
+
+* ``db``
+  Default value: ``/var/lib/pacman``
+
+  The path to the pacman packages database.
 
 ---------------
 Tips and tricks
