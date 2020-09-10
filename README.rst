@@ -170,8 +170,8 @@ Settings
 
     * ``implicit`` (default: ``color='#dc322faa'``)
 
-      The attributes that are applied to implicitly (i.e. to satisfy some other
-      package dependencies) installed packages (separated by commas).
+      The attributes that are applied to implicitly (i.e. to satisfy dependencies of
+      some other packages) installed packages (separated by commas).
 
     * ``explicit`` (default: ``color='#268bd2aa'``)
 
