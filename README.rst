@@ -120,8 +120,8 @@ The file is in the `libconfig format`_. TL;DR:
     ...
     }
 
-    key: "too long" # consequtive strings are
-         "value"    # glued together, like in C
+    key: "too-long" # consequtive strings are
+         "-value"   # glued together, like in C
 
 Note that you should use ``'`` in value strings wherever you would normally
 use ``"`` and vice versa. It has been done because ``"`` is needed far more often
