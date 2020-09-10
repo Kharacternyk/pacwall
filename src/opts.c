@@ -55,7 +55,7 @@ struct opts parse_opts(int argc, char **argv) {
         .db = "/var/lib/pacman",
         .attributes_graph = "bgcolor=\"#00000000\"",
         .attributes_package_common = "shape=point, height=0.1,"
-        "fontname=monospace, fontsize=9",
+        "fontname=monospace, fontsize=10",
         .attributes_package_implicit = "color=\"#dc322faa\"",
         .attributes_package_explicit = "color=\"#268bd2aa\"",
         .attributes_package_orphan = "color=\"#2aa198aa\", peripheries=2,"

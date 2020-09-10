@@ -166,7 +166,7 @@ List of settings
 
   * ``package`` (group)
 
-    * ``common`` (default: ``shape=point, height=0.1, fontname=monospace, fontsize=9``)
+    * ``common`` (default: ``shape=point, height=0.1, fontname=monospace, fontsize=10``)
 
       The attributes that are applied to all packages (separated by commas).
 
