@@ -179,12 +179,12 @@ Settings
       (separated by commas).
 
     * ``orphan``
-      (default: ``color='#2aa198aa', fontcolor='#2aa198', peripheries=2, xlabel='\\N``)
+      (default: ``color='#2aa198aa', fontcolor='#2aa198', peripheries=2, xlabel='\\N'``)
 
       The attributes that are applied to orphan packages (separated by commas).
 
     * ``outdated``
-      (default: ``color='#b58900aa', fontcolor='#b58900', peripheries=3, xlabel='\\N``)
+      (default: ``color='#b58900aa', fontcolor='#b58900', peripheries=3, xlabel='\\N'``)
 
       The attributes that are applied to outdated packages (separated by commas).
 
