@@ -151,7 +151,8 @@ Settings
 
   The group that contains graphviz attributes, which modify the appearance
   of the graph, nodes and edges in various ways.  See the
-  ``GRAPH, NODE AND EDGE ATTRIBUTES`` section in ``man dot``.
+  ``GRAPH, NODE AND EDGE ATTRIBUTES`` section in ``man twopi``. Beware that attributes
+  specific to layouts other than ``twopi`` won't work.
 
   ``/usr/share/pacwall/examples/attributes/default`` contains the attributes
   that are identical to the hardcoded defaults. It may be easier for you
@@ -211,13 +212,41 @@ Tips and tricks
 Pywal
 ~~~~~
 
-TODO
+You can make use of `Pywal User Template Files`_ to integrate ``pacwall`` with pywal.
+Here's an example of such a template:
+
+.. code-block::
+
+    hook: "hsetroot -solid '{background}' -center '$W' > /dev/null"
+
+    attributes: {{
+        package: {{
+            implicit: "color='{color1}aa'"
+            explicit: "color='{color4}aa'"
+            orphan:   "color='{color6}aa', fontcolor='{color6}',"
+                      "peripheries=2, xlabel='\\N'"
+            outdated: "color='{color3}aa', fontcolor='{color3}',"
+                      "peripheries=3, xlabel='\\N'"
+        }}
+        dependency: {{
+            common: "color='{foreground}22'"
+        }}
+    }}
 
 ~~~~~~~~~~
 Graph size
 ~~~~~~~~~~
 
-TODO
+You should change the ``ranksep`` graph attribute to control the size of the graph.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Highlighting specific packages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can use attributes of form
+``'package-name' [comma-separated-list-of-package-specific-attributes];``
+in the ``attributes.graph`` setting to specify attributes that should be applied to
+a specific package.
 
 ----------------
 Similar software
@@ -229,5 +258,6 @@ Similar software
 .. LINKS:
 .. _AUR package: https://aur.archlinux.org/packages/pacwall-git/
 .. _libconfig format: https://hyperrealm.github.io/libconfig/libconfig_manual.html#Configuration-Files
+.. _Pywal User Template Files: https://github.com/dylanaraps/pywal/wiki/User-Template-Files
 .. _pacgraph: http://kmkeen.com/pacgraph/
 .. _pacvis: https://github.com/farseerfc/pacvis
