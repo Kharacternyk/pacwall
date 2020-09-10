@@ -11,7 +11,7 @@ mkdir -p "$FAKEDB/sync"
 ln -s "$PACMANDB/local/" "$FAKEDB/" &> /dev/null || true
 
 # Copy the system db in case it's newer.
-cp -u "$PACMANDB/sync/"*.db "$FAKEDB/sync/"
+cp -u --preserve=timestamps "$PACMANDB/sync/"*.db "$FAKEDB/sync/"
 
 # Fetch fresh sync databases.
 fakeroot -- pacman -Sy --dbpath "$FAKEDB" --logfile /dev/null &> /dev/null
