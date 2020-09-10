@@ -145,7 +145,7 @@ Settings
 
 * ``db`` (default: ``/var/lib/pacman``)
 
-  The path to the pacman packages database.
+  The path to the ``pacman`` packages database.
 
 * ``attributes`` (group)
 
