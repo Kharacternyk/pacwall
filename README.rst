@@ -111,12 +111,11 @@ The file is in the `libconfig format`_. TL;DR:
 
     group: {
         key: "value"
-        ...
         another-group: {
             key: "value"
             ...
         }
-    ...
+        ...
     }
 
     key: "too-long" # consequtive strings are
