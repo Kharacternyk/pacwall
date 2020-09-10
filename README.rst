@@ -65,9 +65,11 @@ upgraded/removed/installed, run:
 
     systemctl --user enable pacwall-watch-packages.path
 
-Note that this one runs ``pacwall -u`` i.e. doesn't fetch newly available updates.
+Note that this one runs ``pacwall -u`` i.e. the displayed set of available updates
+can only shrink.
 
-If you want the wallpaper to fetch and show newly available updates each hour, run:
+If you want the wallpaper to be refreshed each hour with the up-to-date set of
+available updates displayed, run:
 
 .. code-block:: bash
 
@@ -77,17 +79,15 @@ If you want the wallpaper to fetch and show newly available updates each hour, r
 CLI
 ---
 
-* ``-u``: do not fetch updates
+* ``-u``: do not attempt to add entries to the set of available updates
 
   This flag considerably speed-ups ``pacwall``. It also puts off some load from the
-  Arch mirrors, though the load is arguably minor. This flag doesn't prevent
-  already fetched updates to be displayed.
+  Arch mirrors, though the load is arguably minor.
 
 * ``-g``: do not regenerate the graph
 
-  Displaying newly fetched updates is also considered "regenerating the graph",
-  which means that ``pacwall -g`` may fetch some new updates, but it doesn't display
-  them anyway.
+  This flag doesn't prevent from adding entries to the set of available updates, but
+  the entries will not be visible until the graph is regenerated.
 
 * ``-k``: do not run the hook
 
