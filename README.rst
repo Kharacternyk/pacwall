@@ -98,9 +98,48 @@ Customization
 -------------
 
 ``~/.config/pacwall/pacwall.conf`` is used to configure ``pacwall``.
-The file is in the `libconfig format`_.
+The file is in the `libconfig format`_. TL;DR:
 
-TODO
+.. code-block::
+
+    # comment
+    // comment
+    /* comment \*/
+
+    key: "value"
+    # or
+    key = "value"; # semicolon is optional
+
+    group: {
+        key: "value"
+        ...
+        another-group: {
+            key: "value"
+            ...
+        }
+    ...
+    }
+
+    key: "too long" # consequtive strings are
+         "value"    # glued together, like in C
+
+Note that you should use ``'`` in value strings wherever you would normally
+use ``"`` and vice versa. It has been done because ``"`` is needed far more often
+and the value strings would be littered with ugly escaped ``\"`` otherwise.
+
+~~~~
+Hook
+~~~~
+
+``hook: "some shell commands"``
+
+The hook is one or more shell commands that are executed after the graph
+has been generated. The hook is expected to set the wallpaper. The path
+to the graph image is exported in ``$W`` environmental variable.
+
+``/usr/share/pacwall/examples/hook`` contains some example hooks for different
+setups, one of which you have copied to ``pacwall.conf`` in the Installation_
+section.
 
 ---------------
 Tips and tricks
