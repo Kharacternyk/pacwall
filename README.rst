@@ -91,7 +91,7 @@ CLI
 
 * ``-k``: do not run the hook
 
-  See Settings_ for more info.
+  See Settings_ for details about what the hook is.
 
 -------------
 Customization
