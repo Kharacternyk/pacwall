@@ -104,7 +104,6 @@ The file is in the `libconfig format`_. TL;DR:
 
     # comment
     // comment
-    /* comment \*/
 
     key: "value"
     # or
