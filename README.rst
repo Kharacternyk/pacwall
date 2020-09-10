@@ -244,7 +244,7 @@ You should change the ``ranksep`` graph attribute to control the size of the gra
 Highlighting specific packages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can use attributes of form
+You can use entries of form
 ``'package-name' [comma-separated-list-of-package-specific-attributes];``
 in the ``attributes.graph`` setting to specify attributes that should be applied to
 a specific package.
