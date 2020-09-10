@@ -91,7 +91,7 @@ CLI
 
 * ``-k``: do not run the hook
 
-  See Settings_ for details about what the hook is.
+  See `List of settings`_ for details about what the hook is.
 
 -------------
 Customization
@@ -125,9 +125,9 @@ Note that you should use ``'`` in value strings wherever you would normally
 use ``"`` and vice versa. It has been done because ``"`` is needed far more often
 and value strings would be littered with ugly escaped ``\"`` otherwise.
 
-~~~~~~~~
-Settings
-~~~~~~~~
+~~~~~~~~~~~~~~~~
+List of settings
+~~~~~~~~~~~~~~~~
 
 * ``hook`` (no default value)
 
