@@ -201,7 +201,7 @@ List of settings
       The attributes that are applied to hard (as opposed to optional) dependencies
       (separated by commas).
 
-    * ``common`` (default: ``arrowhead=empty, style=dashed``)
+    * ``optional`` (default: ``arrowhead=empty, style=dashed``)
 
       The attributes that are applied to optional dependencies (separated by commas).
 
