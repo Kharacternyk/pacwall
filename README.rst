@@ -192,7 +192,7 @@ List of settings
 
   * ``dependency`` (group)
 
-    * ``common`` (default: ``color='#fdf6e322``)
+    * ``common`` (default: ``color='#fdf6e311``)
 
       The attributes that are applied to all dependencies (separated by commas).
 
@@ -230,7 +230,7 @@ Here's an example of such a template:
                       "peripheries=3, xlabel='\\N'"
         }}
         dependency: {{
-            common: "color='{foreground}22'"
+            common: "color='{foreground}11'"
         }}
     }}
 

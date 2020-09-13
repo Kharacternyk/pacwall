@@ -62,7 +62,7 @@ struct opts parse_opts(int argc, char **argv) {
                                      "fontcolor=\"#2aa198\", xlabel=\"\\N\",",
         .attributes_package_outdated = "color=\"#b58900aa\", peripheries=3,"
                                        "fontcolor=\"#b58900\", xlabel=\"\\N\"",
-        .attributes_dependency_common = "color=\"#fdf6e322\"",
+        .attributes_dependency_common = "color=\"#fdf6e311\"",
         .attributes_dependency_hard = "",
         .attributes_dependency_optional = "arrowhead=empty, style=dashed",
         ._skip_fetch = 0,

@@ -8,7 +8,7 @@ attributes: {
         outdated: "color='#b58900aa', fontcolor='#b58900', peripheries=3, xlabel='\\N'"
     }
     dependency: {
-        common:   "color='#fdf6e322'"
+        common:   "color='#fdf6e311'"
         hard:     ""
         optional: "arrowhead=empty, style=dashed"
     }
