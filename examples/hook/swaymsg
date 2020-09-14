@@ -1,1 +1,1 @@
-hook: "swaymsg 'output \"*\" bg '$W' center '#073642'"
+hook: "swaymsg output \* bg '$W' center '#073642'"
