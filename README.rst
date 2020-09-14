@@ -238,7 +238,10 @@ Here's an example of such a template:
 Graph size
 ~~~~~~~~~~
 
-You should change the ``ranksep`` graph attribute to control the size of the graph.
+You should use the ``dpi`` graph attribute to change the size of the graph.
+Alternatively, you can change node size, font size and graph size separately via
+their respective attributes. For graph size, it is recommended to use the ``ranksep``
+attribute instead of ``size``.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Highlighting specific packages
