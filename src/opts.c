@@ -77,10 +77,12 @@ struct opts parse_opts(int argc, char **argv) {
     chdir_xdg("XDG_CONFIG_HOME", ".config/", "pacwall");
     FILE *cfg_file = fopen("pacwall.conf", "r");
     if (cfg_file == NULL) {
-        return opts;
+        panic("Could not open pacwall.conf: %s\n"
+              "Refer to /usr/share/doc/pacwall/README.rst for a configuration guide",
+              strerror(errno));
     }
     if (!config_read(&cfg, cfg_file)) {
-        panic("Malformed config (line %d): %s",
+        panic("Malformed pacwall.conf (line %d): %s",
               config_error_line(&cfg),
               config_error_text(&cfg));
     }
