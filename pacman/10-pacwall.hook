@@ -6,7 +6,7 @@ Type = Package
 Target = *
 
 [Action]
-Description = Triggering wallpaper regenerating...
+Description = Triggering wallpaper regeneration...
 When = PostTransaction
 Exec = /bin/sh -c 'echo > /var/lib/pacwall/systemd/trigger'
 
