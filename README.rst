@@ -19,6 +19,11 @@ Installation
 
 Install the ``pacwall-git`` `AUR package`_.
 
+``pacwall`` doesn't know how to set a wallpaper by itself. You should provide it
+with some shell commands that do it. Such commands are called *hook*. There are
+some example hooks for different setups, one of which you should copy to your local
+config.
+
 If you use GNOME, run:
 
 .. code-block:: bash
@@ -41,6 +46,11 @@ If you use Sway, run:
 
     mkdir -p ~/.config/pacwall
     cp /usr/share/pacwall/examples/hook/swaymsg ~/.config/pacwall/pacwall.conf
+
+For some setups, such as XFCE, there are no example hooks. Furthermore, the example
+hooks can have bugs. In any case, you can always verify that ``pacwall`` itself is
+working fine by examining the image that it has generated at
+``~/.cache/pacwall/pacwall.png``.
 
 -----
 Usage
@@ -91,8 +101,6 @@ CLI
 
 * ``-k``: do not run the hook
 
-  See `List of settings`_ for details about what the hook is.
-
 -------------
 Customization
 -------------
@@ -134,10 +142,6 @@ List of settings
   The shell commands that are executed after the graph has been generated.  The
   hook is expected to set the wallpaper. The path to the graph image is exported
   in the ``$W`` environmental variable.
-
-  ``/usr/share/pacwall/examples/hook`` contains some example hooks for different
-  setups, one of which you have copied to ``pacwall.conf`` in the Installation_
-  section.
 
 * ``shell`` (default: ``bash``)
 
