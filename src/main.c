@@ -19,7 +19,12 @@ int main(int argc, char **argv) {
     }
 
     if (!opts._skip_hook && opts.hook != NULL) {
-        setenv("W", "./pacwall.png", 1);
+        char *cwd = getcwd(NULL, 0);
+        char *w = malloc(strlen(cwd) + strlen("/pacwall.png") + 1);
+        stpcpy(stpcpy(w, cwd), "/pacwall.png");
+        free(cwd);
+        setenv("W", w, 1);
+
         execlp(opts.shell, opts.shell, "-c", opts.hook, (char *)NULL);
         panic("Could not execute shell %s: %s", opts.shell, strerror(errno));
     }
