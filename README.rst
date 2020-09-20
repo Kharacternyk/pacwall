@@ -85,6 +85,9 @@ available updates displayed, run:
 
     systemctl --user enable pacwall-watch-updates.timer
 
+If you use Sway, you should run ``systemctl --user import-environment SWAYLOCK``
+by the time the systemd units are triggered. They will fail otherwise.
+
 ---
 CLI
 ---
