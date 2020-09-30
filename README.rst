@@ -19,10 +19,10 @@ Installation
 
 Install the ``pacwall-git`` `AUR package`_.
 
-``pacwall`` doesn't know how to set a wallpaper by itself. You should provide it
-with some shell commands that do it. Such commands are called *hook*. There are
-some example hooks for different setups, one of which you should copy to your local
-config.
+``pacwall`` doesn't know how to set a wallpaper by itself. Therefore, ``pacwall``
+requires help in the form of shell commands. Such commands are called *hook*.
+There are some example hooks for different setups, one of which you should copy to
+your local config.
 
 If you use GNOME, run:
 
@@ -47,10 +47,9 @@ If you use Sway, run:
     mkdir -p ~/.config/pacwall
     cp /usr/share/pacwall/examples/hook/swaymsg ~/.config/pacwall/pacwall.conf
 
-For some setups, such as XFCE, there are no example hooks. Furthermore, the example
-hooks can have bugs. In any case, you can always verify that ``pacwall`` itself is
-working fine by examining the image that it has generated at
-``~/.cache/pacwall/pacwall.png``.
+For some setups e.g. XFCE there are no example hooks. Furthermore, the example
+hooks can have bugs. You can verify that ``pacwall`` itself works fine by examining
+the image that it has generated at ``~/.cache/pacwall/pacwall.png``.
 
 -----
 Usage
@@ -61,8 +60,8 @@ Run ``pacwall``.
 The blue dots are manually (explicitly) installed packages, the red ones are
 automatically (implicitly) installed packages. The outlined teal dots are orphans,
 the outlined yellow dots are outdated packages. The dashed edges represent optional
-dependencies, the normal edges represent strict (hard, direct) dependencies. If
-you don't like the default appearance, ``goto`` Customization_.
+dependencies, the normal edges represent strict (hard, direct) dependencies. The
+appearance is customizable, see Customization_.
 
 If you want the wallpaper to be persistent, run ``pacwall -ug`` in the init file
 of DE or WM you use. ``pacwall -ug`` doesn't regenerate the wallpaper, it just sets
@@ -85,7 +84,7 @@ available updates displayed, run:
 
     systemctl --user enable pacwall-watch-updates.timer
 
-If you use Sway, you should run ``systemctl --user import-environment SWAYLOCK``
+If you use Sway, you must run ``systemctl --user import-environment SWAYLOCK``
 by the time the systemd units are triggered. They will fail otherwise.
 
 ---
@@ -94,7 +93,7 @@ CLI
 
 * ``-u``: do not attempt to add entries to the set of available updates
 
-  This flag considerably speed-ups ``pacwall``. It also puts off some load from the
+  This flag speed-ups ``pacwall``. It also puts off some load from the
   Arch mirrors, though the load is arguably minor.
 
 * ``-g``: do not regenerate the graph
@@ -132,9 +131,8 @@ The file is in the `libconfig format`_. TL;DR:
     setting: "too-long" # consequtive strings are
              "-value"   # glued together, like in C
 
-Note that you should use ``'`` in value strings wherever you would normally
-use ``"`` and vice versa. It has been done because ``"`` is needed far more often
-and value strings would be littered with ugly escaped ``\"`` otherwise.
+Note that you must use ``'`` in value strings wherever you would normally
+use ``"`` and vice versa. This avoids tons of ugly escaped ``\"``.
 
 ~~~~~~~~~~~~~~~~
 List of settings
@@ -220,7 +218,7 @@ Tips and tricks
 Pywal
 ~~~~~
 
-You can make use of `Pywal User Template Files`_ to integrate ``pacwall`` with pywal.
+Make use of `Pywal User Template Files`_ to integrate ``pacwall`` with pywal.
 Here's an example of such a template:
 
 .. code-block::
@@ -245,10 +243,10 @@ Here's an example of such a template:
 Graph size
 ~~~~~~~~~~
 
-You should use the ``dpi`` graph attribute to change the size of the graph.
-Alternatively, you can change node size, font size and graph size separately via
-their respective attributes. For graph size, it is recommended to use the ``ranksep``
-attribute instead of ``size``.
+Use the ``dpi`` graph attribute to scale the whole image.
+
+Alternatively, change node size, font size and graph size separately via their
+respective attributes. Use the ``ranksep`` graph attribute instead of ``size``.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Highlighting specific packages
@@ -256,16 +254,15 @@ Highlighting specific packages
 
 You can use entries of form
 ``'package-name' [comma-separated-list-of-package-specific-attributes];``
-in the ``attributes.graph`` setting to specify attributes that should be applied to
-a specific package.
+in the ``attributes.graph`` setting to add attributes to a specific package.
 
 -------------------
 Migrating from v1.*
 -------------------
 
 ``pacwall`` v2.* is written in C and is very different from the v1.* one, which is
-a Bash script.  Migrating should be straightforward, though, **unless** you don't
-run an Arch-based distro.  v2.* is ``pacman``-only and will likely remain such.
+a Bash script. Migrating should be straightforward, though, **unless** you don't
+run an Arch-based distro. v2.* is ``pacman``-only and will likely remain such.
 
 ----------------
 Similar software
