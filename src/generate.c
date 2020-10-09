@@ -38,38 +38,38 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
     fprintf(file, "node [%s];\n", opts->attributes_package_common);
     fprintf(file, "edge [%s];\n", opts->attributes_dependency_common);
     while (pkgs) {
+        alpm_pkg_t *pkg = pkgs->data;
+        const char *name = alpm_pkg_get_name(pkg);
+
         fprintf(file, "\n");
 
-        if (alpm_pkg_get_reason(pkgs->data) == ALPM_PKG_REASON_EXPLICIT) {
-            fprintf(file, "\"%s\" [%s];\n",
-                    alpm_pkg_get_name(pkgs->data), opts->attributes_package_explicit);
+        /* Explicit or implicit */
+        if (alpm_pkg_get_reason(pkg) == ALPM_PKG_REASON_EXPLICIT) {
+            fprintf(file, "\"%s\" [%s];\n", name, opts->attributes_package_explicit);
         } else {
-            fprintf(file, "\"%s\" [%s];\n",
-                    alpm_pkg_get_name(pkgs->data), opts->attributes_package_implicit);
+            fprintf(file, "\"%s\" [%s];\n", name, opts->attributes_package_implicit);
         }
 
-        alpm_list_t *requiredby = alpm_pkg_compute_requiredby(pkgs->data);
+        alpm_list_t *requiredby = alpm_pkg_compute_requiredby(pkg);
 
-        /* Orphan */
-        if (alpm_pkg_get_reason(pkgs->data) == ALPM_PKG_REASON_DEPEND &&
-                requiredby == NULL) {
-            fprintf(file, "\"%s\" [%s];\n",
-                    alpm_pkg_get_name(pkgs->data), opts->attributes_package_orphan);
+        /* Orphan or not */
+        if (alpm_pkg_get_reason(pkg) == ALPM_PKG_REASON_DEPEND && requiredby == NULL) {
+            fprintf(file, "\"%s\" [%s];\n", name, opts->attributes_package_orphan);
         }
 
         /* Direct dependencies */
         while (requiredby) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)requiredby->data,
-                    alpm_pkg_get_name(pkgs->data), opts->attributes_dependency_hard);
+                    name, opts->attributes_dependency_hard);
             requiredby = requiredby->next;
         }
         FREELIST(requiredby);
 
         /* Optional dependencies */
-        alpm_list_t *optionalfor = alpm_pkg_compute_optionalfor(pkgs->data);
+        alpm_list_t *optionalfor = alpm_pkg_compute_optionalfor(pkg);
         while (optionalfor) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)optionalfor->data,
-                    alpm_pkg_get_name(pkgs->data), opts->attributes_dependency_optional);
+                    name, opts->attributes_dependency_optional);
             optionalfor = optionalfor->next;
         }
         FREELIST(optionalfor);
