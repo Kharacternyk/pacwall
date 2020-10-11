@@ -53,18 +53,24 @@ struct opts parse_opts(int argc, char **argv) {
         .hook = NULL,
         .shell = "bash",
         .db = "/var/lib/pacman",
-        .attributes_graph = "bgcolor=\"#00000000\"",
-        .attributes_package_common = "shape=point, height=0.1,"
-        "fontname=monospace, fontsize=10",
-        .attributes_package_implicit = "color=\"#dc322faa\"",
-        .attributes_package_explicit = "color=\"#268bd2aa\"",
-        .attributes_package_orphan = "color=\"#2aa198aa\", peripheries=2,"
-                                     "fontcolor=\"#2aa198\", xlabel=\"\\N\",",
-        .attributes_package_outdated = "color=\"#b58900aa\", peripheries=3,"
-                                       "fontcolor=\"#b58900\", xlabel=\"\\N\"",
-        .attributes_dependency_common = "color=\"#fdf6e311\"",
-        .attributes_dependency_hard = "",
-        .attributes_dependency_optional = "arrowhead=empty, style=dashed",
+        .attributes = {
+            .graph = "bgcolor=\"#00000000\"",
+            .package = {
+                .common = "shape=point, height=0.1,"
+                         "fontname=monospace, fontsize=10",
+                .implicit = "color=\"#dc322faa\"",
+                .explicit = "color=\"#268bd2aa\"",
+                .orphan = "color=\"#2aa198aa\", peripheries=2,"
+                         "fontcolor=\"#2aa198\", xlabel=\"\\N\",",
+                .outdated = "color=\"#b58900aa\", peripheries=3,"
+                           "fontcolor=\"#b58900\", xlabel=\"\\N\""
+            },
+            .dependency = {
+                .common = "color=\"#fdf6e311\"",
+                .hard = "",
+                .optional = "arrowhead=empty, style=dashed",
+            }
+        },
         ._skip_fetch = 0,
         ._skip_generate = 0,
         ._skip_hook = 0
@@ -88,26 +94,21 @@ struct opts parse_opts(int argc, char **argv) {
     }
     fclose(cfg_file);
 
-    config_lookup_escape(&cfg, "hook", &opts.hook);
-    config_lookup_escape(&cfg, "shell", &opts.shell);
-    config_lookup_escape(&cfg, "db", &opts.db);
-    config_lookup_escape(&cfg, "attributes.graph", &opts.attributes_graph);
-    config_lookup_escape(&cfg, "attributes.package.common",
-                         &opts.attributes_package_common);
-    config_lookup_escape(&cfg, "attributes.package.implicit",
-                         &opts.attributes_package_implicit);
-    config_lookup_escape(&cfg, "attributes.package.explicit",
-                         &opts.attributes_package_explicit);
-    config_lookup_escape(&cfg, "attributes.package.orphan",
-                         &opts.attributes_package_orphan);
-    config_lookup_escape(&cfg, "attributes.package.outdated",
-                         &opts.attributes_package_outdated);
-    config_lookup_escape(&cfg, "attributes.dependency.common",
-                         &opts.attributes_dependency_common);
-    config_lookup_escape(&cfg, "attributes.dependency.hard",
-                         &opts.attributes_dependency_hard);
-    config_lookup_escape(&cfg, "attributes.dependency.optional",
-                         &opts.attributes_dependency_optional);
+#define READ_OPT(opt) config_lookup_escape(&cfg, #opt, &opts.opt)
+
+    READ_OPT(hook);
+    READ_OPT(shell);
+    READ_OPT(db);
+    READ_OPT(attributes.graph);
+    READ_OPT(attributes.package.common);
+    READ_OPT(attributes.package.implicit);
+    READ_OPT(attributes.package.explicit);
+    READ_OPT(attributes.package.orphan);
+    READ_OPT(attributes.package.outdated);
+    READ_OPT(attributes.dependency.common);
+    READ_OPT(attributes.dependency.hard);
+    READ_OPT(attributes.dependency.optional);
+
     config_destroy(&cfg);
 
     parse_cli_opts(&opts, argc, argv);

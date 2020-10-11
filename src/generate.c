@@ -6,7 +6,7 @@
 static void write_updates(FILE *file, const struct opts *opts) {
     subprocess_wait(subprocess_begin("/usr/lib/pacwall/showupdates.sh",
                                      "updates.db",
-                                     opts->attributes_package_outdated,
+                                     opts->attributes.package.outdated,
                                      "updates.gv"), "/usr/lib/pacwall/showupdates.sh");
     FILE *updates = fopen("updates.gv", "r");
     char c;
@@ -35,8 +35,8 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
     }
 
     fprintf(file, "strict digraph pacwall {\n");
-    fprintf(file, "node [%s];\n", opts->attributes_package_common);
-    fprintf(file, "edge [%s];\n", opts->attributes_dependency_common);
+    fprintf(file, "node [%s];\n", opts->attributes.package.common);
+    fprintf(file, "edge [%s];\n", opts->attributes.dependency.common);
     while (pkgs) {
         alpm_pkg_t *pkg = pkgs->data;
         const char *name = alpm_pkg_get_name(pkg);
@@ -45,22 +45,22 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
 
         /* Explicit or implicit */
         if (alpm_pkg_get_reason(pkg) == ALPM_PKG_REASON_EXPLICIT) {
-            fprintf(file, "\"%s\" [%s];\n", name, opts->attributes_package_explicit);
+            fprintf(file, "\"%s\" [%s];\n", name, opts->attributes.package.explicit);
         } else {
-            fprintf(file, "\"%s\" [%s];\n", name, opts->attributes_package_implicit);
+            fprintf(file, "\"%s\" [%s];\n", name, opts->attributes.package.implicit);
         }
 
         alpm_list_t *requiredby = alpm_pkg_compute_requiredby(pkg);
 
         /* Orphan or not */
         if (alpm_pkg_get_reason(pkg) == ALPM_PKG_REASON_DEPEND && requiredby == NULL) {
-            fprintf(file, "\"%s\" [%s];\n", name, opts->attributes_package_orphan);
+            fprintf(file, "\"%s\" [%s];\n", name, opts->attributes.package.orphan);
         }
 
         /* Direct dependencies */
         while (requiredby) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)requiredby->data,
-                    name, opts->attributes_dependency_hard);
+                    name, opts->attributes.dependency.hard);
             requiredby = requiredby->next;
         }
         FREELIST(requiredby);
@@ -69,7 +69,7 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
         alpm_list_t *optionalfor = alpm_pkg_compute_optionalfor(pkg);
         while (optionalfor) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)optionalfor->data,
-                    name, opts->attributes_dependency_optional);
+                    name, opts->attributes.dependency.optional);
             optionalfor = optionalfor->next;
         }
         FREELIST(optionalfor);
@@ -85,7 +85,7 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
     write_updates(file, opts);
 
     /* Global attributes */
-    fprintf(file, "\n%s\n}\n", opts->attributes_graph);
+    fprintf(file, "\n%s\n}\n", opts->attributes.graph);
 
     fclose(file);
 
