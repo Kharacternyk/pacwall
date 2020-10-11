@@ -63,7 +63,8 @@ struct opts parse_opts(int argc, char **argv) {
                 .orphan = "color=\"#2aa198aa\", peripheries=2,"
                          "fontcolor=\"#2aa198\", xlabel=\"\\N\",",
                 .outdated = "color=\"#b58900aa\", peripheries=3,"
-                           "fontcolor=\"#b58900\", xlabel=\"\\N\""
+                           "fontcolor=\"#b58900\", xlabel=\"\\N\"",
+                .repository = NULL
             },
             .dependency = {
                 .common = "color=\"#fdf6e311\"",
@@ -108,6 +109,20 @@ struct opts parse_opts(int argc, char **argv) {
     READ_OPT(attributes.dependency.common);
     READ_OPT(attributes.dependency.hard);
     READ_OPT(attributes.dependency.optional);
+
+    config_setting_t *repository_group = config_lookup(&cfg,
+                                         "attributes.package.repository");
+    if (repository_group && config_setting_is_group(repository_group)) {
+        unsigned i = 0;
+        struct opt_list **opt = &opts.attributes.package.repository;
+        config_setting_t *repository_entry;
+        while ((repository_entry = config_setting_get_elem(repository_group, i++))) {
+            *opt = malloc(sizeof(struct opt_list));
+            (*opt)->key = strdup(config_setting_name(repository_entry));
+            (*opt)->value = strdup(config_setting_get_string(repository_entry));
+            opt = &(*opt)->next;
+        }
+    }
 
     config_destroy(&cfg);
 

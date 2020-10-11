@@ -14,6 +14,11 @@ struct opts {
             const char *explicit;
             const char *orphan;
             const char *outdated;
+            struct opt_list {
+                const char *key;
+                const char *value;
+                struct opt_list *next;
+            } *repository;
         } package;
         struct {
             const char *common;
