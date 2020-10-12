@@ -28,6 +28,14 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
     alpm_db_t *db = alpm_get_localdb(alpm);
     alpm_list_t *pkgs = alpm_db_get_pkgcache(db);
 
+    /* Some bad practices here. The keys become pointers to alpm_db_t,
+     * they are not (char *) names anymore. */
+    struct opt_list *repo = opts->attributes.package.repository;
+    while (repo) {
+        repo->key = alpm_register_syncdb(alpm, repo->key, 0);
+        repo = repo->next;
+    }
+
     FILE *file = fopen("pacwall.gv", "w");
     if (file == NULL) {
         alpm_release(alpm);
@@ -48,6 +56,16 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
             fprintf(file, "\"%s\" [%s];\n", name, opts->attributes.package.explicit);
         } else {
             fprintf(file, "\"%s\" [%s];\n", name, opts->attributes.package.implicit);
+        }
+
+        /* Native (which repo) or foreign */
+        struct opt_list *repo = opts->attributes.package.repository;
+        while (repo) {
+            if (alpm_db_get_pkg(repo->key, name)) {
+                fprintf(file, "\"%s\" [%s];\n", name, (char *)repo->value);
+                break;
+            }
+            repo = repo->next;
         }
 
         alpm_list_t *requiredby = alpm_pkg_compute_requiredby(pkg);
