@@ -15,8 +15,8 @@ struct opts {
             const char *orphan;
             const char *outdated;
             struct opt_list {
-                const char *key;
-                const char *value;
+                void *key;
+                void *value;
                 struct opt_list *next;
             } *repository;
         } package;
