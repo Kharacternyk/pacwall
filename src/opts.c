@@ -28,6 +28,17 @@ static void parse_cli_opts(struct opts *opts, int argc, char **argv) {
     }
 }
 
+static char *str_escape(char *str) {
+    for (char *cp = str; *cp; ++cp) {
+        if (*cp == '"') {
+            *cp = '\'';
+        } else if (*cp == '\'') {
+            *cp = '"';
+        }
+    }
+    return str;
+}
+
 static void config_lookup_escape(config_t *cfg, const char *path, const char **out) {
     const char *str = NULL;
     config_lookup_string(cfg, path, &str);
@@ -35,16 +46,7 @@ static void config_lookup_escape(config_t *cfg, const char *path, const char **o
         return;
     }
 
-    char *tmp = strdup(str);
-    for (char *cp = tmp; *cp; ++cp) {
-        if (*cp == '"') {
-            *cp = '\'';
-        } else if (*cp == '\'') {
-            *cp = '"';
-        }
-    }
-
-    *out = tmp;
+    *out = str_escape(strdup(str));
 }
 
 struct opts parse_opts(int argc, char **argv) {
@@ -119,7 +121,7 @@ struct opts parse_opts(int argc, char **argv) {
         while ((repository_entry = config_setting_get_elem(repository_group, i++))) {
             *opt = malloc(sizeof(struct opt_list));
             (*opt)->key = strdup(config_setting_name(repository_entry));
-            (*opt)->value = strdup(config_setting_get_string(repository_entry));
+            (*opt)->value = str_escape(strdup(config_setting_get_string(repository_entry)));
             opt = &(*opt)->next;
         }
     }
