@@ -32,7 +32,18 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
      * they are not (char *) names anymore. */
     struct opt_list *repo = opts->attributes.package.repository;
     while (repo) {
-        repo->key = alpm_register_syncdb(alpm, repo->key, 0);
+        /* "*" becomes NULL and acts like a wildcard so that we can assign
+         * attributes to foreign packages. */
+        if (!strcmp(repo->key, "*")) {
+            repo->key = NULL;
+        } else {
+            alpm_db_t *syncdb = alpm_register_syncdb(alpm, repo->key, 0);
+            if (syncdb == NULL) {
+                alpm_release(alpm);
+                panic("Could not register repository named '%s'", (char *)repo->key);
+            }
+            repo->key = syncdb;
+        }
         repo = repo->next;
     }
 
@@ -61,6 +72,11 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
         /* Native (which repo) or foreign */
         struct opt_list *repo = opts->attributes.package.repository;
         while (repo) {
+            /* NULL is a wildcard. */
+            if (repo->key == NULL) {
+                fprintf(file, "\"%s\" [%s];\n", name, (char *)repo->value);
+                break;
+            }
             if (alpm_db_get_pkg(repo->key, name)) {
                 fprintf(file, "\"%s\" [%s];\n", name, (char *)repo->value);
                 break;
