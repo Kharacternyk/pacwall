@@ -28,23 +28,26 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
     alpm_db_t *db = alpm_get_localdb(alpm);
     alpm_list_t *pkgs = alpm_db_get_pkgcache(db);
 
-    /* Some bad practices here. The keys become pointers to alpm_db_t,
-     * they are not (char *) names anymore. */
-    struct opt_list *repo = opts->attributes.package.repository;
-    while (repo) {
+    struct {
+        alpm_db_t *syncdb;
+        const char *attributes;
+    } *syncdb_attributes_map = calloc(sizeof * syncdb_attributes_map,
+                                      opts->attributes.package.repository.length);
+    for (size_t i = 0; i < opts->attributes.package.repository.length; ++i) {
         /* "*" becomes NULL and acts like a wildcard so that we can assign
          * attributes to foreign packages. */
-        if (!strcmp(repo->key, "*")) {
-            repo->key = NULL;
+        const char *name = opts->attributes.package.repository.entries[i].name;
+        if (!strcmp(name, "*")) {
+            syncdb_attributes_map[i].syncdb = NULL;
         } else {
-            alpm_db_t *syncdb = alpm_register_syncdb(alpm, repo->key, 0);
-            if (syncdb == NULL) {
+            syncdb_attributes_map[i].syncdb = alpm_register_syncdb(alpm, name, 0);
+            if (syncdb_attributes_map[i].syncdb == NULL) {
                 alpm_release(alpm);
-                panic("Could not register repository named '%s'", (char *)repo->key);
+                panic("Could not register repository named '%s'", name);
             }
-            repo->key = syncdb;
         }
-        repo = repo->next;
+        syncdb_attributes_map[i].attributes =
+            opts->attributes.package.repository.entries[i].attributes;
     }
 
     FILE *file = fopen("pacwall.gv", "w");
@@ -70,18 +73,14 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
         }
 
         /* Native (which repo) or foreign */
-        struct opt_list *repo = opts->attributes.package.repository;
-        while (repo) {
+        for (size_t i = 0; i < opts->attributes.package.repository.length; ++i) {
+            alpm_db_t *syncdb = syncdb_attributes_map[i].syncdb;
+            const char *attributes = syncdb_attributes_map[i].attributes;
             /* NULL is a wildcard. */
-            if (repo->key == NULL) {
-                fprintf(file, "\"%s\" [%s];\n", name, (char *)repo->value);
+            if (syncdb == NULL || alpm_db_get_pkg(syncdb, name)) {
+                fprintf(file, "\"%s\" [%s];\n", name, attributes);
                 break;
             }
-            if (alpm_db_get_pkg(repo->key, name)) {
-                fprintf(file, "\"%s\" [%s];\n", name, (char *)repo->value);
-                break;
-            }
-            repo = repo->next;
         }
 
         alpm_list_t *requiredby = alpm_pkg_compute_requiredby(pkg);

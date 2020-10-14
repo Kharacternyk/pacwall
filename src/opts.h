@@ -14,11 +14,13 @@ struct opts {
             const char *explicit;
             const char *orphan;
             const char *outdated;
-            struct opt_list {
-                void *key;
-                void *value;
-                struct opt_list *next;
-            } *repository;
+            struct {
+                size_t length;
+                struct {
+                    const char *name;
+                    const char *attributes;
+                } *entries;
+            } repository;
         } package;
         struct {
             const char *common;

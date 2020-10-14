@@ -66,7 +66,10 @@ struct opts parse_opts(int argc, char **argv) {
                          "fontcolor=\"#2aa198\", xlabel=\"\\N\",",
                 .outdated = "color=\"#b58900aa\", peripheries=3,"
                            "fontcolor=\"#b58900\", xlabel=\"\\N\"",
-                .repository = NULL
+                .repository = {
+                    .length = 0,
+                    .entries = NULL
+                }
             },
             .dependency = {
                 .common = "color=\"#fdf6e311\"",
@@ -112,17 +115,20 @@ struct opts parse_opts(int argc, char **argv) {
     READ_OPT(attributes.dependency.hard);
     READ_OPT(attributes.dependency.optional);
 
+    /* Parsing attributes.package.repository */
     config_setting_t *repository_group = config_lookup(&cfg,
                                          "attributes.package.repository");
     if (repository_group && config_setting_is_group(repository_group)) {
-        unsigned i = 0;
-        struct opt_list **opt = &opts.attributes.package.repository;
-        config_setting_t *repository_entry;
-        while ((repository_entry = config_setting_get_elem(repository_group, i++))) {
-            *opt = malloc(sizeof(struct opt_list));
-            (*opt)->key = strdup(config_setting_name(repository_entry));
-            (*opt)->value = str_escape(strdup(config_setting_get_string(repository_entry)));
-            opt = &(*opt)->next;
+        size_t length = config_setting_length(repository_group);
+        opts.attributes.package.repository.length = length;
+        opts.attributes.package.repository.entries =
+            calloc(sizeof opts.attributes.package.repository.entries[0], length);
+        for (size_t i = 0; i < length; ++i) {
+            config_setting_t *entry = config_setting_get_elem(repository_group, i);
+            opts.attributes.package.repository.entries[i].name =
+                strdup(config_setting_name(entry));
+            opts.attributes.package.repository.entries[i].attributes =
+                str_escape(strdup(config_setting_get_string(entry)));
         }
     }
 
