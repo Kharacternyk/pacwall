@@ -7,6 +7,13 @@ attributes: {
         explicit: "color='#268bd2'"
         orphan:   "fontcolor='#2aa198', color='#2aa198', label='\\N'"
         outdated: "fontcolor='#b58900', color='#b58900', label='\\N'"
+        repository: {
+            core: ""
+            extra: ""
+            community: ""
+            multilib: ""
+            *: "color='#859900'"
+        }
     }
     dependency: {
         common:   "color='#fdf6e322'"

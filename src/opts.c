@@ -130,6 +130,21 @@ struct opts parse_opts(int argc, char **argv) {
             opts.attributes.package.repository.entries[i].attributes =
                 str_escape(strdup(config_setting_get_string(entry)));
         }
+    } else {
+        /* Set the defaults */
+        opts.attributes.package.repository.length = 5;
+        opts.attributes.package.repository.entries =
+            calloc(sizeof opts.attributes.package.repository.entries[0], 5);
+        opts.attributes.package.repository.entries[0].name = "core";
+        opts.attributes.package.repository.entries[0].attributes = "";
+        opts.attributes.package.repository.entries[1].name = "extra";
+        opts.attributes.package.repository.entries[1].attributes = "";
+        opts.attributes.package.repository.entries[2].name = "community";
+        opts.attributes.package.repository.entries[2].attributes = "";
+        opts.attributes.package.repository.entries[3].name = "multilib";
+        opts.attributes.package.repository.entries[3].attributes = "";
+        opts.attributes.package.repository.entries[4].name = "*";
+        opts.attributes.package.repository.entries[4].attributes = "color=\"#859900aa\"";
     }
 
     config_destroy(&cfg);
