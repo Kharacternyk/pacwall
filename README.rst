@@ -197,6 +197,7 @@ List of settings
       The attributes that are applied to outdated packages (separated by commas).
 
     * ``repository`` (group) (default::
+
              core: ""
              extra: ""
              community: ""
