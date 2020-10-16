@@ -58,10 +58,11 @@ Usage
 Run ``pacwall``.
 
 The blue dots are manually (explicitly) installed packages, the red ones are
-automatically (implicitly) installed packages. The outlined teal dots are orphans,
-the outlined yellow dots are outdated packages. The dashed edges represent optional
-dependencies, the normal edges represent strict (hard, direct) dependencies. The
-appearance is customizable, see Customization_.
+automatically (implicitly) installed packages. The green dots are packages not found
+in the official non-testing repositories (e.g. from AUR). The outlined teal dots are
+orphans, the outlined yellow dots are outdated packages. The dashed edges represent
+optional dependencies, the normal edges represent strict (hard, direct) dependencies.
+The appearance is customizable, see Customization_.
 
 If you want the wallpaper to be persistent, run ``pacwall -ug`` in the init file
 of DE or WM you use. ``pacwall -ug`` doesn't regenerate the wallpaper, it just sets
@@ -194,6 +195,25 @@ List of settings
       (default: ``color='#b58900aa', fontcolor='#b58900', peripheries=3, xlabel='\\N'``)
 
       The attributes that are applied to outdated packages (separated by commas).
+
+    * ``repository`` (group) (default::
+             core: ""
+             extra: ""
+             community: ""
+             multilib: ""
+             *: "color='#859900aa'"
+      )
+
+      The group that maps attributes to packages based on the origin repositories.
+      Settings in this group are in the form of ``repository: "comma-separated attributes"``
+
+      Only one set of attributes from this group is applied to a package; if a package
+      is present in more than one repository, the first (from top to bottom) set takes
+      precedence.
+
+      A special entry in the form of ``*: "comma-separated attributes"`` is supported.
+      The attributes will be applied to packages that are not present in any of the
+      specified repositories. This entry should come last.
 
   * ``dependency`` (group)
 
