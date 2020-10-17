@@ -240,25 +240,7 @@ Pywal
 ~~~~~
 
 Make use of `Pywal User Template Files`_ to integrate ``pacwall`` with pywal.
-Here's an example of such a template:
-
-.. code-block::
-
-    hook: "hsetroot -solid '{background}' -center '$W' > /dev/null"
-
-    attributes: {{
-        package: {{
-            implicit: "color='{color1}aa'"
-            explicit: "color='{color4}aa'"
-            orphan:   "color='{color6}aa', fontcolor='{color6}',"
-                      "peripheries=2, xlabel='\\N'"
-            outdated: "color='{color3}aa', fontcolor='{color3}',"
-                      "peripheries=3, xlabel='\\N'"
-        }}
-        dependency: {{
-            common: "color='{foreground}11'"
-        }}
-    }}
+See `an example of such template here`_.
 
 ~~~~~~~~~~
 Graph size
@@ -296,5 +278,6 @@ Similar software
 .. _AUR package: https://aur.archlinux.org/packages/pacwall-git/
 .. _libconfig format: https://hyperrealm.github.io/libconfig/libconfig_manual.html#Configuration-Files
 .. _Pywal User Template Files: https://github.com/dylanaraps/pywal/wiki/User-Template-Files
+.. _an example of such template here: https://github.com/Kharacternyk/dotfiles/blob/master/.config/wal/templates/pacwall.conf
 .. _pacgraph: http://kmkeen.com/pacgraph/
 .. _pacvis: https://github.com/farseerfc/pacvis
