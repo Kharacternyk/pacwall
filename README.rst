@@ -248,16 +248,16 @@ Graph size
 
 Use the ``dpi`` graph attribute to scale the whole image.
 
-Alternatively, change node size, font size and graph size separately via their
+Alternatively, change node size, font size, and graph size separately via their
 respective attributes. Use the ``ranksep`` graph attribute instead of ``size``.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Highlighting specific packages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can use entries of form
-``'package-name' [comma-separated-list-of-package-specific-attributes];``
-in the ``attributes.graph`` setting to add attributes to a specific package.
+Entries of the form
+``'package-name' [comma-separated-list-of-attributes];``
+in the ``attributes.graph`` setting add attributes to a specific package.
 
 -------------------
 Migrating from v1.*
