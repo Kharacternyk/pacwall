@@ -242,6 +242,7 @@ Background image
 To have a background image, prepend the following command to the hook:
 
 .. code-block:: bash
+
     convert '/path/to/background.png' '$W' -gravity center -compose over -composite '$W';
 
 The ``imagemagick`` package is required. If the image is not of the same resolution
