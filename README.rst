@@ -239,14 +239,28 @@ Tips and tricks
 Background image
 ~~~~~~~~~~~~~~~~
 
-To have a background image, prepend the following command to the hook:
+============
+Via hsetroot
+============
+
+If ``hsetroot`` is used as the wallpaper setter, use the built-in multilayer feature e.g.:
 
 .. code-block:: bash
 
-    convert '/path/to/background.png' '$W' -gravity center -compose over -composite '$W';
+    hook: "hsetroot -fill '/path/to/background' -center '$W' > /dev/null"
 
-The ``imagemagick`` package is required. If the image is not of the same resolution
-as your screen or has transparent areas, then the solid color will be still visible.
+===============
+Via imagemagick
+===============
+
+Use the ``convert`` command e.g.:
+
+.. code-block:: bash
+
+    hook: "convert '/path/to/background.png' '$W' -gravity center -compose over -composite '$W';"
+          …
+
+The ``imagemagick`` package is required.
 
 ~~~~~
 Pywal
