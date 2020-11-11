@@ -258,7 +258,7 @@ Use the ``convert`` command e.g.:
 .. code-block:: bash
 
     hook: "convert '/path/to/background.png' '$W' -gravity center -compose over -composite '$W';"
-          …
+          "…"
 
 The ``imagemagick`` package is required.
 
