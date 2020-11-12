@@ -64,6 +64,7 @@ struct opts parse_opts(int argc, char **argv) {
                 .explicit = "color=\"#268bd2aa\"",
                 .orphan = "color=\"#2aa198aa\", peripheries=2,"
                          "fontcolor=\"#2aa198\", xlabel=\"\\N\",",
+                .unneeded = "",
                 .outdated = "color=\"#b58900aa\", peripheries=3,"
                            "fontcolor=\"#b58900\", xlabel=\"\\N\"",
                 .repository = {
@@ -110,6 +111,7 @@ struct opts parse_opts(int argc, char **argv) {
     READ_OPT(attributes.package.implicit);
     READ_OPT(attributes.package.explicit);
     READ_OPT(attributes.package.orphan);
+    READ_OPT(attributes.package.unneeded);
     READ_OPT(attributes.package.outdated);
     READ_OPT(attributes.dependency.common);
     READ_OPT(attributes.dependency.hard);

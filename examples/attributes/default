@@ -5,6 +5,7 @@ attributes: {
         implicit: "color='#dc322faa'"
         explicit: "color='#268bd2aa'"
         orphan:   "color='#2aa198aa', fontcolor='#2aa198', peripheries=2, xlabel='\\N'"
+        unneeded: ""
         outdated: "color='#b58900aa', fontcolor='#b58900', peripheries=3, xlabel='\\N'"
         repository: {
             core: ""

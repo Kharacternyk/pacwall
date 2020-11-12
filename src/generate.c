@@ -84,10 +84,15 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
         }
 
         alpm_list_t *requiredby = alpm_pkg_compute_requiredby(pkg);
+        alpm_list_t *optionalfor = alpm_pkg_compute_optionalfor(pkg);
 
         /* Orphan or not */
         if (alpm_pkg_get_reason(pkg) == ALPM_PKG_REASON_DEPEND && requiredby == NULL) {
             fprintf(file, "\"%s\" [%s];\n", name, opts->attributes.package.orphan);
+            /* Unneeded or not */
+            if (optionalfor == NULL) {
+                fprintf(file, "\"%s\" [%s];\n", name, opts->attributes.package.unneeded);
+            }
         }
 
         /* Direct dependencies */
@@ -99,7 +104,6 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
         FREELIST(requiredby);
 
         /* Optional dependencies */
-        alpm_list_t *optionalfor = alpm_pkg_compute_optionalfor(pkg);
         while (optionalfor) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)optionalfor->data,
                     name, opts->attributes.dependency.optional);

@@ -189,7 +189,13 @@ List of settings
     * ``orphan``
       (default: ``color='#2aa198aa', fontcolor='#2aa198', peripheries=2, xlabel='\\N'``)
 
-      The attributes that are applied to orphan packages (separated by commas).
+      The attributes that are applied to packages installed to satisfy some dependencies
+      and not directly required anymore (separated by commas).
+
+    * ``unneeded`` (no default value)
+
+      The attributes that are applied to orphan packages that are not optionally
+      required either (separated by commas).
 
     * ``outdated``
       (default: ``color='#b58900aa', fontcolor='#b58900', peripheries=3, xlabel='\\N'``)

@@ -13,6 +13,7 @@ struct opts {
             const char *implicit;
             const char *explicit;
             const char *orphan;
+            const char *unneeded;
             const char *outdated;
             struct {
                 size_t length;
