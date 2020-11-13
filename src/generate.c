@@ -26,7 +26,6 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
     }
 
     alpm_db_t *db = alpm_get_localdb(alpm);
-    alpm_list_t *pkgs = alpm_db_get_pkgcache(db);
 
     struct {
         alpm_db_t *syncdb;
@@ -59,7 +58,7 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
     fprintf(file, "strict digraph pacwall {\n");
     fprintf(file, "node [%s];\n", opts->attributes.package.common);
     fprintf(file, "edge [%s];\n", opts->attributes.dependency.common);
-    while (pkgs) {
+    for (alpm_list_t *pkgs = alpm_db_get_pkgcache(db); pkgs; pkgs = pkgs->next) {
         alpm_pkg_t *pkg = pkgs->data;
         const char *name = alpm_pkg_get_name(pkg);
 
@@ -96,22 +95,23 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
         }
 
         /* Direct dependencies */
-        while (requiredby) {
-            fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)requiredby->data,
+        for (alpm_list_t *_requiredby = requiredby;
+                _requiredby;
+                _requiredby = _requiredby->next) {
+            fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)_requiredby->data,
                     name, opts->attributes.dependency.hard);
-            requiredby = requiredby->next;
         }
-        FREELIST(requiredby);
 
         /* Optional dependencies */
-        while (optionalfor) {
-            fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)optionalfor->data,
+        for (alpm_list_t *_optionalfor = optionalfor;
+                _optionalfor;
+                _optionalfor = _optionalfor->next) {
+            fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)_optionalfor->data,
                     name, opts->attributes.dependency.optional);
-            optionalfor = optionalfor->next;
         }
-        FREELIST(optionalfor);
 
-        pkgs = pkgs->next;
+        FREELIST(requiredby);
+        FREELIST(optionalfor);
     }
     alpm_release(alpm);
 
