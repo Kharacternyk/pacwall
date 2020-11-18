@@ -61,7 +61,7 @@ The blue dots are manually (explicitly) installed packages, the red ones are
 automatically (implicitly) installed packages. The green dots are packages not found
 in the official non-testing repositories (e.g. from the AUR). The outlined teal dots
 are orphans, the outlined yellow dots are outdated packages. The outlined magenta
-dots are packages with unresolved .pacnew files (it's time to run ``pacdiff``).
+dots are packages with unresolved `.pacnew files`_ (it's time to run ``pacdiff``).
 The dashed edges represent optional dependencies, the normal edges represent strict
 (hard, direct) dependencies. The appearance is customizable, see Customization_.
 
@@ -206,7 +206,7 @@ List of settings
     * ``unresoved``
       (default: ``color='#d33682aa', fontcolor='#d33682', peripheries=4, xlabel='\\N'``)
 
-      The attributes that are applied to packages with `.pacnew files`
+      The attributes that are applied to packages with `.pacnew files`_
       (separated by commas).
 
       These files are `better to deal with immediately`_.
@@ -317,7 +317,7 @@ Similar software
 * pacvis_
 
 .. LINKS:
-.. _pacnew files: https://wiki.archlinux.org/index.php/Pacman/Pacnew_and_Pacsave
+.. _.pacnew files: https://wiki.archlinux.org/index.php/Pacman/Pacnew_and_Pacsave
 .. _AUR package: https://aur.archlinux.org/packages/pacwall-git/
 .. _libconfig format: https://hyperrealm.github.io/libconfig/libconfig_manual.html#Configuration-Files
 .. _better to deal with immediately: https://www.reddit.com/r/archlinux/comments/iczyr0/psa_be_careful_with_pacnew_when_updating/
