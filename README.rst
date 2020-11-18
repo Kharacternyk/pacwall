@@ -2,8 +2,8 @@
 
 ``pacwall`` changes your wallpaper to the dependency graph of installed
 by ``pacman`` packages. Each node is a package and each edge represents
-a dependency between two packages. ``pacwall`` highlights outdated packages
-and orphans. The highlighting is meaningful by default still customizable.
+a dependency between two packages. ``pacwall`` highlights outdated packages,
+orphans, and packages with `.pacnew files`_. The highlighting is customizable.
 
 ``pacwall`` is bundled with systemd units that provide functionality
 such as triggering wallpaper regeneration on package
@@ -59,10 +59,11 @@ Run ``pacwall``.
 
 The blue dots are manually (explicitly) installed packages, the red ones are
 automatically (implicitly) installed packages. The green dots are packages not found
-in the official non-testing repositories (e.g. from AUR). The outlined teal dots are
-orphans, the outlined yellow dots are outdated packages. The dashed edges represent
-optional dependencies, the normal edges represent strict (hard, direct) dependencies.
-The appearance is customizable, see Customization_.
+in the official non-testing repositories (e.g. from the AUR). The outlined teal dots
+are orphans, the outlined yellow dots are outdated packages. The outlined magenta
+dots are packages with unresolved .pacnew files (it's time to run ``pacdiff``).
+The dashed edges represent optional dependencies, the normal edges represent strict
+(hard, direct) dependencies. The appearance is customizable, see Customization_.
 
 If you want the wallpaper to be persistent, run ``pacwall -ug`` in the init file
 of DE or WM you use. ``pacwall -ug`` doesn't regenerate the wallpaper, it just sets
@@ -202,6 +203,14 @@ List of settings
 
       The attributes that are applied to outdated packages (separated by commas).
 
+    * ``unresoved``
+      (default: ``color='#d33682aa', fontcolor='#d33682', peripheries=4, xlabel='\\N'``)
+
+      The attributes that are applied to packages with `.pacnew files`
+      (separated by commas).
+
+      These files are `better to deal with immediately`_.
+
     * ``repository`` (group) (default::
 
              core: ""
@@ -308,8 +317,10 @@ Similar software
 * pacvis_
 
 .. LINKS:
+.. _pacnew files: https://wiki.archlinux.org/index.php/Pacman/Pacnew_and_Pacsave
 .. _AUR package: https://aur.archlinux.org/packages/pacwall-git/
 .. _libconfig format: https://hyperrealm.github.io/libconfig/libconfig_manual.html#Configuration-Files
+.. _better to deal with immediately: https://www.reddit.com/r/archlinux/comments/iczyr0/psa_be_careful_with_pacnew_when_updating/
 .. _Pywal User Template Files: https://github.com/dylanaraps/pywal/wiki/User-Template-Files
 .. _an example of such template here: https://github.com/Kharacternyk/dotfiles/blob/master/.config/wal/templates/pacwall.conf
 .. _pacgraph: http://kmkeen.com/pacgraph/
