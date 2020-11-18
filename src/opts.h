@@ -15,6 +15,7 @@ struct opts {
             const char *orphan;
             const char *unneeded;
             const char *outdated;
+            const char *unresolved;
             struct {
                 size_t length;
                 struct {

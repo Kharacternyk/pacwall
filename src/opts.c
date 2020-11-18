@@ -59,14 +59,19 @@ struct opts parse_opts(int argc, char **argv) {
             .graph = "bgcolor=\"#00000000\"",
             .package = {
                 .common = "shape=point, height=0.1,"
-                         "fontname=monospace, fontsize=10",
+                          "fontname=monospace, fontsize=10",
                 .implicit = "color=\"#dc322faa\"",
                 .explicit = "color=\"#268bd2aa\"",
                 .orphan = "color=\"#2aa198aa\", peripheries=2,"
-                         "fontcolor=\"#2aa198\", xlabel=\"\\N\",",
+                          "fontcolor=\"#2aa198\","
+                          "xlabel=\"\\N\"",
                 .unneeded = "",
                 .outdated = "color=\"#b58900aa\", peripheries=3,"
-                           "fontcolor=\"#b58900\", xlabel=\"\\N\"",
+                            "fontcolor=\"#b58900\","
+                            "xlabel=\"\\N\"",
+                .unresolved = "color=\"#d33682aa\", peripheries=4,"
+                              "fontcolor=\"#d33682\","
+                              "xlabel=\"\\N\"",
                 .repository = {
                     .length = 0,
                     .entries = NULL
@@ -113,6 +118,7 @@ struct opts parse_opts(int argc, char **argv) {
     READ_OPT(attributes.package.orphan);
     READ_OPT(attributes.package.unneeded);
     READ_OPT(attributes.package.outdated);
+    READ_OPT(attributes.package.unresolved);
     READ_OPT(attributes.dependency.common);
     READ_OPT(attributes.dependency.hard);
     READ_OPT(attributes.dependency.optional);

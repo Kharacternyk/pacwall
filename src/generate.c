@@ -1,4 +1,5 @@
 #include <alpm.h>
+#include <unistd.h>
 
 #include "generate.h"
 #include "util.h"
@@ -32,6 +33,8 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
         const char *attributes;
     } *syncdb_attributes_map = calloc(sizeof * syncdb_attributes_map,
                                       opts->attributes.package.repository.length);
+    alpm_list_t *unresolved = NULL;
+
     for (size_t i = 0; i < opts->attributes.package.repository.length; ++i) {
         /* "*" becomes NULL and acts like a wildcard so that we can assign
          * attributes to foreign packages. */
@@ -94,6 +97,25 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
             }
         }
 
+        /* Unresolved or not */
+        for (alpm_list_t *backupfiles = alpm_pkg_get_backup(pkg);
+                backupfiles;
+                backupfiles = backupfiles->next) {
+            alpm_backup_t *backupfile = backupfiles->data;
+            char *bfilename = malloc(strlen("/") + strlen(backupfile->name) +
+                                     strlen(".pacnew") + 1);
+            bfilename[0] = '/';
+            stpcpy(stpcpy(bfilename + 1, backupfile->name), ".pacnew");
+            if (!access(bfilename, F_OK)) {
+                /* The attributes are output later so that they are not
+                 * shadowed by the ones of outdated packages. */
+                alpm_list_append_strdup(&unresolved, name);
+                free(bfilename);
+                break;
+            }
+            free(bfilename);
+        }
+
         /* Direct dependencies */
         for (alpm_list_t *_requiredby = requiredby;
                 _requiredby;
@@ -120,6 +142,12 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
         subprocess_wait(fetch_pid, "/usr/lib/pacwall/fetchupdates.sh");
     }
     write_updates(file, opts);
+
+    /* Unresolved packages */
+    for (; unresolved; unresolved = unresolved->next) {
+        fprintf(file, "\"%s\" [%s];\n",
+                (char *)unresolved->data, opts->attributes.package.unresolved);
+    }
 
     /* Global attributes */
     fprintf(file, "\n%s\n}\n", opts->attributes.graph);
