@@ -4,6 +4,12 @@ set -e
 FAKEDB=$1
 PACMANDB=$2
 
+# Complain if db.lck exists.
+[[ -f $FAKEDB/db.lck ]] &&
+printf "%s\n%s\n" \
+       "Looks like pacwall is already running." \
+       "If you are sure that it isn't the case, delete $PWD/$FAKEDB/db.lck"
+
 # Create a fake db directory for pacman.
 mkdir -p "$FAKEDB/sync"
 
