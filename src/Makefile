@@ -2,16 +2,7 @@ DEPS = libalpm libconfig
 
 CFLAGS ?= -g -Werror -Wall
 CFLAGS += $(shell pkg-config --cflags $(DEPS))
-CFLAGS += $(shell pkg-config --libs $(DEPS))
+LDLIBS += $(shell pkg-config --libs-only-l $(DEPS))
+LDFLAGS += $(shell pkg-config --libs-only-other $(DEPS))
 
-debug: format check build
-
-build:
-	$(CC) $(CFLAGS) -o pacwall *.c
-
-check:
-	@cppcheck --suppress=missingIncludeSystem --template=gcc \
-	          --quiet --platform=unix64 --enable=all *.c
-
-format:
-	@astyle --formatted --project *.c *.h
+pacwall: pacwall.o generate.o opts.o
