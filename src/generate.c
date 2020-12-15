@@ -31,7 +31,7 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
     struct {
         alpm_db_t *syncdb;
         const char *attributes;
-    } *syncdb_attributes_map = calloc(sizeof * syncdb_attributes_map,
+    } *syncdb_attributes_map = calloc(sizeof *syncdb_attributes_map,
                                       opts->attributes.package.repository.length);
     alpm_list_t *unresolved = NULL;
 
@@ -99,8 +99,8 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
 
         /* Unresolved or not */
         for (alpm_list_t *backupfiles = alpm_pkg_get_backup(pkg);
-                backupfiles;
-                backupfiles = backupfiles->next) {
+             backupfiles;
+             backupfiles = backupfiles->next) {
             alpm_backup_t *backupfile = backupfiles->data;
             char *bfilename = malloc(strlen("/") + strlen(backupfile->name) +
                                      strlen(".pacnew") + 1);
@@ -118,16 +118,16 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
 
         /* Direct dependencies */
         for (alpm_list_t *_requiredby = requiredby;
-                _requiredby;
-                _requiredby = _requiredby->next) {
+             _requiredby;
+             _requiredby = _requiredby->next) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)_requiredby->data,
                     name, opts->attributes.dependency.hard);
         }
 
         /* Optional dependencies */
         for (alpm_list_t *_optionalfor = optionalfor;
-                _optionalfor;
-                _optionalfor = _optionalfor->next) {
+             _optionalfor;
+             _optionalfor = _optionalfor->next) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)_optionalfor->data,
                     name, opts->attributes.dependency.optional);
         }

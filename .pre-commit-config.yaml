@@ -1,0 +1,6 @@
+repos:
+  - repo: https://github.com/pocc/pre-commit-hooks
+    rev: python
+    hooks:
+      - id: uncrustify
+        args: [--replace, --no-backup]

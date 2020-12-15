@@ -50,7 +50,6 @@ static void config_lookup_escape(config_t *cfg, const char *path, const char **o
 }
 
 struct opts parse_opts(int argc, char **argv) {
-    /*INDENT-OFF*/
     struct opts opts = {
         .hook = NULL,
         .shell = "bash",
@@ -87,7 +86,6 @@ struct opts parse_opts(int argc, char **argv) {
         ._skip_generate = 0,
         ._skip_hook = 0
     };
-    /*INDENT-ON*/
 
     config_t cfg;
     config_init(&cfg);
@@ -125,7 +123,7 @@ struct opts parse_opts(int argc, char **argv) {
 
     /* Parsing attributes.package.repository */
     config_setting_t *repository_group = config_lookup(&cfg,
-                                         "attributes.package.repository");
+                                                       "attributes.package.repository");
     if (repository_group && config_setting_is_group(repository_group)) {
         size_t length = config_setting_length(repository_group);
         opts.attributes.package.repository.length = length;
