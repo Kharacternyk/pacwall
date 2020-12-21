@@ -1,6 +1,8 @@
 #ifndef OPTS_H
 #define OPTS_H
 
+#include <sys/types.h>
+
 /* Options beginning with an underscore are CLI-only. */
 struct opts {
     const char *hook;
