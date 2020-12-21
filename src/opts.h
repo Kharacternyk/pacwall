@@ -21,7 +21,7 @@ struct opts {
                 struct {
                     const char *name;
                     const char *attributes;
-                } *entries;
+                } * entries;
             } repository;
         } package;
         struct {

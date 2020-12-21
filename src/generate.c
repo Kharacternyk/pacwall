@@ -1,14 +1,12 @@
+#include "generate.h"
+#include "util.h"
 #include <alpm.h>
 #include <unistd.h>
 
-#include "generate.h"
-#include "util.h"
-
 static void write_updates(FILE *file, const struct opts *opts) {
-    subprocess_wait(subprocess_begin("/usr/lib/pacwall/showupdates.sh",
-                                     "updates.db",
-                                     opts->attributes.package.outdated,
-                                     "updates.gv"), "/usr/lib/pacwall/showupdates.sh");
+    subprocess_wait(subprocess_begin("/usr/lib/pacwall/showupdates.sh", "updates.db",
+                                     opts->attributes.package.outdated, "updates.gv"),
+                    "/usr/lib/pacwall/showupdates.sh");
     FILE *updates = fopen("updates.gv", "r");
     char c;
     while ((c = getc(updates)) != EOF) {
@@ -16,7 +14,6 @@ static void write_updates(FILE *file, const struct opts *opts) {
     }
     fclose(updates);
 }
-
 
 void generate_graph(pid_t fetch_pid, const struct opts *opts) {
     alpm_errno_t error = 0;
@@ -93,17 +90,17 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
             fprintf(file, "\"%s\" [%s];\n", name, opts->attributes.package.orphan);
             /* Unneeded or not */
             if (optionalfor == NULL) {
-                fprintf(file, "\"%s\" [%s];\n", name, opts->attributes.package.unneeded);
+                fprintf(file, "\"%s\" [%s];\n", name,
+                        opts->attributes.package.unneeded);
             }
         }
 
         /* Unresolved or not */
-        for (alpm_list_t *backupfiles = alpm_pkg_get_backup(pkg);
-             backupfiles;
+        for (alpm_list_t *backupfiles = alpm_pkg_get_backup(pkg); backupfiles;
              backupfiles = backupfiles->next) {
             alpm_backup_t *backupfile = backupfiles->data;
-            char *bfilename = malloc(strlen("/") + strlen(backupfile->name) +
-                                     strlen(".pacnew") + 1);
+            char *bfilename =
+                malloc(strlen("/") + strlen(backupfile->name) + strlen(".pacnew") + 1);
             bfilename[0] = '/';
             stpcpy(stpcpy(bfilename + 1, backupfile->name), ".pacnew");
             if (!access(bfilename, F_OK)) {
@@ -117,19 +114,17 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
         }
 
         /* Direct dependencies */
-        for (alpm_list_t *_requiredby = requiredby;
-             _requiredby;
+        for (alpm_list_t *_requiredby = requiredby; _requiredby;
              _requiredby = _requiredby->next) {
-            fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)_requiredby->data,
-                    name, opts->attributes.dependency.hard);
+            fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)_requiredby->data, name,
+                    opts->attributes.dependency.hard);
         }
 
         /* Optional dependencies */
-        for (alpm_list_t *_optionalfor = optionalfor;
-             _optionalfor;
+        for (alpm_list_t *_optionalfor = optionalfor; _optionalfor;
              _optionalfor = _optionalfor->next) {
-            fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)_optionalfor->data,
-                    name, opts->attributes.dependency.optional);
+            fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)_optionalfor->data, name,
+                    opts->attributes.dependency.optional);
         }
 
         FREELIST(requiredby);
@@ -145,8 +140,8 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
 
     /* Unresolved packages */
     for (; unresolved; unresolved = unresolved->next) {
-        fprintf(file, "\"%s\" [%s];\n",
-                (char *)unresolved->data, opts->attributes.package.unresolved);
+        fprintf(file, "\"%s\" [%s];\n", (char *)unresolved->data,
+                opts->attributes.package.unresolved);
     }
 
     /* Global attributes */
@@ -155,7 +150,6 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
     fclose(file);
 
     /* Rendering */
-    subprocess_wait(subprocess_begin("twopi", "-Tpng",
-                                     "-o", "pacwall.png",
-                                     "pacwall.gv"), "twopi");
+    subprocess_wait(
+        subprocess_begin("twopi", "-Tpng", "-o", "pacwall.png", "pacwall.gv"), "twopi");
 }

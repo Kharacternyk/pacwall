@@ -1,7 +1,6 @@
-#include <libconfig.h>
-
 #include "opts.h"
 #include "util.h"
+#include <libconfig.h>
 
 static void parse_cli_opts(struct opts *opts, int argc, char **argv) {
     while (argc-- > 1) {
@@ -50,6 +49,7 @@ static void config_lookup_escape(config_t *cfg, const char *path, const char **o
 }
 
 struct opts parse_opts(int argc, char **argv) {
+    /* clang-format off */
     struct opts opts = {
         .hook = NULL,
         .shell = "bash",
@@ -86,6 +86,7 @@ struct opts parse_opts(int argc, char **argv) {
         ._skip_generate = 0,
         ._skip_hook = 0
     };
+    /* clang-format on */
 
     config_t cfg;
     config_init(&cfg);
@@ -98,8 +99,7 @@ struct opts parse_opts(int argc, char **argv) {
               strerror(errno));
     }
     if (!config_read(&cfg, cfg_file)) {
-        panic("Malformed pacwall.conf (line %d): %s",
-              config_error_line(&cfg),
+        panic("Malformed pacwall.conf (line %d): %s", config_error_line(&cfg),
               config_error_text(&cfg));
     }
     fclose(cfg_file);
@@ -122,8 +122,8 @@ struct opts parse_opts(int argc, char **argv) {
     READ_OPT(attributes.dependency.optional);
 
     /* Parsing attributes.package.repository */
-    config_setting_t *repository_group = config_lookup(&cfg,
-                                                       "attributes.package.repository");
+    config_setting_t *repository_group =
+        config_lookup(&cfg, "attributes.package.repository");
     if (repository_group && config_setting_is_group(repository_group)) {
         size_t length = config_setting_length(repository_group);
         opts.attributes.package.repository.length = length;
@@ -150,7 +150,8 @@ struct opts parse_opts(int argc, char **argv) {
         opts.attributes.package.repository.entries[3].name = "multilib";
         opts.attributes.package.repository.entries[3].attributes = "";
         opts.attributes.package.repository.entries[4].name = "*";
-        opts.attributes.package.repository.entries[4].attributes = "color=\"#859900aa\"";
+        opts.attributes.package.repository.entries[4].attributes =
+            "color=\"#859900aa\"";
     }
 
     config_destroy(&cfg);

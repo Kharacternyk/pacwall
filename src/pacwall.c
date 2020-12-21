@@ -8,8 +8,8 @@ int main(int argc, char **argv) {
 
     pid_t fetch_pid = -1;
     if (!opts._skip_fetch) {
-        fetch_pid = subprocess_begin("/usr/lib/pacwall/fetchupdates.sh",
-                                     "updates.db", opts.db);
+        fetch_pid =
+            subprocess_begin("/usr/lib/pacwall/fetchupdates.sh", "updates.db", opts.db);
     }
 
     if (!opts._skip_generate) {
