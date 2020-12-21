@@ -3,6 +3,10 @@
 #include "util.h"
 
 int main(int argc, char **argv) {
+    if (!geteuid()) {
+        panic("Running as %s is not supported", "root");
+    }
+
     const struct opts opts = parse_opts(argc, argv);
     chdir_xdg("XDG_CACHE_HOME", ".cache/", "pacwall");
 
