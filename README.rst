@@ -32,7 +32,14 @@ If you use GNOME, run:
     mkdir -p ~/.config/pacwall
     cp /usr/share/pacwall/examples/hook/gsettings ~/.config/pacwall/pacwall.conf
 
-If you use Xorg sans GNOME, run:
+If you use KDE Plasma, run:
+
+.. code-block:: bash
+
+    mkdir -p ~/.config/pacwall
+    cp /usr/share/pacwall/examples/hook/plasmash ~/.config/pacwall/pacwall.conf
+
+If you use Xorg sans GNOME/KDE, run:
     
 .. code-block:: bash
 
