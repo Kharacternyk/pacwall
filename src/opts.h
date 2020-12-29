@@ -32,6 +32,12 @@ struct opts {
             const char *optional;
         } dependency;
     } attributes;
+    struct {
+        struct {
+            int enabled;
+            double delta;
+        } installed_size;
+    } features;
     int _skip_fetch;
     int _skip_generate;
     int _skip_hook;

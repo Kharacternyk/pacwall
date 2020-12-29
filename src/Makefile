@@ -2,7 +2,7 @@ DEPS = libalpm libconfig
 
 CFLAGS ?= -g -Wall
 CFLAGS += $(shell pkg-config --cflags $(DEPS))
-LDLIBS += $(shell pkg-config --libs-only-l $(DEPS))
+LDLIBS += $(shell pkg-config --libs-only-l $(DEPS)) -lm
 LDFLAGS += $(shell pkg-config --libs-only-other $(DEPS))
 
 pacwall: pacwall.o generate.o opts.o

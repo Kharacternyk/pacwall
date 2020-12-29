@@ -64,11 +64,13 @@ Usage
 
 Run ``pacwall``.
 
-The blue dots are manually (explicitly) installed packages, the red ones are
-automatically (implicitly) installed packages. The green dots are packages not found
-in the official non-testing repositories (e.g. from the AUR). The outlined teal dots
-are orphans, the outlined yellow dots are outdated packages. The outlined magenta
-dots are packages with unresolved `.pacnew files`_ (it's time to run ``pacdiff``).
+The circles represent packages, where the area of a circle is proportional to the
+size of the package.
+The blue circles are manually (explicitly) installed packages, the red ones are
+automatically (implicitly) installed packages. The green circles are packages not found
+in the official non-testing repositories (e.g. from the AUR). The outlined teal circles
+are orphans, the outlined yellow circles are outdated packages. The outlined magenta
+circles are packages with unresolved `.pacnew files`_ (it's time to run ``pacdiff``).
 The dashed edges represent optional dependencies, the normal edges represent strict
 (hard, direct) dependencies. The appearance is customizable, see Customization_.
 
@@ -252,6 +254,26 @@ List of settings
     * ``optional`` (default: ``arrowhead=empty, style=dashed``)
 
       The attributes that are applied to optional dependencies (separated by commas).
+
+* ``features`` (group)
+
+  The group that contains settings that control optional features.
+
+  * ``installed-size`` (group) (default::
+
+        enabled: true
+        delta: 2e-5
+    )
+
+    The group that contains settings that control the installed size representation
+    feature. If ``enabled`` is true, the ``height`` and ``width`` attributes of nodes
+    are overwritten so that the area covered by a node is proportional to the size of
+    the installed package. The formula is::
+
+        width in inches = height in inches = (installed size in bytes)^(1/2) * delta
+
+    Note that the values of these settings are not strings and omit the quotes enclosing
+    them.
 
 ---------------
 Tips and tricks
