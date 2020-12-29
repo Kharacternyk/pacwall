@@ -240,7 +240,7 @@ List of settings
 
   * ``dependency`` (group)
 
-    * ``common`` (default: ``color='#fdf6e311``)
+    * ``common`` (default: ``color='#fdf6e30a``)
 
       The attributes that are applied to all dependencies (separated by commas).
 

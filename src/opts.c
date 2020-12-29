@@ -77,7 +77,7 @@ struct opts parse_opts(int argc, char **argv) {
                 }
             },
             .dependency = {
-                .common = "color=\"#fdf6e311\"",
+                .common = "color=\"#fdf6e30a\"",
                 .hard = "",
                 .optional = "arrowhead=empty, style=dashed",
             }

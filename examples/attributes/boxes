@@ -18,7 +18,7 @@ attributes: {
         }
     }
     dependency: {
-        common:   "color='#fdf6e322'"
+        common:   "color='#fdf6e30a'"
         hard:     ""
         optional: "arrowhead=empty, style=dashed"
     }
