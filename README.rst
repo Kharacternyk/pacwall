@@ -166,7 +166,7 @@ List of settings
 * ``attributes`` (group)
 
   The group that contains graphviz attributes, which modify the appearance
-  of the graph, nodes and edges in various ways.  See the
+  of the graph, nodes, and edges in various ways. See the
   ``GRAPH, NODE AND EDGE ATTRIBUTES`` section in ``man twopi``. Beware that attributes
   specific to layouts other than ``twopi`` won't work.
 
@@ -212,7 +212,7 @@ List of settings
 
       The attributes that are applied to outdated packages (separated by commas).
 
-    * ``unresoved``
+    * ``unresolved``
       (default: ``color='#d33682aa', fontcolor='#d33682', peripheries=4, xlabel='\\N'``)
 
       The attributes that are applied to packages with `.pacnew files`_
@@ -272,7 +272,7 @@ List of settings
 
         width in inches = height in inches = (installed size in bytes)^(1/2) * delta
 
-    Note that the values of these settings are not strings and omit the quotes enclosing
+    Note that values of these settings are not strings and omit the quotes enclosing
     them.
 
 ---------------
