@@ -1,7 +1,7 @@
 .. image:: screenshot.png
 
 ``pacwall`` changes your wallpaper to the dependency graph of installed
-by ``pacman`` packages. Each node is a package and each edge represents
+with ``pacman`` packages. Each node is a package and each edge represents
 a dependency between two packages. ``pacwall`` highlights outdated packages,
 orphans, and packages with `.pacnew files`_. The highlighting is customizable.
 
@@ -54,7 +54,7 @@ If you use Sway, run:
     mkdir -p ~/.config/pacwall
     cp /usr/share/pacwall/examples/hook/swaymsg ~/.config/pacwall/pacwall.conf
 
-For some setups e.g. XFCE there are no example hooks. Furthermore, the example
+For some setups, e.g. XFCE, there are no example hooks. Furthermore, the example
 hooks can have bugs. You can verify that ``pacwall`` itself works fine by examining
 the image that it has generated at ``~/.cache/pacwall/pacwall.png``.
 
@@ -124,23 +124,16 @@ The file is in the `libconfig format`_. TL;DR:
 .. code-block::
 
     # comment
-    // comment
-
-    setting: "value"
-    # or
-    setting = "value"; # semicolon is optional
-
+    setting: "foo"
     group: {
-        setting: "value"
-        another-group: {
-            setting: "value"
-            ...
+        nestedSetting: "bar"
+        nestedGroup: {
+            nestedNestedSetting: "baz"
         }
-        ...
     }
-
-    setting: "too-long" # consequtive strings are
-             "-value"   # glued together, like in C
+    longSetting: "A sequence of strings "
+                 "is concatenated into "
+                 "one, like in C."
 
 Note that you must use ``'`` in value strings wherever you would normally
 use ``"`` and vice versa. This avoids tons of ugly escaped ``\"``.
@@ -242,7 +235,7 @@ List of settings
 
   * ``dependency`` (group)
 
-    * ``common`` (default: ``color='#fdf6e30a``)
+    * ``common`` (default: ``color='#fdf6e30a'``)
 
       The attributes that are applied to all dependencies (separated by commas).
 
@@ -287,7 +280,7 @@ Background image
 Via hsetroot
 ============
 
-If ``hsetroot`` is used as the wallpaper setter, use the built-in multilayer feature e.g.:
+If ``hsetroot`` is used as the wallpaper setter, use the built-in multilayer feature, e.g.:
 
 .. code-block:: bash
 
@@ -297,7 +290,7 @@ If ``hsetroot`` is used as the wallpaper setter, use the built-in multilayer fea
 Via imagemagick
 ===============
 
-Use the ``convert`` command e.g.:
+Use the ``convert`` command, e.g.:
 
 .. code-block:: bash
 
