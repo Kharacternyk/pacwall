@@ -39,8 +39,8 @@ If you use KDE Plasma, run:
     mkdir -p ~/.config/pacwall
     cp /usr/share/pacwall/examples/hook/plasmash ~/.config/pacwall/pacwall.conf
 
-If you use Xorg sans GNOME/KDE, run:
-    
+If you use Xorg sans GNOME/KDE, run: [*]_
+
 .. code-block:: bash
 
     sudo pacman -S --needed hsetroot
@@ -57,6 +57,14 @@ If you use Sway, run:
 For some setups, e.g. XFCE, there are no example hooks. Furthermore, the example
 hooks can have bugs. You can verify that ``pacwall`` itself works fine by examining
 the image that it has generated at ``~/.cache/pacwall/pacwall.png``.
+
+..[*] If you use the standard ``hsetroot`` hook along with a ``systemd`` unit
+listed below, you may notice that the background image (the package graph)
+disappears if the unit triggers while your screen is turned off (typically due
+to DPMS timeout). This can be fixed by using the
+``/usr/share/pacwall/examples/hook/hsetroot-dpms`` hook instead. However, on
+multi-display systems, this may cause undesired stretching of the graph over
+multiple screens.
 
 -----
 Usage
