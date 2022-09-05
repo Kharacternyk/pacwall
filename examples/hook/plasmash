@@ -1,4 +1,8 @@
-hook: "dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript 'string:
+hook: "
+
+# Set the KDE Plasma Desktop Wallpaper.
+
+dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript 'string:
 var Desktops = desktops();
 for (i=0;i<Desktops.length;i++) {
         d = Desktops[i];
@@ -8,4 +12,13 @@ for (i=0;i<Desktops.length;i++) {
         d.writeConfig(\"Image\", \"'$W'\");
         d.writeConfig(\"Color\", \"#073642\");
         d.writeConfig(\"FillMode\", 6);
-}'"
+}'
+
+# Set the KDE Plasma Lock Screen Wallpaper. Comment or delete to disable.
+
+kwriteconfig5 --file kscreenlockerrc --group Greeter --key WallpaperPlugin org.kde.image
+kwriteconfig5 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key Color \"#073642\"
+kwriteconfig5 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key FillMode 6
+kwriteconfig5 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key Image $W
+
+"
