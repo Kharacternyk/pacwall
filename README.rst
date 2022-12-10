@@ -336,32 +336,31 @@ Web-graph
 
 If you want nice web-graph like on the following image:
 
-.. image:: https://imgur.com/Qc1KiIp.png
+.. image:: example-web.png
 
 Then create the following config:
 
 .. code-block ::
 
-    hook: "convert ~/.cache/pacwall/pacwall.png -resize 1920x1200! ~/.cache/pacwall/pacwall-fit.png"
-
     attributes: {
-        graph: "bgcolor='#16161D' ratio=0.58 overlap=false",
+        # Dark background for proper visibility. On bright background
+        # edges of dependencies would be almost invisible. If you'll
+        # increase their opacity they'll overlap with text and circles.
+        graph: "bgcolor='#16161d' ratio=0.58 overlap=false",
         package: {
-            common: "shape=point, height=0.02, fontname='Roboto Sans', fontsize=11",
+            common: "shape=point",
         },
         dependency: {
+            # Notice opacity on colors of edges, it's very important.
+            # Also, width of edges is reduced to make them less bold.
             common: "color='#fdf6e30a', arrowhead='dot', arrowsize=0.6, penwidth=0.6"
             optional: "color='#fdf6e0f', penwidth=0.4"
         }
     }
 
-Here the most important component is ``overlap=false`` which renders web graph instead
+Here the most important property is ``overlap=false`` which renders web graph instead
 of defalut circled. Also important is ``ratio=0.58`` which you should calculate by
-dividing screen height per screen width. And not less important are colors with
-transparency as well as thin edge styles otherwise arrows would be too bold.
-
-Depends on ``convert`` from ``imagemagick`` to resize image because graph generated with
-``overlap=false`` is too large by default.
+dividing screen height per screen width.
 
 -------------------
 Migrating from v1.*
