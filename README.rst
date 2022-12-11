@@ -330,6 +330,38 @@ Entries of the form
 ``'package-name' [comma-separated-list-of-attributes];``
 in the ``attributes.graph`` setting add attributes to a specific package.
 
+~~~~~~~~~
+Web-graph
+~~~~~~~~~
+
+If you want nice web-graph like on the following image:
+
+.. image:: example-web.png
+
+Then create the following config:
+
+.. code-block ::
+
+    attributes: {
+        # Dark background for proper visibility. On bright background
+        # edges of dependencies would be almost invisible. If you'll
+        # increase their opacity they'll overlap with text and circles.
+        graph: "bgcolor='#16161d' ratio=0.58 overlap=false",
+        package: {
+            common: "shape=point",
+        },
+        dependency: {
+            # Notice opacity on colors of edges, it's very important.
+            # Also, width of edges is reduced to make them less bold.
+            common: "color='#fdf6e30a', arrowhead='dot', arrowsize=0.6, penwidth=0.6"
+            optional: "color='#fdf6e0f', penwidth=0.4"
+        }
+    }
+
+Here the most important property is ``overlap=false`` which renders web graph instead
+of defalut circled. Also important is ``ratio=0.58`` which you should calculate by
+dividing screen height per screen width.
+
 -------------------
 Migrating from v1.*
 -------------------
