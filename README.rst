@@ -54,6 +54,14 @@ If you use Sway, run:
     mkdir -p ~/.config/pacwall
     cp /usr/share/pacwall/examples/hook/swaymsg ~/.config/pacwall/pacwall.conf
 
+If you use Hyprland, run:
+
+.. code-block:: bash
+
+    sudo pacman -S --needed swaybg
+    mkdir -p ~/.config/pacwall
+    cp /usr/share/pacwall/examples/hook/swaybg ~/.config/pacwall/pacwall.conf
+
 For some setups, e.g. XFCE, there are no example hooks. Furthermore, the example
 hooks can have bugs. You can verify that ``pacwall`` itself works fine by examining
 the image that it has generated at ``~/.cache/pacwall/pacwall.png``.

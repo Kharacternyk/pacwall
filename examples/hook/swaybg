@@ -1,0 +1,1 @@
+hook: "swaybg -i '$W' -m center -c '#073642'"
