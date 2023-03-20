@@ -9,32 +9,6 @@ plasma-apply-wallpaperimage $W
 # Set the KDE Plasma Lock Screen Wallpaper
 
 kwriteconfig5 --file kscreenlockerrc --group Greeter --key WallpaperPlugin org.kde.image
-kwriteconfig5 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key Color \"#000000\"
+kwriteconfig5 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key Color \"#073642\"
 kwriteconfig5 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key FillMode 6
 kwriteconfig5 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key Image $W
-
-"
-attributes: {
-    graph: "bgcolor='#00000000'"
-    package: {
-        common:     "shape=point, height=0.1, fontname=monospace, fontsize=10"
-        implicit:   "color='#dc322faa'"
-        explicit:   "color='#268bd2aa'"
-        orphan:     ""
-        unneeded:   "color='#2aa198aa', fontcolor='#2aa198', peripheries=2, xlabel='\\N'"
-        outdated:   "color='#b58900aa', fontcolor='#b58900', peripheries=3, xlabel='\\N'"
-        unresolved: "color='#d33682aa', fontcolor='#d33682', peripheries=4, xlabel='\\N'"
-        repository: {
-            core: ""
-            extra: ""
-            community: ""
-            multilib: ""
-            *: "color='#859900aa'"
-        }
-    }
-    dependency: {
-        common:   "color='#fdf6e30a'"
-        hard:     ""
-        optional: "arrowhead=empty, style=dashed"
-    }
-}
