@@ -38,6 +38,7 @@ If you use KDE Plasma, run:
 
     mkdir -p ~/.config/pacwall
     cp /usr/share/pacwall/examples/hook/plasmash ~/.config/pacwall/pacwall.conf
+    cp /usr/share/pacwall/examples/hook/oneblackpixel.png ~/.config/pacwall/
 
 If you use Xorg sans GNOME/KDE, run:
 
