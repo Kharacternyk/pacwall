@@ -12,3 +12,4 @@ kwriteconfig5 --file kscreenlockerrc --group Greeter --key WallpaperPlugin org.k
 kwriteconfig5 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key Color \"#073642\"
 kwriteconfig5 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key FillMode 6
 kwriteconfig5 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key Image $W
+"
