@@ -10,9 +10,6 @@ such as triggering wallpaper regeneration on package
 upgrade/removal/installation, as well as periodical regeneration,
 which ensures that the displayed set of available updates is up-to-date.
 
-.. contents:: Navigation:
-   :backlinks: none
-
 ------------
 Installation
 ------------
