@@ -346,7 +346,7 @@ If you want nice web-graph like on the following image:
 
 Then create the following config:
 
-.. code-block ::
+.. code-block::
 
     attributes: {
         # Dark background for proper visibility. On bright background
