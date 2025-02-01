@@ -5,4 +5,3 @@ ConditionUser=!root
 [Service]
 ExecStart=/usr/bin/pacwall -%i
 Type=oneshot
-Restart=no
