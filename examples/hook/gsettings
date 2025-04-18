@@ -6,3 +6,4 @@ hook: "S=$(xdpyinfo | grep dimensions | sed -r \"s/^[^0-9]*([0-9]+x[0-9]+).*$/\1
       "gsettings set org.gnome.desktop.background secondary-color '#073642';"
       "gsettings set org.gnome.desktop.background color-shading-type 'solid';"
       "gsettings set org.gnome.desktop.background picture-uri '$BG';"
+      "gsettings set org.gnome.desktop.background picture-uri-dark '$BG';"
