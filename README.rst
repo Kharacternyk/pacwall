@@ -390,5 +390,5 @@ Similar software
 .. _better to deal with immediately: https://www.reddit.com/r/archlinux/comments/iczyr0/psa_be_careful_with_pacnew_when_updating/
 .. _Pywal User Template Files: https://github.com/dylanaraps/pywal/wiki/User-Template-Files
 .. _an example of such template here: https://github.com/Kharacternyk/dotfiles/blob/master/.config/wal/templates/pacwall.conf
-.. _pacgraph: http://kmkeen.com/pacgraph/
+.. _pacgraph: https://github.com/keenerd/pacgraph
 .. _pacvis: https://github.com/farseerfc/pacvis
