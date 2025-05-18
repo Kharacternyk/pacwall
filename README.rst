@@ -342,7 +342,7 @@ Web-graph
 
 If you want nice web-graph like on the following image:
 
-.. image:: example-web.png
+.. image:: screenshot-web.png
 
 Then create the following config:
 
