@@ -369,12 +369,12 @@ of defalut circled. Also important is ``ratio=0.58`` which you should calculate 
 dividing screen height per screen width.
 
 -------------------
-Migrating from v1.*
+Migrating from v1
 -------------------
 
-``pacwall`` v2.* is written in C and is very different from the v1.* one, which is
+``pacwall`` v2 is written in C and is very different from the v1 one, which is
 a Bash script. Migrating should be straightforward, though, **unless** you don't
-run an Arch-based distro. v2.* is ``pacman``-only and will likely remain such.
+run an Arch-based distro. v2 is ``pacman``-only and will likely remain such.
 
 ----------------
 Similar software
