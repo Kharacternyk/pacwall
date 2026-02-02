@@ -20,4 +20,4 @@ ln -s "$PACMANDB/local/" "$FAKEDB/" &> /dev/null || true
 cp -u --preserve=timestamps "$PACMANDB/sync/"*.db "$FAKEDB/sync/"
 
 # Fetch fresh sync databases.
-fakeroot -- pacman -Sy --dbpath "$FAKEDB" --logfile /dev/null &> /dev/null
+fakeroot -- pacman -Sy --disable-sandbox-filesystem --dbpath "$FAKEDB" --logfile /dev/null &> /dev/null
